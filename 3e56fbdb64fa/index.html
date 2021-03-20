@@ -1,0 +1,2260 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
+
+  <!-- 页面元数据 -->
+  
+  <title>Next.js入门详解教程 - Ozzie | Nicholas</title>
+  
+    <meta name="keywords" content="next.js">
+  
+
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://avatars.githubusercontent.com/u/49378661?s=460&u=48820ed6b04ef7690959e325cd670dcd67efa5a5&v=4">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+</head>
+
+  <body>
+    
+
+<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://avatars.githubusercontent.com/u/49378661?s=460&u=48820ed6b04ef7690959e325cd670dcd67efa5a5&v=4'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>更多
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://volantis.js.org/v4/getting-started/
+                  
+                  
+                  
+                    id="https:volantisjsorgv4getting-started"
+                  >
+                  主题文档
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <hr>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/volantis-x/hexo-theme-volantis/
+                  
+                  
+                  
+                    id="https:githubcomvolantis-xhexo-theme-volantis"
+                  >
+                  主题源码
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>更多
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://volantis.js.org/v4/getting-started/
+                  
+                  
+                  
+                    id="https:volantisjsorgv4getting-started"
+                  >
+                  主题文档
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <hr>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/volantis-x/hexo-theme-volantis/
+                  
+                  
+                  
+                    id="https:githubcomvolantis-xhexo-theme-volantis"
+                  >
+                  主题源码
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+        <div id="half" class='cover-wrapper post dock' style="display: ;">
+          
+            <div id='cover-backstretch'></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">Ozzie | Nicholas</p>
+    
+    
+      <p class="subtitle">If not now, when?   If not me, who?</p>
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/"
+              
+              
+              id="home">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f5c3.svg'><p>首页</p>
+            </a>
+          
+            <a href="/categories/"
+              
+              
+              id="categories">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f516.svg'><p>分类</p>
+            </a>
+          
+            <a href="/tags/"
+              
+              
+              id="tags">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f396.svg'><p>标签</p>
+            </a>
+          
+            <a href="/archives/"
+              
+              
+              id="archives">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f389.svg'><p>归档</p>
+            </a>
+          
+            <a href="/friends/"
+              
+              
+              id="friends">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f4f0.svg'><p>友链</p>
+            </a>
+          
+            <a href="/about/"
+              
+              
+              id="about">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f9ec.svg'><p>关于</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        Next.js入门详解教程
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://avatars.githubusercontent.com/u/49378661?s=460&u=48820ed6b04ef7690959e325cd670dcd67efa5a5&v=4">
+    <p>Ozzie</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/react/">react</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Mar 20, 2021</p>
+  </a>
+</div>
+
+          
+        
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <h2 id="引言"><a href="#引言" class="headerlink" title="引言"></a>引言</h2><ol>
+<li>初识 Next.js，请查看它的官网介绍：<ul>
+<li><a target="_blank" rel="noopener" href="https://nextjs.org/">Next.js 官网</a></li>
+<li><a target="_blank" rel="noopener" href="https://www.nextjs.cn/">Next.js 中文网</a></li>
+</ul>
+</li>
+<li>好吧，官网的话总是那么拗口，若对此感兴趣，请读者移步知乎：<a target="_blank" rel="noopener" href="https://www.zhihu.com/search?type=content&q=nextjs">对 Next.js 的评价</a></li>
+<li>另外附上两个你可能会用到的链接：<ul>
+<li>Github 地址：<a target="_blank" rel="noopener" href="https://github.com/zeit/next.js">Github - next.js</a></li>
+<li>社区：<a target="_blank" rel="noopener" href="https://spectrum.chat/next-js">Spectrum</a></li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="初识Next-js"><a href="#初识Next-js" class="headerlink" title="初识Next.js"></a>初识Next.js</h2><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><ol>
+<li>Next.js 支持 Windows、Mac 和 Linux系统，均可安装，但是前提是你已经安装了 Node.js</li>
+<li>创建示例项目的过程如下： <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> hello-next</span><br><span class="line"><span class="built_in">cd</span> hello-next</span><br><span class="line">npm init -y</span><br><span class="line">npm install --save react react-dom next</span><br><span class="line"><span class="built_in">mkdir</span> pages</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h3><ol>
+<li>打开 <code>hello-next/package.json</code>，替换 <code>scripts</code>： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="string">&quot;scripts&quot;</span>: &#123;</span><br><span class="line">	<span class="string">&quot;dev&quot;</span>: <span class="string">&quot;next&quot;</span>,</span><br><span class="line">	<span class="string">&quot;build&quot;</span>: <span class="string">&quot;next build&quot;</span>,</span><br><span class="line">	<span class="string">&quot;start&quot;</span>: <span class="string">&quot;next start&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>启动 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+ 在浏览器中打开 <a target="_blank" rel="noopener" href="http://localhost:3000/">http://localhost:3000</a>,你会看到页面显示 <strong>404 | This page could not be found</strong>.</li>
+<li>创建你的第一个页面<ul>
+<li>创建 <code>pages/index.js</code>，并输入：  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Index = <span class="function">() =&gt;</span> (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;p&gt;Hello Next.js&lt;/p&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Index;</span><br></pre></td></tr></table></figure></li>
+<li>再次输入 <code>npm run dev</code>，就能看到效果了</li>
+<li>上述案例中，我们在 <code>pages/index.js</code> 模块中默认（default）导出了一个简单的 React 组件</li>
+</ul>
+</li>
+<li>试错<ul>
+<li>尝试着错一次：将 <code>pages/index.js</code> 改为：  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Index = <span class="function">() =&gt;</span> (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;p&gt;Hello Next.js</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Index;</span><br></pre></td></tr></table></figure></li>
+<li>重新启动，浏览器显示：<br>  <img src="https://s2.ax1x.com/2020/02/14/1XeRmQ.png" class="lazyload" data-srcset="https://s2.ax1x.com/2020/02/14/1XeRmQ.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></li>
+<li>一般情况下，Next.js 将跟踪此类错误并在浏览器中显示，这便于我们快速发现错误，而你修改代码并保存后，页面将立即出现对应结果，而不会重新加载整个页面，这是通过 webpack 的 <strong><a target="_blank" rel="noopener" href="https://webpack.js.org/concepts/hot-module-replacement/">模块热替换</a></strong> 实现的，Next 默认支持这个功能</li>
+</ul>
+</li>
+</ol>
+<hr>
+<p>2020.3.30</p>
+<h2 id="页面间导航"><a href="#页面间导航" class="headerlink" title="页面间导航"></a>页面间导航</h2><h3 id="Introduction"><a href="#Introduction" class="headerlink" title="Introduction"></a>Introduction</h3><ol>
+<li>我们的应用程序虽然很简单，只有一个页面，但是我们可以添加任意多个页面，例如：<ul>
+<li>创建 <code>pages/about.js</code> 来新建 “About” 页面  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> About = <span class="function">() =&gt;</span> (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;p&gt;About Page&lt;/p&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> About;</span><br></pre></td></tr></table></figure></li>
+<li>修改 <code>pages/index.js</code>：  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> Index = <span class="function">() =&gt;</span> (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;p&gt;Hello Next.js&lt;/p&gt;</span><br><span class="line">    &lt;a href=<span class="string">&quot;http://localhost:3000/about&quot;</span>&gt;This is a link to About-Page&lt;/a&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Index;</span><br></pre></td></tr></table></figure></li>
+<li>之后我们可以通过 <a target="_blank" rel="noopener" href="http://localhost:3000/about">http://localhost:3000/about</a> 来访问该页面</li>
+<li>之后，我们需要连接两个页面，首先想到的是可以用一个 HTML 的 <code>&lt;a /&gt;</code> 标签实现，但是结果就是：浏览器会向服务器请求下一页并刷新当前页面，也就是这样做并不会执行客户端导航</li>
+</ul>
+</li>
+<li>为了支持浏览器端导航，我们需要使用 Next.js 提供的 <code>Link</code> 组件，这个组件是通过 <code>next/link</code> 导出的，接下来我们将使用它</li>
+<li>我们需要准备一个简单的 Next.js 应用课程，请在 <code>hello-next</code> 下输入： <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git clone https://github.com/zeit/next-learn-demo.git</span><br></pre></td></tr></table></figure></li>
+<li>现在我们进入 <code>hello-next/next-learn-demo/1-navigate-between-pages</code> 启动程序： <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> next-learn-demo/<span class="number">1</span>-navigate-between-pages</span><br><span class="line">npm install</span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+<ul>
+<li>打开 <a target="_blank" rel="noopener" href="http://localhost:3000/">http://localhost:3000/</a> 访问该程序</li>
+</ul>
+</li>
+</ol>
+<h3 id="使用Link组件"><a href="#使用Link组件" class="headerlink" title="使用Link组件"></a>使用Link组件</h3><blockquote>
+<p>注意，接下来的操作均在 <code>hello-next/next-learn-demo/1-navigate-between-pages</code> 下完成的</p>
+</blockquote>
+<ol>
+<li>在 <code>pages/index.js</code> 中添加： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Link <span class="keyword">from</span> <span class="string">&#x27;next/link&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Index</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;p&gt;Hello next.js&lt;/p&gt;</span><br><span class="line">      &lt;Link href=<span class="string">&quot;/about&quot;</span>&gt;</span><br><span class="line">        &lt;a&gt;About Page&lt;/a&gt;</span><br><span class="line">      &lt;/Link&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在这里，我们将 <code>next/link</code> 导入为 <code>Link</code>，并按照如下的方式使用：  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;Link href=<span class="string">&quot;/about&quot;</span>&gt;</span><br><span class="line">  &lt;a&gt;About Page&lt;/a&gt;</span><br><span class="line">&lt;/Link&gt;</span><br></pre></td></tr></table></figure></li>
+<li>访问 3000 端口可查看结果</li>
+</ul>
+</li>
+<li>这次点击链接同样会导航到 “About” 页面，这是客户端导航，操作在浏览器中进行，而不向浏览器发送请求，你可以通过打开浏览器的 <strong>网络请求检查器（network request inspector）</strong> 来验证这一点</li>
+<li>后退按钮：<br> 当你点击链接，再点击后退时，依然会切换到历史记录的上一页，也就是 <code>next/link</code> 为你完成了所有 <code>location.history</code> 的操作</li>
+</ol>
+<h3 id="添加链接道具"><a href="#添加链接道具" class="headerlink" title="添加链接道具"></a>添加链接道具</h3><ol>
+<li>或许你需要在连接中添加属性或道具，比如你需要向链接中添加 <code>title</code> 属性，我们可以这样添加它： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;Link href=<span class="string">&quot;/about&quot;</span>&gt;</span><br><span class="line">	&lt;a title=<span class="string">&quot;About-Pages&quot;</span>&gt;About Page&lt;/a&gt;</span><br><span class="line">&lt;/Link&gt;</span><br></pre></td></tr></table></figure>
+ 查看元素，可以看到结果如下：<br> <img src="https://s2.ax1x.com/2020/02/14/1XGSVf.png" class="lazyload" data-srcset="https://s2.ax1x.com/2020/02/14/1XGSVf.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></li>
+<li>切记不可添加到错误的地方去，若写成如下： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;Link href=<span class="string">&quot;/about&quot;</span> title=<span class="string">&quot;About-Pages&quot;</span>&gt;</span><br><span class="line">	&lt;a&gt;About Page&lt;/a&gt;</span><br><span class="line">&lt;/Link&gt;</span><br></pre></td></tr></table></figure>
+ 则会在控制台中报错：<br> <img src="https://s2.ax1x.com/2020/02/14/1XJPw6.png" class="lazyload" data-srcset="https://s2.ax1x.com/2020/02/14/1XJPw6.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></li>
+<li>实际上，<code>Link</code> 组件上的标题道具无效，是因为 Link 只是一个包装器组件，只接收 <code>href</code> 和一些类似的道具。如果需要向其添加道具，则需要将道具添加到其子项，这种情况下，<code>Link</code> 组件的子代是锚标记</li>
+</ol>
+<hr>
+<h2 id="使用共享组件"><a href="#使用共享组件" class="headerlink" title="使用共享组件"></a>使用共享组件</h2><h3 id="Introduction-1"><a href="#Introduction-1" class="headerlink" title="Introduction"></a>Introduction</h3><ol>
+<li>我们可以通过导出 React 组件并将该组件放在 <code>pages</code> 目录中来创建页面，每个页面的 URL 都是基于文件名的，由于导出的页面是 JavaScript 模块，因此我们也可以将其他 JavaScript 组件导入其中</li>
+<li>我们将创建一个公共的 Header 组件并将其用于多个页面，最后我们将研究实现 Layout 组件，并了解它如何帮我们定义多个页面的外观</li>
+</ol>
+<h3 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h3><ol>
+<li>我们之前已经安装过了 <code>next-learn-demo</code>，这里直接使用：<ul>
+<li>进入 <code>hello-next/next-learn-demo/2-using-shared-components</code>，之后我们的操作也会在此目录下</li>
+</ul>
+</li>
+<li>运行： <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="创建标题组件"><a href="#创建标题组件" class="headerlink" title="创建标题组件"></a>创建标题组件</h3><ol>
+<li>下面创建一个 Header 组件，创建 <code>2-using-shared-components/components/Header.js</code>： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Link <span class="keyword">from</span> <span class="string">&#x27;next/link&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> linkStyle = &#123;</span><br><span class="line">  marginRight: <span class="number">15</span>,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Header = <span class="function">() =&gt;</span> (</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;Link href=<span class="string">&quot;/&quot;</span>&gt;</span><br><span class="line">      &lt;a style=&#123;marginRight&#125;&gt;Home&lt;/a&gt;</span><br><span class="line">    &lt;/Link&gt;</span><br><span class="line">    &lt;Link href=<span class="string">&quot;/about&quot;</span>&gt;</span><br><span class="line">      &lt;a style=&#123;marginRight&#125;&gt;About&lt;/a&gt;</span><br><span class="line">    &lt;/Link&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Header;</span><br></pre></td></tr></table></figure></li>
+<li>现在，导入 Header 组件并在页面中使用它：<ul>
+<li>将 <code>index.js</code> 修改为：  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Header <span class="keyword">from</span> <span class="string">&#x27;../components/Header&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Index</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">	&lt;div&gt;</span><br><span class="line">	  &lt;Header /&gt;</span><br><span class="line">	  &lt;p&gt;Hello Next.js&lt;/p&gt;</span><br><span class="line">	&lt;/div&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>将 <code>about.js</code> 修改为：  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Header <span class="keyword">from</span> <span class="string">&#x27;../components/Header&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Index</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">      &lt;Header /&gt;</span><br><span class="line">      &lt;p&gt;This is the About Page&lt;/p&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>启动之后可以查看结果</li>
+</ul>
+</li>
+<li>试错：现在将 <code>components</code> 目录改名为 <code>comps</code>，报错如下：<br> <img src="https://s2.ax1x.com/2020/02/14/1jmeGq.png" class="lazyload" data-srcset="https://s2.ax1x.com/2020/02/14/1jmeGq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="><ul>
+<li>我们不需要将我们的组件放在一个特殊的目录里，也就是说，该组件目录名称可以取为任何，实际上，唯一特殊的目录是 <code>/pages</code> 和 <code>/public</code>，你甚至可以在 <code>/pages</code> 里面创建组件.</li>
+</ul>
+</li>
+</ol>
+<h3 id="布局组件"><a href="#布局组件" class="headerlink" title="布局组件"></a>布局组件</h3><blockquote>
+<p>本节依然是在 <code>2-using-shared-components/</code> 下完成的</p>
+</blockquote>
+<ol>
+<li>我们将创建 Layout 组件，以实现各页面上的通用样式，在 <code>components/MyLayout.js</code> 中输入： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Header <span class="keyword">from</span> <span class="string">&#x27;./Header&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> layoutStyle = &#123;</span><br><span class="line">  margin: <span class="number">20</span>,</span><br><span class="line">  padding: <span class="number">20</span>,</span><br><span class="line">  border: <span class="string">&#x27;1px solid #DDD&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Layout = <span class="function"><span class="params">props</span> =&gt;</span> (</span><br><span class="line">  &lt;div style=&#123;layoutStyle&#125;&gt;</span><br><span class="line">    &lt;Header /&gt;</span><br><span class="line">    &#123;props.children&#125;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Layout;</span><br></pre></td></tr></table></figure></li>
+<li>完成操作后，我们可以在页面中使用以下布局：<ul>
+<li>在 <code>pages/index.js</code> 中输入：  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Layout <span class="keyword">from</span> <span class="string">&#x27;../components/MyLayout&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Index</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Layout&gt;</span><br><span class="line">      &lt;p&gt;Hello Next.js&lt;/p&gt;</span><br><span class="line">    &lt;/Layout&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>在 <code>pages/about.js</code> 中输入：  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Layout <span class="keyword">from</span> <span class="string">&#x27;../components/MyLayout&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">About</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Layout&gt;</span><br><span class="line">      &lt;p&gt;This is the about page&lt;/p&gt;</span><br><span class="line">    &lt;/Layout&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>启动，查看样式</li>
+</ul>
+</li>
+<li>试错：将 <code>MyLayout.js</code> 中的 <code>&#123;props.children&#125;</code> 删除，再启动，观察结果：<ul>
+<li>页面上只保留了 <code>Header</code> 的内容，其他的均消失了</li>
+</ul>
+</li>
+</ol>
+<h3 id="渲染子组件"><a href="#渲染子组件" class="headerlink" title="渲染子组件"></a>渲染子组件</h3><ol>
+<li>前一个试错中，我们删除了 <code>&#123;props.children&#125;</code>，则 <code>Layout</code> 无法呈现我们放入 <code>Layout</code> 元素内的内容，如下所示： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">About</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Layout&gt;</span><br><span class="line">      &lt;p&gt;This is the about page&lt;/p&gt;</span><br><span class="line">    &lt;/Layout&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ 但这只是创建布局组件的一种方法，以下是其他方法。</li>
+<li>方法一：布局为高阶组件 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// components/MyLayout.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> Header <span class="keyword">from</span> <span class="string">&#x27;./Header&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> layoutStyle = &#123;</span><br><span class="line">  margin: <span class="number">20</span>,</span><br><span class="line">  padding: <span class="number">20</span>,</span><br><span class="line">  border: <span class="string">&#x27;1px solid #DDD&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> withLayout = <span class="function"><span class="params">Page</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="function">() =&gt;</span> (</span><br><span class="line">    &lt;div style=&#123;layoutStyle&#125;&gt;</span><br><span class="line">      &lt;Header /&gt;</span><br><span class="line">      &lt;Page /&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> withLayout;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pages/index.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> withLayout <span class="keyword">from</span> <span class="string">&#x27;../components/MyLayout&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Page = <span class="function">() =&gt;</span> <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello Next.js<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> withLayout(Page);</span><br></pre></td></tr></table></figure>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pages/about.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> withLayout <span class="keyword">from</span> <span class="string">&#x27;../components/MyLayout&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Page = <span class="function">() =&gt;</span> <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>This is the about page<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> withLayout(Page);</span><br></pre></td></tr></table></figure></li>
+<li>方法二：页面内容作为道具 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// components/MyLayout.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> Header <span class="keyword">from</span> <span class="string">&#x27;./Header&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> layoutStyle = &#123;</span><br><span class="line">  margin: <span class="number">20</span>,</span><br><span class="line">  padding: <span class="number">20</span>,</span><br><span class="line">  border: <span class="string">&#x27;1px solid #DDD&#x27;</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Layout = <span class="function"><span class="params">props</span> =&gt;</span> (</span><br><span class="line">  &lt;div style=&#123;layoutStyle&#125;&gt;</span><br><span class="line">    &lt;Header /&gt;</span><br><span class="line">    &#123;props.content&#125;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Layout;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pages/index.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> Layout <span class="keyword">from</span> <span class="string">&#x27;../components/MyLayout.js&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> indexPageContent = <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Hello Next.js<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Index</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Layout</span> <span class="attr">content</span>=<span class="string">&#123;indexPageContent&#125;</span> /&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+ <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pages/about.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> Layout <span class="keyword">from</span> <span class="string">&#x27;../components/MyLayout.js&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> aboutPageContent = <span class="xml"><span class="tag">&lt;<span class="name">p</span>&gt;</span>This is the about page<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">About</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">Layout</span> <span class="attr">content</span>=<span class="string">&#123;aboutPageContent&#125;</span> /&gt;</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h2 id="创建动态页面"><a href="#创建动态页面" class="headerlink" title="创建动态页面"></a>创建动态页面</h2><h3 id="Introduction-2"><a href="#Introduction-2" class="headerlink" title="Introduction"></a>Introduction</h3><ol>
+<li>之前通过使用组件，我们创建了包含了多个页面的小案例，之前为了创建一个页面，我们必须新建一个文件作为模块导出，但是在一个真正的应用程序中，我们还需动态地创建页面以显示动态内容，接下来我们会使用 <strong>查询字符串</strong> 来实现这一点</li>
+<li>我们将创建一个简单的博客应用，它在主页上展示一个所有文章的列表，展示如下：<ul>
+<li>主页有文章列表<br><img src="https://s2.ax1x.com/2020/02/16/3pmcK1.png" class="lazyload" data-srcset="https://s2.ax1x.com/2020/02/16/3pmcK1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></li>
+<li>点击某标题的链接，会出现对应的文章<br><img src="https://s2.ax1x.com/2020/02/16/3pnPrq.png" class="lazyload" data-srcset="https://s2.ax1x.com/2020/02/16/3pnPrq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></li>
+</ul>
+</li>
+</ol>
+<h3 id="安装设置"><a href="#安装设置" class="headerlink" title="安装设置"></a>安装设置</h3><ol>
+<li>我们仍然使用之前安装过的 <code>next-learn-demo</code>，进入 <code>next-learn-demo/3-create-dynamic-pages</code>，接下来的一切也将在这个目录下完成</li>
+<li>运行 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="添加文章列表"><a href="#添加文章列表" class="headerlink" title="添加文章列表"></a>添加文章列表</h3><ol>
+<li>首先，我们在文章主页添加标题列表，如下： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Link <span class="keyword">from</span> <span class="string">&#x27;next/link&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> Layout <span class="keyword">from</span> <span class="string">&#x27;../components/MyLayout.js&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> PostLink = <span class="function"><span class="params">props</span> =&gt;</span> (</span><br><span class="line">  &lt;li&gt;</span><br><span class="line">    &lt;Link href=&#123;<span class="string">`/post?title=<span class="subst">$&#123;props.title&#125;</span>`</span>&#125;&gt;</span><br><span class="line">      &lt;a&gt;&#123;props.title&#125;&lt;/a&gt;</span><br><span class="line">    &lt;/Link&gt;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Blog</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Layout&gt;</span><br><span class="line">      &lt;h1&gt;My Blog&lt;/h1&gt;</span><br><span class="line">      &lt;ul&gt;</span><br><span class="line">        &lt;PostLink title=<span class="string">&quot;Hello Next.js&quot;</span> /&gt;</span><br><span class="line">        &lt;PostLink title=<span class="string">&quot;Learn Next.js is awesome&quot;</span> /&gt;</span><br><span class="line">        &lt;PostLink title=<span class="string">&quot;Deploy apps with Zeit&quot;</span> /&gt;</span><br><span class="line">      &lt;/ul&gt;</span><br><span class="line">    &lt;/Layout&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="通过查询字符串传递数据"><a href="#通过查询字符串传递数据" class="headerlink" title="通过查询字符串传递数据"></a>通过查询字符串传递数据</h3></li>
+<li>我们将通过查询字符串作为参数（也称查询参数）并传递数据，如： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pages/index.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> PostLink = <span class="function"><span class="params">props</span> =&gt;</span> (</span><br><span class="line">  &lt;li&gt;</span><br><span class="line">    &lt;Link href=&#123;<span class="string">`/post?title=<span class="subst">$&#123;props.title&#125;</span>`</span>&#125;&gt;</span><br><span class="line">      &lt;a&gt;&#123;props.title&#125;&lt;/a&gt;</span><br><span class="line">    &lt;/Link&gt;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>此例中，查询参数是 <code>title</code>，我们使用 <code>PostLink</code> 来执行的操作</li>
+<li>你也可以检查 <code>Link</code> 组件的 <code>href</code> 属性，以此类推，你可以使用查询字符串传递任何类型的数据</li>
+</ul>
+</li>
+</ol>
+<h3 id="创建Post页面"><a href="#创建Post页面" class="headerlink" title="创建Post页面"></a>创建<code>Post</code>页面</h3><ol>
+<li>现在我们需要创建 post 页面来显示博客文章，为此，我们需要从查询字符串中获得标题，</li>
+<li>创建 <code>pages/post.js</code> 文件： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRouter &#125; <span class="keyword">from</span> <span class="string">&#x27;next/router&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> Layout <span class="keyword">from</span> <span class="string">&#x27;../components/MyLayout&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Page = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> router = useRouter();</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Layout&gt;</span><br><span class="line">      &lt;h1&gt;&#123;router.query.title&#125;&lt;/h1&gt;</span><br><span class="line">      &lt;p&gt;This is the blog post content.&lt;/p&gt;</span><br><span class="line">    &lt;/Layout&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Page;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>启动项目，并点击三个标题链接</li>
+</ul>
+</li>
+<li>上面的运作过程如下：<ul>
+<li>首先从 <code>next/router</code> 导入并使用 <code>useRouter</code> 函数，该函数返回 Next.js 的是 <code>router</code> 对象</li>
+<li>使用路由器（router）中的 <code>query</code> 对象，该对象保存了所有查询参数</li>
+<li>然后，使用 <code>router.query.title</code> 获取标题</li>
+</ul>
+</li>
+<li>useRouter 函数的介绍：<ul>
+<li><a target="_blank" rel="noopener" href="https://www.nextjs.cn/docs/api-reference/next/router#userouter">useRouter</a> 允许你访问页面中的 router 对象，它是一个 <a target="_blank" rel="noopener" href="https://reactjs.org/docs/hooks-intro.html">React Hook</a>，能与功能组件协同合工作</li>
+<li>之前的示例中，useRouter 函数被放到预添加的页面组件中，而下面示例中，useRouter 函数在 <code>Content</code> 组件中，预添加的组件是 <code>Page</code>，但是功能不变  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRouter &#125; <span class="keyword">from</span> <span class="string">&#x27;next/router&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> Layout <span class="keyword">from</span> <span class="string">&#x27;../components/MyLayout&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Content = <span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> router = useRouter();</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;&gt;</span><br><span class="line">      &lt;h1&gt;&#123;router.query.title&#125;&lt;/h1&gt;</span><br><span class="line">      &lt;p&gt;This is the blog post content.&lt;/p&gt;</span><br><span class="line">    &lt;/&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Page = <span class="function">() =&gt;</span> (</span><br><span class="line">  &lt;Layout&gt;</span><br><span class="line">    &lt;Content /&gt;</span><br><span class="line">  &lt;/Layout&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Page;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="使用动态路由清理URL"><a href="#使用动态路由清理URL" class="headerlink" title="使用动态路由清理URL"></a>使用动态路由清理URL</h2><h3 id="Introduction-3"><a href="#Introduction-3" class="headerlink" title="Introduction"></a>Introduction</h3><blockquote>
+<p>请确保你正在使用是 Next.js 9 或更高版本<br>接下来的操作都会在 <code>next-learn-demo/4-clean-urls</code> 中进行，请调至指定目录</p>
+</blockquote>
+<ol>
+<li>我们已经知道了如何使用查询字符串创建动态页面，指向我们的某个博客文章的链接如： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http：&#x2F;&#x2F; localhost：3000 &#x2F; post？title &#x3D; Hello％20Next.js</span><br></pre></td></tr></table></figure>
+ 而此链接要表达的却是： <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http：&#x2F;&#x2F; localhost：3000 &#x2F; p &#x2F; hello-nextjs</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="动态路由"><a href="#动态路由" class="headerlink" title="动态路由"></a>动态路由</h3><ol>
+<li>启动项目，在 <code>4-clean-urls/</code> 下输入： <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure></li>
+<li>我们将使用 Next.js 的 <a target="_blank" rel="noopener" href="https://nextjs.org/docs/routing/dynamic-routes">动态路由</a> 功能，它允许你处理 <code>/pages</code> 动态路由</li>
+<li>现在我们将创建新页面，并命名为 <code>pages/p/[id].js</code>，这也是我们创建的第一个动态路由，步骤如下：<ul>
+<li>首先，在 <code>/pages</code> 内添加文件夹 <code>/p</code></li>
+<li>然后，你需要在 <code>/p</code> 文件夹中创建 <code>[id].js</code>，并在这些 js 文件中添加如下内容：  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRouter &#125; <span class="keyword">from</span> <span class="string">&#x27;next/router&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> Layout <span class="keyword">from</span> <span class="string">&#x27;../../components/MyLayout&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Post</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> router = useRouter();</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Layout&gt;</span><br><span class="line">      &lt;h1&gt;&#123;router.query.id&#125;&lt;/h1&gt;</span><br><span class="line">      &lt;p&gt;This is the blog post content.&lt;/p&gt;</span><br><span class="line">    &lt;/Layout&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>前一页是特殊的，它不会处理 <code>/about</code> 等静态路由，而是会处理 <code>p/</code> 之后的路由，例如，此页面将处理 <code>/p/hello-next.js</code>，而 <code>/p/post-1/another</code></li>
+<li>页面名称中的带有方括号（<code>[]</code>）使其成为动态路由，你不能使页面名称的一部分成为动态名称，而只能使全名成为动态名称，例如，支持 <code>/pages/p/[id].js</code>，但不支持 <code>/pages/p/post-[id].js</code></li>
+<li>创建动态路线时，我们在方括号（[]）之间添加了 id，这是页面接受到查询参数的名称，因此对于 <code>/p/hello-nextjs</code>，该 <code>query</code> 对象将具有 <code>&#123; id: &#39;hello-nextjs&#39; &#125;</code>，我们可以使用 <a target="_blank" rel="noopener" href="https://nextjs.org/docs/api-reference/next/router#userouter">useRouter()</a> 进行访问</li>
+<li>现在，我们新的动态路由添加多个链接，修改 <code>pages/index.js</code>： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pages/index.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> Layout <span class="keyword">from</span> <span class="string">&#x27;../components/MyLayout&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> Link <span class="keyword">from</span> <span class="string">&#x27;next/link&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> PostLink = <span class="function"><span class="params">props</span> =&gt;</span> (</span><br><span class="line">  &lt;li&gt;</span><br><span class="line">    &lt;Link href=<span class="string">&quot;/p/[id]&quot;</span> <span class="keyword">as</span>=&#123;<span class="string">`/p/<span class="subst">$&#123;props.id&#125;</span>`</span>&#125;&gt;</span><br><span class="line">      &lt;a&gt;&#123;props.id&#125;&lt;/a&gt;</span><br><span class="line">    &lt;/Link&gt;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Blog</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Layout&gt;</span><br><span class="line">      &lt;h1&gt;My Blog&lt;/h1&gt;</span><br><span class="line">      &lt;ul&gt;</span><br><span class="line">        &lt;PostLink id=<span class="string">&quot;Hello-Next.js&quot;</span> /&gt;</span><br><span class="line">        &lt;PostLink id=<span class="string">&quot;Learn-Next.js&quot;</span> /&gt;</span><br><span class="line">        &lt;PostLink id=<span class="string">&quot;Deploy-Next.js&quot;</span> /&gt;</span><br><span class="line">      &lt;/ul&gt;</span><br><span class="line">    &lt;/Layout&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>着重看看以下内容：  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> PostLink = <span class="function"><span class="params">props</span> =&gt;</span> (</span><br><span class="line">  &lt;li&gt;</span><br><span class="line">    &lt;Link href=<span class="string">&quot;/p/[id]&quot;</span> <span class="keyword">as</span>=&#123;<span class="string">`/p/<span class="subst">$&#123;props.id&#125;</span>`</span>&#125;&gt;</span><br><span class="line">      &lt;a&gt;&#123;props.id&#125;&lt;/a&gt;</span><br><span class="line">    &lt;/Link&gt;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<ul>
+<li>在 <code>&lt;Link&gt;</code> 元素中，<code>href</code> 代表的是该页面在 <code>pages</code> 文件夹中的路径，而 <code>as</code> 代表的是该页面在浏览器中的 URL 路径</li>
+</ul>
+</li>
+<li>现在，你可以重新启动项目，注意观察 URL 的变化！<br>  <img src="https://s2.ax1x.com/2020/02/17/3CmhPU.png" class="lazyload" data-srcset="https://s2.ax1x.com/2020/02/17/3CmhPU.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></li>
+</ul>
+</li>
+<li>动态路由可以很好地和浏览器历史记录配合使用，而我们要做的就是将 <code>as</code> 添加到链接组件中</li>
+</ol>
+<hr>
+<h2 id="为页面获取数据"><a href="#为页面获取数据" class="headerlink" title="为页面获取数据"></a>为页面获取数据</h2><h3 id="Introduction-4"><a href="#Introduction-4" class="headerlink" title="Introduction"></a>Introduction</h3><blockquote>
+<p>接下来的操作都会在 <code>next-learn-demo/6-fetching-data</code> 中进行，请调至指定目录</p>
+</blockquote>
+<ol>
+<li>现在我们已经能创建一个相对完整的 Next.js 应用，但还没有解决的是：<strong>如何从远程数据源中获取数据？</strong>，Next.js 提供了一个标准 API 来获取页面所需的数据，即 <strong><code>getInitialProps 异步函数</code></strong></li>
+<li><code>getInitialProps</code> 只能添加到页面导出的默认组件中，在其他组件中是不会起作用的，它可以从远程数据源为指定页面获取数据，并将这些数据通过 props 传递到我们的页面，它会同时在客户端和服务器上工作，因为它在两个环境中都会被调用</li>
+<li>我们将利用 <code>getInitialProps</code> 构建一个应用程序来显示有关 Batman TV Shows 的信息，利用的是公开的 <a target="_blank" rel="noopener" href="https://www.tvmaze.com/api">TVmaze API</a></li>
+<li>在即将演示的示例中，我们的主页上有一个文章列表，现在我们来展示 <code>Batman TV shows</code> 的节目列表，我们将从远程服务器上获取这些节目列表，而不是硬编码<ul>
+<li>在这个示例中，我们使用的是 <a target="_blank" rel="noopener" href="https://www.tvmaze.com/api">TVMaze API</a> 来获取 TV shows 节目列表，这是一个搜索电视节目的 API</li>
+</ul>
+</li>
+</ol>
+<h3 id="安装设置-1"><a href="#安装设置-1" class="headerlink" title="安装设置"></a>安装设置</h3><ol>
+<li>进入 <code>next-learn-demo/6-fetching-data</code>，输入： <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure></li>
+<li>在浏览器中打开 <a target="_blank" rel="noopener" href="http://localhost:3000/">http://localhost:3000/</a> 查看项目</li>
+</ol>
+<h3 id="获取BatmanShows的数据"><a href="#获取BatmanShows的数据" class="headerlink" title="获取BatmanShows的数据"></a>获取BatmanShows的数据</h3><ol>
+<li>首先，我们需要安装 <a target="_blank" rel="noopener" href="https://github.com/developit/unfetch">isomorphic-unfetch</a>，这是我们用来获取数据的工具库，这是浏览器的 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch">fetch API</a> 的一个简单实现，但在客户端和服务器环境中都可以使用 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save isomorphic-unfetch</span><br></pre></td></tr></table></figure></li>
+<li>将 <code>pages/index.js</code> 替换为以下内容： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pages/index.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> Layout <span class="keyword">from</span> <span class="string">&#x27;../components/MyLayout&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> Link <span class="keyword">from</span> <span class="string">&#x27;next/link&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> fetch <span class="keyword">from</span> <span class="string">&#x27;isomorphic-unfetch&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Index = <span class="function"><span class="params">props</span> =&gt;</span> (</span><br><span class="line">  &lt;Layout&gt;</span><br><span class="line">    &lt;h1&gt;Batman TV Shows&lt;/h1&gt;</span><br><span class="line">    &lt;ul&gt;</span><br><span class="line">      &#123;</span><br><span class="line">        props.shows.map(<span class="function"><span class="params">show</span> =&gt;</span> (</span><br><span class="line">          &lt;li key=&#123;show.id&#125;&gt;</span><br><span class="line">            &lt;Link href=<span class="string">&quot;/p/[id]&quot;</span> <span class="keyword">as</span>=&#123;<span class="string">`/p/<span class="subst">$&#123;show.id&#125;</span>`</span>&#125;&gt;</span><br><span class="line">              &lt;a&gt;&#123;show.name&#125;&lt;/a&gt;</span><br><span class="line">            &lt;/Link&gt;</span><br><span class="line">          &lt;/li&gt;</span><br><span class="line">        ))</span><br><span class="line">      &#125;</span><br><span class="line">    &lt;/ul&gt;</span><br><span class="line">  &lt;/Layout&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">Index.getInitialProps = <span class="keyword">async</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> res = <span class="keyword">await</span> fetch(<span class="string">&#x27;https://api.tvmaze.com/search/shows?q=batman&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> data = <span class="keyword">await</span> res.json();</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`Show data fetched. Count: <span class="subst">$&#123;data.length&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    shows: data.map(<span class="function"><span class="params">entry</span> =&gt;</span> entry.show)</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Index;</span><br></pre></td></tr></table></figure></li>
+<li>我们着重分析下面这部分： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Index.getInitialProps = <span class="keyword">async</span> <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> res = <span class="keyword">await</span> fetch(<span class="string">&#x27;https://api.tvmaze.com/search/shows?q=batman&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> data = <span class="keyword">await</span> res.json();</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`Show data fetched. Count: <span class="subst">$&#123;data.length&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123;</span><br><span class="line">    shows: data.map(<span class="function"><span class="params">entry</span> =&gt;</span> entry.show)</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>这是一个静态异步函数，可以添加到程序的任何页面中，使用此函数，我们就可以获取数据并作为 props 传递给我们的页面</li>
+<li>以下便是我们的抓取结果，数据被抓取后，将会作为 props 的 ‘show’ 属性传递我们的页面中<br>  <img src="https://s2.ax1x.com/2020/02/17/3PEsaT.png" class="lazyload" data-srcset="https://s2.ax1x.com/2020/02/17/3PEsaT.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></li>
+</ul>
+</li>
+<li>注意，我们之前有一行用于打印信息的代码： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">console</span>.log(<span class="string">`Show data fetched. Count: <span class="subst">$&#123;data.length&#125;</span>`</span>);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>那么到底是在服务器端输出呢，还是在浏览器端的控制台输出呢，现在刷新一下浏览器，会发现之后服务端的控制台显示<br>  <img src="https://s2.ax1x.com/2020/02/17/3PeiKs.png" class="lazyload" data-srcset="https://s2.ax1x.com/2020/02/17/3PeiKs.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></li>
+<li>在这种情况下，消息只会在服务端输出，因为我们的页面是在服务端绘制的，所以，我们在服务端已经有了数据，没有必要在客户端再次获取这些数据</li>
+</ul>
+</li>
+</ol>
+<h3 id="实现-Post-页面"><a href="#实现-Post-页面" class="headerlink" title="实现 Post 页面"></a>实现 Post 页面</h3><ol>
+<li>现在让我们把 TV show 的详细信息添加到 post 中：将 <code>pages/p/[id].js</code> 替换为以下内容： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pages/p/[id].js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> Layout <span class="keyword">from</span> <span class="string">&#x27;../../components/MyLayout&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> fetch <span class="keyword">from</span> <span class="string">&#x27;isomorphic-unfetch&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> Post = <span class="function"><span class="params">props</span> =&gt;</span> (</span><br><span class="line">  &lt;Layout&gt;</span><br><span class="line">    &lt;h1&gt;&#123;props.show.name&#125;&lt;/h1&gt;</span><br><span class="line">    &lt;p&gt;&#123; props.show.summary.replace(<span class="regexp">/&lt;[/]?[pb]&gt;/g</span>), <span class="string">&#x27;&#x27;</span> &#125;&lt;/p&gt;</span><br><span class="line">  &lt;/Layout&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">Post.getInitialProps = <span class="keyword">async</span> <span class="function"><span class="keyword">function</span>(<span class="params">context</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; id &#125; = context.query;</span><br><span class="line">  <span class="keyword">const</span> res = <span class="keyword">await</span> fetch(<span class="string">`https://api.tvmaze.com/shows/<span class="subst">$&#123;id&#125;</span>`</span>);</span><br><span class="line">  <span class="keyword">const</span> show = <span class="keyword">await</span> res.json();</span><br><span class="line">  </span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`Fetched show: <span class="subst">$&#123;show.name&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123; show &#125;;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> Post;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意该页的 <code>getInitialProps</code>：  <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Post.getInitialProps = <span class="keyword">async</span> <span class="function"><span class="keyword">function</span>(<span class="params">context</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">const</span> &#123; id &#125; = context.query;</span><br><span class="line">  <span class="keyword">const</span> res = <span class="keyword">await</span> fetch(<span class="string">`https://api.tvmaze.com/shows/<span class="subst">$&#123;id&#125;</span>`</span>);</span><br><span class="line">  <span class="keyword">const</span> show = <span class="keyword">await</span> res.json();</span><br><span class="line"></span><br><span class="line">  <span class="built_in">console</span>.log(<span class="string">`Fetched show: <span class="subst">$&#123;show.name&#125;</span>`</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> &#123; show &#125;;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></li>
+<li>该函数的第一个参数是 <strong>context 对象</strong>，此对象包含一个 <code>query</code> 对象，我们用 <code>context.query</code> 来获取信息，即 <code>id</code> 对象，并使其在 TVMaze API 中获取电视节目数据</li>
+</ul>
+</li>
+<li>在这个 <code>getInitialProps</code> 函数中，我们添加了一个 <code>console.log</code> 来打印节目的标题，现在我们看看它将打印到哪里<ul>
+<li>打开服务器和客户端的控制台，然后启动项目，访问 3000 端口</li>
+<li>单击第一个 Batman show 的标题</li>
+</ul>
+</li>
+<li>结果是：会在客户端的控制台输出<br> <img src="https://s2.ax1x.com/2020/02/17/3PM0ER.png" class="lazyload" data-srcset="https://s2.ax1x.com/2020/02/17/3PM0ER.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="><ul>
+<li>与之前不同的是，我们这次只能在客户端看到消息，这是因为我们通过客户端导航到了 post 页面</li>
+<li>当我们单击链接时，由于该链接是被 Next.js 的 <code>&lt;Link&gt;</code> 组件包装过的组件，所以页面转换将在浏览器中进行，而不会想服务器发起请求</li>
+<li>但是，如果你直接访问的是 post 页面，而不是点击链接（例如，你直接访问 <a target="_blank" rel="noopener" href="http://localhost:3000/p/975">http://localhost:3000/p/975</a> ），消息会被打印在服务端，而不是客户端</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="为组件添加样式"><a href="#为组件添加样式" class="headerlink" title="为组件添加样式"></a>为组件添加样式</h2><h3 id="Introduction-5"><a href="#Introduction-5" class="headerlink" title="Introduction"></a>Introduction</h3><blockquote>
+<p>接下来的操作都会在 <code>next-learn-demo/7-styling-components</code> 中进行，请调至指定目录</p>
+</blockquote>
+<ol>
+<li>对于 React，我们可以使用许多不同的技术来设置样式，这些技术可以分为两大类：<ul>
+<li>传统的基于 CSS 文件的样式设计（包括 SASS、PostCSS 等）</li>
+<li><a target="_blank" rel="noopener" href="https://github.com/MicheleBertoli/css-in-js">CSS in JS</a></li>
+</ul>
+</li>
+<li>传统的基于 CSS 文件的样式设计（尤其是 SSR）需要考虑一堆的实际问题，因此我们在为 Mext.js 设置样式时避免使用这种方法，相反，我们会在 JS 中使用 CSS，你可以使用它来设置某单个组件的样式，而不是导入 CSS 文件</li>
+<li>为此，我们需要认识一个新的框架：<a target="_blank" rel="noopener" href="https://github.com/zeit/styled-jsx">styled-jsx</a>，这是Next.js 预装了一个 CSS in JS 框架，它允许你为组件编写熟悉的 CSS 规则，这些 CSS 规则对组件以外的任何内容（当然也包括子组件）都没有影响，也就是说，你的 CSS 规则是有作用域的</li>
+</ol>
+<h3 id="安装设置-2"><a href="#安装设置-2" class="headerlink" title="安装设置"></a>安装设置</h3><ol>
+<li>进入 <code>next-learn-demo/7-styling-components</code></li>
+<li>输入 <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure></li>
+<li>启动项目，访问应用</li>
+</ol>
+<h3 id="设置主页的样式"><a href="#设置主页的样式" class="headerlink" title="设置主页的样式"></a>设置主页的样式</h3><ol>
+<li>现在我们在主页中添加一些样式，进入 <code>pages/index.js</code>： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// pages/index.js</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> Layout <span class="keyword">from</span> <span class="string">&#x27;../components/MyLayout&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> Link <span class="keyword">from</span> <span class="string">&#x27;next/link&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getPosts</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> [</span><br><span class="line">    &#123; <span class="attr">id</span>: <span class="string">&#x27;hello-nextjs&#x27;</span>, <span class="attr">title</span>: <span class="string">&#x27;Hello Next.js&#x27;</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">id</span>: <span class="string">&#x27;learn-nextjs&#x27;</span>, <span class="attr">title</span>: <span class="string">&#x27;Learn Next.js is awesome&#x27;</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">id</span>: <span class="string">&#x27;deploy-nextjs&#x27;</span>, <span class="attr">title</span>: <span class="string">&#x27;Deploy apps with ZEIT&#x27;</span> &#125;</span><br><span class="line">  ];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Blog</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Lauout&gt;</span><br><span class="line">      &lt;h1&gt;My Blog&lt;/h1&gt;</span><br><span class="line">      &lt;ul&gt;</span><br><span class="line">        &#123;</span><br><span class="line">          getPosts().map(<span class="function"><span class="params">post</span> =&gt;</span> (</span><br><span class="line">            &lt;li&gt;</span><br><span class="line">              &lt;Link href=<span class="string">&quot;/p/[id]&quot;</span> <span class="keyword">as</span>=&#123;<span class="string">`/p/<span class="subst">$&#123;post.id&#125;</span>`</span>&#125;&gt;</span><br><span class="line">                &lt;a&gt;&#123;post.title&#125;&lt;/a&gt;</span><br><span class="line">              &lt;/Link&gt;</span><br><span class="line">            &lt;/li&gt;</span><br><span class="line">          ))</span><br><span class="line">        &#125;</span><br><span class="line">      &lt;/ul&gt;</span><br><span class="line">      &lt;style jsx&gt;&#123;<span class="string">`</span></span><br><span class="line"><span class="string">        h1, a &#123;</span></span><br><span class="line"><span class="string">          font-family: &#x27;Arial&#x27;;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        ul &#123;</span></span><br><span class="line"><span class="string">          padding: 0</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        li &#123;</span></span><br><span class="line"><span class="string">          list-style: none;</span></span><br><span class="line"><span class="string">          margin: 5px, 0;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        a &#123;</span></span><br><span class="line"><span class="string">          text-decoration: none;</span></span><br><span class="line"><span class="string">          color: red;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        a:hover &#123;</span></span><br><span class="line"><span class="string">          opacity: 0.6;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">      `</span>&#125;&lt;/style&gt;</span><br><span class="line">    &lt;/Lauout&gt;</span><br><span class="line">  )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>那个 <code>&lt;style jsx&gt;</code> 元素，就是我们编写 CSS 规则的地方</li>
+<li>现在可以启动项目，查看结果<br>  <img src="https://s2.ax1x.com/2020/02/17/3ik94e.png" class="lazyload" data-srcset="https://s2.ax1x.com/2020/02/17/3ik94e.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></li>
+</ul>
+</li>
+<li>上面的代码中，我们没有直接在 <code>&lt;style&gt;</code> 标签内编写样式代码，而是写在模板字符串（<code>&#123;``&#125;</code>）里面的，Next.js 默认支持 babel 语法，而 <code>styled-jsx</code> 可以看做 babel 的一个插件，它将解析所有 CSS 并将其应用于构建工程</li>
+</ol>
+<h3 id="CSS样式和嵌套组件"><a href="#CSS样式和嵌套组件" class="headerlink" title="CSS样式和嵌套组件"></a>CSS样式和嵌套组件</h3><ol>
+<li>现在我们将会对主页做一些更改，我们将会像这样隔离 Link 组件： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Layout <span class="keyword">from</span> <span class="string">&#x27;../components/MyLayout&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> Link <span class="keyword">from</span> <span class="string">&#x27;next/link&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">getPosts</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> [</span><br><span class="line">    &#123; <span class="attr">id</span>: <span class="string">&#x27;hello-nextjs&#x27;</span>, <span class="attr">title</span>: <span class="string">&#x27;Hello Next.js&#x27;</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">id</span>: <span class="string">&#x27;learn-nextjs&#x27;</span>, <span class="attr">title</span>: <span class="string">&#x27;Learn Next.js is awesome&#x27;</span> &#125;,</span><br><span class="line">    &#123; <span class="attr">id</span>: <span class="string">&#x27;deploy-nextjs&#x27;</span>, <span class="attr">title</span>: <span class="string">&#x27;Deploy apps with ZEIT&#x27;</span> &#125;</span><br><span class="line">  ];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> PostLink = <span class="function">(<span class="params">&#123; post &#125;</span>) =&gt;</span> (</span><br><span class="line">  &lt;li&gt;</span><br><span class="line">    &lt;Link href=<span class="string">&quot;/p/[id]&quot;</span> <span class="keyword">as</span>=&#123;<span class="string">`/p/<span class="subst">$&#123;post.id&#125;</span>`</span>&#125;&gt;</span><br><span class="line">      &lt;a&gt;&#123;post.title&#125;&lt;/a&gt;</span><br><span class="line">    &lt;/Link&gt;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="function"><span class="keyword">function</span> <span class="title">Blog</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Layout&gt;</span><br><span class="line">      &lt;h1&gt;My Blog&lt;/h1&gt;</span><br><span class="line">      &lt;ul&gt;</span><br><span class="line">        &#123;getPosts().map(<span class="function"><span class="params">post</span> =&gt;</span> (</span><br><span class="line">          &lt;PostLink key=&#123;post.id&#125; post=&#123;post&#125; /&gt;</span><br><span class="line">        ))&#125;</span><br><span class="line">      &lt;/ul&gt;</span><br><span class="line">      &lt;style jsx&gt;&#123;<span class="string">`</span></span><br><span class="line"><span class="string">        h1, a &#123;</span></span><br><span class="line"><span class="string">          font-family: &#x27;Arial&#x27;;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        ul &#123;</span></span><br><span class="line"><span class="string">          padding: 0;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        li &#123;</span></span><br><span class="line"><span class="string">          list-style: none;</span></span><br><span class="line"><span class="string">          margin: 5px 0;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        a &#123;</span></span><br><span class="line"><span class="string">          text-decoration: none;</span></span><br><span class="line"><span class="string">          color: blue;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        a:hover &#123;</span></span><br><span class="line"><span class="string">          opacity: 0.6;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">      `</span>&#125;&lt;/style&gt;</span><br><span class="line">    &lt;/Layout&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>运行后发现：h1 的样式还在，但是链接已经失效了，如下：<br>  <img src="https://s2.ax1x.com/2020/02/18/3is3bd.png" class="lazyload" data-srcset="https://s2.ax1x.com/2020/02/18/3is3bd.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></li>
+</ul>
+</li>
+<li>上述结果显示：CSS 样式规则对子组件中的元素没有影响，<code>styled-jsx</code> 这个特性可以帮助你管理大型的应用程序的样式，在这种情况下，我们需要直接设置子组件的样式，在我们的示例中，我们需要对 Link 组件执行以下操作： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> PostLink = <span class="function">(<span class="params">&#123; post &#125;</span>) =&gt;</span> (</span><br><span class="line">  &lt;li&gt;</span><br><span class="line">    &lt;Link href=<span class="string">&quot;/p/[id]&quot;</span> <span class="keyword">as</span>=&#123;<span class="string">`/p/<span class="subst">$&#123;post.id&#125;</span>`</span>&#125;&gt;</span><br><span class="line">      &lt;a&gt;&#123;post.title&#125;&lt;/a&gt;</span><br><span class="line">    &lt;/Link&gt;</span><br><span class="line">    &lt;style jsx&gt;&#123;<span class="string">`</span></span><br><span class="line"><span class="string">      li &#123;</span></span><br><span class="line"><span class="string">        list-style: none;</span></span><br><span class="line"><span class="string">        margin: 5px 0;</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">      a &#123;</span></span><br><span class="line"><span class="string">        text-decoration: none;</span></span><br><span class="line"><span class="string">        color: blue;</span></span><br><span class="line"><span class="string">        font-family: &#x27;Arial&#x27;;</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">      a:hover &#123;</span></span><br><span class="line"><span class="string">        opacity: 0.6;</span></span><br><span class="line"><span class="string">      &#125;</span></span><br><span class="line"><span class="string">    `</span>&#125;&lt;/style&gt;</span><br><span class="line">  &lt;/li&gt;</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<ul>
+<li>拓展了解：<a target="_blank" rel="noopener" href="https://github.com/zeit/styled-jsx#one-off-global-selectors">全局选择器</a></li>
+</ul>
+</li>
+</ol>
+<h3 id="全局样式"><a href="#全局样式" class="headerlink" title="全局样式"></a>全局样式</h3><ol>
+<li>有时我们确实需要更改子组件内部的样式，尤其是在使用支持 React 的 markdown 时<ul>
+<li>我们需要安装 <code>react-markdown</code>  <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install --save react-markdown</span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>下面就是全局样式派上用场的地方，现在就来试试利用 <code>styled-jsx</code> 添加一些全局样式，打开 <code>pages/p/[id].js</code>： <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; useRouter &#125; <span class="keyword">from</span> <span class="string">&#x27;next/router&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> Markdown <span class="keyword">from</span> <span class="string">&#x27;react-markdown&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> Layout <span class="keyword">from</span> <span class="string">&#x27;../../components/MyLayout&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> () =&gt; &#123;</span><br><span class="line">  <span class="keyword">const</span> router = useRouter();</span><br><span class="line">  <span class="keyword">return</span> (</span><br><span class="line">    &lt;Layout&gt;</span><br><span class="line">      &lt;h1&gt;&#123;router.query.id&#125;&lt;/h1&gt;</span><br><span class="line">      &lt;div className=<span class="string">&quot;markdown&quot;</span>&gt;</span><br><span class="line">        &lt;Markdown</span><br><span class="line">          source=&#123;<span class="string">`</span></span><br><span class="line"><span class="string">This is our blog post.</span></span><br><span class="line"><span class="string">Yes. We can have a [link](/link).</span></span><br><span class="line"><span class="string">And we can have a title as well.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">### This is a titlr.</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">And here&#x27;s the content.</span></span><br><span class="line"><span class="string">          `</span>&#125;</span><br><span class="line">        /&gt;</span><br><span class="line">      &lt;/div&gt;</span><br><span class="line">      &lt;style jsx <span class="built_in">global</span>&gt;&#123;<span class="string">`</span></span><br><span class="line"><span class="string">        .markdown &#123;</span></span><br><span class="line"><span class="string">          font-family: &#x27;Arial&#x27;;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        .markdown a &#123;</span></span><br><span class="line"><span class="string">          text-decoration: none;</span></span><br><span class="line"><span class="string">          color: red;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        .markdown a:hover &#123;</span></span><br><span class="line"><span class="string">          opacity: 0.6;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">        .markdown h3 &#123;</span></span><br><span class="line"><span class="string">          margin: 0;</span></span><br><span class="line"><span class="string">          padding: 0;</span></span><br><span class="line"><span class="string">          text-transform: uppercase;</span></span><br><span class="line"><span class="string">        &#125;</span></span><br><span class="line"><span class="string">      `</span>&#125;&lt;/style&gt;</span><br><span class="line">    &lt;/Layout&gt;</span><br><span class="line">  );</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>注意，<strong>markdown 语法部分的缩进不可修改！！！</strong></li>
+<li>我们定义的 style 作用于整个 <code>&lt;div&gt;</code> 标签部分，也就是作用于全局，虽然这样很方便，但是还是建议写带有作用域的样式</li>
+<li>尽管如此，这依然是一个比普通样式标签更好的解决方案，使用 styled-jsx 时，所有必要的特定于浏览器厂商前缀和 CSS 校验都通过了一个 Babel 插件完成了，这并不会导致额外的开销</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="部署-Next-js-应用程序"><a href="#部署-Next-js-应用程序" class="headerlink" title="部署 Next.js 应用程序"></a>部署 Next.js 应用程序</h2><h3 id="Introduction-6"><a href="#Introduction-6" class="headerlink" title="Introduction"></a>Introduction</h3><blockquote>
+<p>接下来的操作都会在 <code>next-learn-demo/8-deploying</code> 中进行，请调至指定目录</p>
+</blockquote>
+<ol>
+<li><a target="_blank" rel="noopener" href="https://zeit.co/home">ZEIT Now</a> 是将应用程序部署到生产环境的最简单和可扩展的方法，但是，你可以部署 Next.js 应用程序，而且它相对来讲比较简单</li>
+<li>现在我们将部署 Next.js 应用程序</li>
+<li>进入 <code>next-learn-demo/8-deploying</code>，输入命令： <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">npm install</span><br><span class="line">npm run dev</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="部署到-ZEIT-Now"><a href="#部署到-ZEIT-Now" class="headerlink" title="部署到 ZEIT Now"></a>部署到 ZEIT Now</h3><ol>
+<li>我们来看一下 <code>package.json</code> 文件的 <code>script</code> 配置段： <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">   &quot;dev&quot;: &quot;next&quot;,</span><br><span class="line">   &quot;build&quot;: &quot;next build&quot;,</span><br><span class="line">   &quot;start&quot;: &quot;next start&quot;</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure></li>
+<li>首先，我们需要为生产环境编译我们的 Next.js 应用程序，它将生成一组优化的用于生产环境的代码： <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure></li>
+<li>然后，你需要启动 Next.js 应用程序并监听某个端口，此服务器将执行服务器端渲染并返回静态页面（使用上述命令编译） <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run <span class="built_in">start</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>现在可以查看效果：<a target="_blank" rel="noopener" href="http://localhost:3000/">http://localhost:3000</a></li>
+</ul>
+</li>
+</ol>
+<h3 id="运行两个实例"><a href="#运行两个实例" class="headerlink" title="运行两个实例"></a>运行两个实例</h3><ol>
+<li>现在我们将为我们的应用程序启动两个实例，通常这样是为了横向扩展我们的应用程序</li>
+<li>首先，将 <code>package.json</code> 中的 <code>script</code> 配置端替换为以下的内容： <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">  &quot;dev&quot;: &quot;next&quot;,</span><br><span class="line">  &quot;build&quot;: &quot;next build&quot;,</span><br><span class="line">  &quot;start&quot;: &quot;next start -p %PORT%&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>我们更改了 <code>start</code> 脚本，它卸载接受一个代表端口号的参数来启动应用程序</li>
+<li>注意，<code>%PORT%</code> 是对于 Windows 来说的，Linux 对应的是 <code>$PORT</code></li>
+</ul>
+</li>
+<li>现在构建我们的应用程序： <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm run build</span><br></pre></td></tr></table></figure></li>
+<li>现在我们需要安装一个新的包，即：<code>cross-env</code>，我们在全局环境下安装： <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install cross-env -g</span><br></pre></td></tr></table></figure></li>
+<li>同时打开两个终端，分别在终端中输入： <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">cross-env PORT=<span class="number">8000</span> npm <span class="built_in">start</span></span><br><span class="line">cross-env PORT=<span class="number">9000</span> npm <span class="built_in">start</span></span><br></pre></td></tr></table></figure>
+<ul>
+<li>在 Linux 上，则直接打开两个命令行终端，并分别在每个命令行终端上运行：  <figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PORT=<span class="number">8000</span> npm <span class="built_in">start</span></span><br><span class="line">PORT=<span class="number">9000</span> npm <span class="built_in">start</span></span><br></pre></td></tr></table></figure></li>
+</ul>
+</li>
+<li>现在，在浏览器分别查看：<a target="_blank" rel="noopener" href="http://localhost:8000/">http://localhost:8000</a> 和 <a target="_blank" rel="noopener" href="http://localhost:9000/">http://localhost:9000</a></li>
+<li>可以得到的结果是，你只需要对应用程序构建一次。然后就可以在任意多个端口上启动它</li>
+</ol>
+<hr>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><blockquote>
+<p>求进之路，持之谦卑</p>
+</blockquote>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=http://ozziely.com/3e56fbdb64fa/>http://ozziely.com/3e56fbdb64fa/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-20T12:29:38+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Mar 20, 2021</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/next-js/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>next.js</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ozziely.com/3e56fbdb64fa/&title=Next.js入门详解教程 - Ozzie | Nicholas&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://ozziely.com/3e56fbdb64fa/&title=Next.js入门详解教程 - Ozzie | Nicholas&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://ozziely.com/3e56fbdb64fa/&title=Next.js入门详解教程 - Ozzie | Nicholas&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/54fba009696d/'>
+          <p class='title'>Redux入门Demo：TodoList<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>Demo说明
+本次 Demo 使用了 antd 呈现样式，需要通过 npm install antd --save 安装该组件库
+在使用 Redux 之前，需要安装 redux，可以用 npm ...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%95%E8%A8%80"><span class="toc-text">引言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9D%E8%AF%86Next-js"><span class="toc-text">初识Next.js</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85"><span class="toc-text">安装</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8"><span class="toc-text">使用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B5%E9%9D%A2%E9%97%B4%E5%AF%BC%E8%88%AA"><span class="toc-text">页面间导航</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Introduction"><span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8Link%E7%BB%84%E4%BB%B6"><span class="toc-text">使用Link组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E9%93%BE%E6%8E%A5%E9%81%93%E5%85%B7"><span class="toc-text">添加链接道具</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%85%B1%E4%BA%AB%E7%BB%84%E4%BB%B6"><span class="toc-text">使用共享组件</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Introduction-1"><span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C"><span class="toc-text">运行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E6%A0%87%E9%A2%98%E7%BB%84%E4%BB%B6"><span class="toc-text">创建标题组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B8%83%E5%B1%80%E7%BB%84%E4%BB%B6"><span class="toc-text">布局组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B8%B2%E6%9F%93%E5%AD%90%E7%BB%84%E4%BB%B6"><span class="toc-text">渲染子组件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%8A%A8%E6%80%81%E9%A1%B5%E9%9D%A2"><span class="toc-text">创建动态页面</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Introduction-2"><span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E8%AE%BE%E7%BD%AE"><span class="toc-text">安装设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%96%87%E7%AB%A0%E5%88%97%E8%A1%A8"><span class="toc-text">添加文章列表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%9A%E8%BF%87%E6%9F%A5%E8%AF%A2%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%BC%A0%E9%80%92%E6%95%B0%E6%8D%AE"><span class="toc-text">通过查询字符串传递数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BAPost%E9%A1%B5%E9%9D%A2"><span class="toc-text">创建Post页面</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1%E6%B8%85%E7%90%86URL"><span class="toc-text">使用动态路由清理URL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Introduction-3"><span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A8%E6%80%81%E8%B7%AF%E7%94%B1"><span class="toc-text">动态路由</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E9%A1%B5%E9%9D%A2%E8%8E%B7%E5%8F%96%E6%95%B0%E6%8D%AE"><span class="toc-text">为页面获取数据</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Introduction-4"><span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E8%AE%BE%E7%BD%AE-1"><span class="toc-text">安装设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96BatmanShows%E7%9A%84%E6%95%B0%E6%8D%AE"><span class="toc-text">获取BatmanShows的数据</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%9E%E7%8E%B0-Post-%E9%A1%B5%E9%9D%A2"><span class="toc-text">实现 Post 页面</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%BA%E7%BB%84%E4%BB%B6%E6%B7%BB%E5%8A%A0%E6%A0%B7%E5%BC%8F"><span class="toc-text">为组件添加样式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Introduction-5"><span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AE%89%E8%A3%85%E8%AE%BE%E7%BD%AE-2"><span class="toc-text">安装设置</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E4%B8%BB%E9%A1%B5%E7%9A%84%E6%A0%B7%E5%BC%8F"><span class="toc-text">设置主页的样式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CSS%E6%A0%B7%E5%BC%8F%E5%92%8C%E5%B5%8C%E5%A5%97%E7%BB%84%E4%BB%B6"><span class="toc-text">CSS样式和嵌套组件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E6%A0%B7%E5%BC%8F"><span class="toc-text">全局样式</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2-Next-js-%E5%BA%94%E7%94%A8%E7%A8%8B%E5%BA%8F"><span class="toc-text">部署 Next.js 应用程序</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Introduction-6"><span class="toc-text">Introduction</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%83%A8%E7%BD%B2%E5%88%B0-ZEIT-Now"><span class="toc-text">部署到 ZEIT Now</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%90%E8%A1%8C%E4%B8%A4%E4%B8%AA%E5%AE%9E%E4%BE%8B"><span class="toc-text">运行两个实例</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%93%E8%AF%AD"><span class="toc-text">结语</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="Next.js入门详解教程";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.remove("show");
+  
+  
+    // cover
+    var cover_wrapper=document.querySelector('.cover-wrapper');
+    
+    cover_wrapper.id="half";
+    cover_wrapper.style.display="";
+    
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+      
+    
+      
+        <div><p>Blog content follows the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+      
+    
+      
+        Use
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        as theme
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2019~2022 OzzieNicholas All Rights Reserved 蜀ICP备19036020号</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+        var imgs=["https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/001.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/002.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/003.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/004.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/005.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/006.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/012.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/016.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/019.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/025.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/034.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/035.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/038.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/039.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/042.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/046.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/051.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/052.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/054.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/056.jpg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+	  function Pjax_backstretch(){
+        
+          $('#cover-backstretch').backstretch(
+            imgs,
+          {
+            duration: "10000",
+            fade: "1500"
+          });
+        
+	  }
+	  loadScript("https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js",Pjax_backstretch)
+    </script>
+  
+
+
+
+  
+  
+
+  <div id="rightmenu-wrapper">
+    <ul class="list-v rightmenu" id="rightmenu-content">
+      <li class='option'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-text' onclick="document.execCommand('copy')"><i class='fa fa-copy fa-fw'></i>Copy Text</a>
+        <hr id='hr-text'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-href'><i class='fa fa-link fa-fw'></i>Copy Link</a>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-open-href'><i class='fa fa-external-link-square-alt fa-fw'></i>Open Link in New Tab</a>
+        <hr id='hr-href'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-src'><i class='fa fa-image fa-fw'></i>Copy Image Link</a>
+        <hr id='hr-src'>
+      </li>
+      
+        <li class='navigation'>
+          <a class='nav icon-only fix-cursor-default' onclick='history.back()'><i class='fa fa-arrow-left fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' onclick='history.forward()'><i class='fa fa-arrow-right fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' onclick='window.location.reload()'><i class='fa fa-redo fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' href='/'><i class='fa fa-home fa-fw'></i></a>
+        </li>
+      
+      <hr>
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default toggle-mode-btn' 
+        
+        
+        
+        >
+        <i class='fas fa-moon fa-fw'></i> 天满纤月
+      </a>
+    </li>
+  
+        
+      
+        
+          <hr>
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default ' href=https://volantis.js.org/faqs/
+        
+        
+        
+        
+          id="https:volantisjsorgfaqs"
+        >
+        <i class='fa fa-question fa-fw'></i> 常夜孤月
+      </a>
+    </li>
+  
+        
+      
+        
+          <hr>
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default ' 
+        
+        
+        
+          onclick="document.execCommand('print')"
+        
+        >
+        <i class='fa fa-print fa-fw'></i> 厄镜月映
+      </a>
+    </li>
+  
+        
+      
+    </ul>
+  </div>
+
+  <script>
+    window.document.oncontextmenu = function (event) {
+      if (event.ctrlKey) return true;
+      if (/Android|webOS|BlackBerry/i.test(navigator.userAgent)) return true;
+      return popMenu(event);
+    };
+    document.addEventListener("click", function (event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      mymenu.style.display = "none";
+    });
+    function popMenu(event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      var menuContent = document.getElementById('rightmenu-content');
+      var screenWidth = document.documentElement.clientWidth || document.body.clientWidth;
+      var screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      mymenu.style.left = event.clientX + "px"; // 获取鼠标位置
+      mymenu.style.top = event.clientY + "px";
+      mymenu.style.display = 'block';
+      if (event.clientX * 2 > screenWidth) {
+        menuContent.classList.add('left');
+      } else {
+        menuContent.classList.remove('left');
+      }
+      if (event.clientY * 2 > screenHeight) {
+        menuContent.classList.add('top');
+      } else {
+        menuContent.classList.remove('top');
+      }
+
+      let hrText = document.getElementById('hr-text');
+      let hrSrc = document.getElementById('hr-src');
+      let hrHref = document.getElementById('hr-href');
+
+      // 选中图片
+      let copySrc = document.getElementById('menu-copy-src');
+      if (copySrc != undefined) {
+        if (event.target.currentSrc) {
+          copySrc.style.display = 'block';
+          copySrc.addEventListener("click", function (e) {
+            copyString(event.target.currentSrc);
+          },{once: true});
+          hrSrc.style.display = 'block';
+        } else {
+          copySrc.style.display = 'none';
+          hrSrc.style.display = 'none';
+        }
+      }
+
+      // 选中按钮
+      // 判断是不是按钮
+      let href = '';
+      if (event.path) {
+        for (i = 0; i < event.path.length; i++) {
+          if (event.path[i].href != undefined && event.path[i].href.length > 0) {
+            href = event.path[i].href;
+          }
+        }
+      }
+
+      let copyText = document.getElementById('menu-copy-text');
+      copyText.style.display = 'none';
+      hrText.style.display = 'none';
+      if (href.length == 0) {
+        // 选中文本
+        if (window.getSelection().toString()) {
+          if ('' == 'true') {
+            copyText.style.display = 'block';
+            hrText.style.display = 'block';
+          }
+        }
+      }
+
+      // 在新标签页打开
+      let openHref = document.getElementById('menu-open-href');
+      if (openHref != undefined) {
+        if (href.length > 0) {
+          openHref.style.display = 'block';
+          openHref.addEventListener("click", function (e) {
+            window.open(href);
+          },{once: true});
+          hrHref.style.display = 'block';
+        } else {
+          openHref.style.display = 'none';
+          hrHref.style.display = 'none';
+        }
+      }
+      // 复制链接
+      let copyHref = document.getElementById('menu-copy-href');
+      if (copyHref != undefined) {
+        if (href.length > 0) {
+          copyHref.style.display = 'block';
+          copyHref.addEventListener("click", function (e) {
+            copyString(href);
+          },{once: true});
+        } else {
+          copyHref.style.display = 'none';
+        }
+      }
+      // 有音乐播放器 see: layout/_third-party/aplayer/script.ejs
+      
+      return false; // 该行代码确保系统自带的右键菜单不会被调出
+    }
+    function hideMenu() {
+      document.getElementById('rightmenu-wrapper').style.display = 'none';
+    }
+    function copyString(str) {
+      const input = document.createElement('input');
+      input.setAttribute('readonly', 'readonly');
+      document.body.appendChild(input);
+      input.setAttribute('value', str);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+    }
+    document.execCommand('click');
+  </script>
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('/js/issues.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+<script src="/js/valine.js"></script>
+
+
+<script>
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    var valine = new Valine();
+    valine.init(Object.assign({"path":null,"placeholder":"快来评论吧~","appId":null,"appKey":null,"meta":["nick","mail","link"],"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false}, {
+      el: '#valine_container',
+      path: path,
+      placeholder: pagePlaceholder,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps,
+    }))
+  }
+  $(function () {
+    pjax_valine();
+  });
+  volantis.pjax.push(pjax_valine);
+</script>
+
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2.6.4/js/search.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'http://ozziely.com' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'http://ozziely.com' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'http://ozziely.com' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+  <script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+ 
+	   
+	    
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+		// 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+		volantis.pjax.method.complete.start();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+ 
+	  
+    </div>
+  </body>
+</html>

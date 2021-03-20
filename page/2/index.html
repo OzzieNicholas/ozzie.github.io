@@ -563,19 +563,21 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/8850f5f3d4be/">
-        计算机操作系统（六）：存储管理方式
+      <a href="/c2bf453959cb/">
+        vue-router（二）：动态路由与嵌套路由
       </a>
     </h2>
   
   <div class='md'>
     
       
-        分页存储管理方式在分页存储管理的方式中，如果不具备页面对换功能，则称为基本的（纯）分页管理方式，它不具有支持实现虚拟存储器的功能，它要求把每个作业全部装入内存后方能运行。
-离散分配方式：
+        动态路由响应路由参数的变化
+在之前的案例中，每一个路由都对应着一个单独的组件
+现在我们想，在一个组件中，根据不同的路由响应出不同的结果，这就意味着我们需要响应路由参数的变化
 
-连续分配方式要求为一个进程分配连续的内存空间，会形成许多“碎片”，尽管采用“紧凑”技术可以解决这个问题，但要为移动大量信息花去不少的处理机时间，代价较高。
-如果允许一个进程直接分散地装入到许多不相邻接的分...
+
+主 html 文件：index.html
+1234567891011121314151617181920212223&lt;!-- index.html --&gt;&lt;!DOCTYPE html&gt;&lt;...
       
     
   </div>
@@ -586,12 +588,12 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <time>2021-03-20</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/">学校课程</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">计算机操作系统</a>
+          <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/vue/">vue</a>
         
       </div>
       
         <div>
-          <a class='readmore' href='/8850f5f3d4be/'>
+          <a class='readmore' href='/c2bf453959cb/'>
             Read More
           </a>
         </div>
@@ -613,24 +615,17 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
-      <a href="/0f07f5c9c9f3/">
-        计算机操作系统（五）：存储器管理概述
+      <a href="/7285f87f8102/">
+        vue-router（一）：初识vue-router
       </a>
     </h2>
   
   <div class='md'>
     
       
-        存储器的层次结构
-计算机的基本物理组成：
-指令的执行过程：
-CPU与内存的关系：
-传输数据流程简图：
-存储器是计算机系统重要的组成部分，虽然存储器的容量不断扩大，但仍不能满足要求，因此存储器管理是操作系统的重要工作。
-存储器包括内存（主存）和外存（磁盘）
-存储器的功能是保存数据，存储器的发展方向是高速、大容量和小体积。
-内存在访问速度方面的发展：DRAM、SDRAM、SRAM等；
-硬盘技术在...
+        配置项目
+创建一个目录 project，并进入，新建几个目录与文件，最后整个 demo 目录如下：
+12345678|-project # 根目录  |-index.html # 主html文件  |-dist # 打包文件放置目录  |-src # 资源文件目录    |-router.js # 打包入口文件，写路由的文件    |-components # 单文件组件目录      |-...
       
     
   </div>
@@ -641,12 +636,12 @@ CPU与内存的关系：
         <time>2021-03-20</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/">学校课程</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">计算机操作系统</a>
+          <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/vue/">vue</a>
         
       </div>
       
         <div>
-          <a class='readmore' href='/0f07f5c9c9f3/'>
+          <a class='readmore' href='/7285f87f8102/'>
             Read More
           </a>
         </div>
@@ -668,22 +663,23 @@ CPU与内存的关系：
   
     
     <h2 class="article-title" >
-      <a href="/35479f43ab63/">
-        计算机操作系统（四）：死锁
+      <a href="/be60763b1592/">
+        Vuex教程（三）：TodoList案例
       </a>
     </h2>
   
   <div class='md'>
     
       
-        死锁概述
-死锁概念：指多个进程因竞争共享资源而造成的一种僵局，若无外力作用，这些进程都将永远不能再向前推进。如果死锁发生，会浪费大量系统资源，甚至导致系统崩溃。
-死锁的定义：在一组进程发生死锁的情况下，这组死锁进程中的每一个进程，都在等待另一个死锁进程所占有的资源。 
-关于死锁的一些结论：
-参与死锁的进程最少是两个；
-参与死锁的进程至少有两个已经占有资源；
-参与死锁的所有进程都在等待资源；
-...
+        初始化项目
+需要安装的依赖包：vuex、axios、ant-design-vue，vuex 我们已经有了，需要安装另外两个：
+1npm install axios ant-design-vue --save-dev
+
+我们承接之前创建过的项目，删除 /src/components 文件夹，清空 /src/App.vue 以及 /src/store/index.js 中的代码
+
+
+
+项目的基本...
       
     
   </div>
@@ -694,12 +690,12 @@ CPU与内存的关系：
         <time>2021-03-20</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/">学校课程</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">计算机操作系统</a>
+          <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/vue/">vue</a>
         
       </div>
       
         <div>
-          <a class='readmore' href='/35479f43ab63/'>
+          <a class='readmore' href='/be60763b1592/'>
             Read More
           </a>
         </div>
@@ -721,21 +717,24 @@ CPU与内存的关系：
   
     
     <h2 class="article-title" >
-      <a href="/29326ada3e53/">
-        计算机操作系统（三）：处理机调度
+      <a href="/75f824da8763/">
+        Vuex教程（二）：几大核心概念
       </a>
     </h2>
   
   <div class='md'>
     
       
-        处理机调度的层次和调度算法的目标处理机调度的层次
-高级调度：
-作业调度或长程调度，也称为接纳调度。
-主要任务是按一定的原则对外存上处于后备状态的作业进行选择，给选中的作业分配内存、输入/输出设备等必要的资源，并建立相应的进程，放入就绪队列，以使该作业的进程获得竞争处理机的权利。
-高级调度的时间尺度通常是分钟、小时或天。
-在每次作业调度时，须决定：
-接纳多少个作业：取决于多道程序度，即允许多少...
+        核心概念概述vuex 的核心概念如下：
+
+State
+Mutation
+Action
+Getter
+
+
+State认识statestate 提供唯一的公共数据源，所有共享的数据都要放在 store 的 state 中进行存储
+创建 state123456// 创建 store 数据源，提供唯一的公共数据const store = new Vuex.Store(&#123;  // 创建一个新...
       
     
   </div>
@@ -746,12 +745,12 @@ CPU与内存的关系：
         <time>2021-03-20</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/">学校课程</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">计算机操作系统</a>
+          <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/vue/">vue</a>
         
       </div>
       
         <div>
-          <a class='readmore' href='/29326ada3e53/'>
+          <a class='readmore' href='/75f824da8763/'>
             Read More
           </a>
         </div>
@@ -773,19 +772,25 @@ CPU与内存的关系：
   
     
     <h2 class="article-title" >
-      <a href="/279bab449d3d/">
-        计算机操作系统（二）：进程的初步认识
+      <a href="/c6eabb17a429/">
+        Vuex教程（一）：初次感受Vuex
       </a>
     </h2>
   
   <div class='md'>
     
       
-        进程与线程的知识体系图
+        vuex 概述回顾组件传值
+父组件向子组件传值：一般用 v-bind 属性绑定实现
+子组件向父组件传值：一般同 v-on 事件绑定实现
+兄弟组件间共享数据：一般用 EventBus 实现
 
-在之后的文章中会陆续讲到，这里我们只说线程的知识
+引入 vuex
+什么是 vuex：它是实现组件全局状态（数据）管理的一种机制，可以很方便地实现组件之间数据的共享
 
-前言操作系统中最核心的概念就是进程，进程是对正在运行中的程序的一个抽象。操作系统的其他所有内容都是围绕着进程展开的。进程是操作系统提供的最古老也是最重要的概念之一。即使可以使用的CPU只有一一个，它们也支持（伪） 并发操作。它们会将一 一个单独的CPU抽象为多个虚拟机的CPU。可以说，没有进程的抽象，现代操作系统将...
+不使用 vuex 对比 使用 vuex：
+
+可见，在不使用 vuex 时，要使用大范围或...
       
     
   </div>
@@ -796,12 +801,12 @@ CPU与内存的关系：
         <time>2021-03-20</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/">学校课程</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">计算机操作系统</a>
+          <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/vue/">vue</a>
         
       </div>
       
         <div>
-          <a class='readmore' href='/279bab449d3d/'>
+          <a class='readmore' href='/c6eabb17a429/'>
             Read More
           </a>
         </div>
@@ -823,18 +828,24 @@ CPU与内存的关系：
   
     
     <h2 class="article-title" >
-      <a href="/bfb7f7b98435/">
-        计算机操作系统（一）：认识操作系统
+      <a href="/41065790d3f7/">
+        Vue教程（十）：详解生命周期
       </a>
     </h2>
   
   <div class='md'>
     
       
-        操作系统简介
-现代计算机系统由一个或多个处理器、主存、打印机、键盘、鼠标、显示器、网络接口以及各种输入/输出设备构成。
-在硬件的基础上，计算机安装了一层软件，这些软件能够通过响应用户输入的指令达到控制硬件的效果，从而满足用户的需求，这种软件被称之为 “操作系统”，
-我们一般常见的操作系统主要有：Windows、Linux、FreeBSD 或 OS X，这种带有图形界面的操作系统，被统称为 “...
+        
+生命周期钩子，也叫  “生命周期函数”、“生命周期事件”，之前在 Vue教程（三）：实例与模板语法 中简单介绍了生命周期，现在详细解释
+
+
+之前说过，在 Vue 中要渲染一块页面内容的时候，会有这么几个过程：
+
+① 解析语法生成 AST。
+② 根据 AST 结果，完成 data 数据初始化。
+③ 根据 AST 结果和 data 数据绑定情况，生成虚拟 DOM。
+④ 将虚拟 DOM 生成真正...
       
     
   </div>
@@ -845,12 +856,233 @@ CPU与内存的关系：
         <time>2021-03-20</time>
         
           <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/">学校课程</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">计算机操作系统</a>
+          <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/vue/">vue</a>
         
       </div>
       
         <div>
-          <a class='readmore' href='/bfb7f7b98435/'>
+          <a class='readmore' href='/41065790d3f7/'>
+            Read More
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/d955e5aaf64c/">
+        Vue教程（九）：组件终结篇
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        Prop使用 Prop 传递数据
+组件实例的作用域是孤立的。这意味着不能（也不应该）在子组件的模板内直接引用父组件的数据。要让子组件使用父组件的数据，我们需要通过子组件的 props 选项，子组件要显示地用 props 选项声明它期望获得的数据。
+
+组件获得了 prop 之后，它就如同该组件的 data 一样，可以在模板内使用，而对于根组件，也可以如同 vm.prop 一样使用。
+
+关于 P...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time>2021-03-20</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/vue/">vue</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/d955e5aaf64c/'>
+            Read More
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/34ed31bc146a/">
+        Vue教程（八）：ToDoList案例
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        ToDoList要求
+目标：
+显示一个输入框，一个按钮
+在输入框中输入内容，点击按钮即在页面中显示出该内容，之后输入框恢复空白
+
+
+若要完全理解这个小demo，需要一些前提条件：
+vue基础指令
+初步理解JavaScript中的作用域以及this关键字
+Vue全局组件以及局部组件的用法
+
+
+
+
+最普通的方式12345678910111213141516171819202122232425&l...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time>2021-03-20</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/vue/">vue</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/34ed31bc146a/'>
+            Read More
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/47a92c648838/">
+        Vue教程（七）：组件通信详解
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        
+Props / $emit
+父传子用 props：父组件通过 v-bind 将数据传递出去，子组件通过 props 接收数据子传父用 $emit：子组件通过 emit 将数据传递出去，父组件通过事件接收数据
+
+Props：父组件传给子组件
+父组件：
+1234567891011121314151617181920&lt;template&gt;  &lt;div class&#x3D;&qu...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time>2021-03-20</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/vue/">vue</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/47a92c648838/'>
+            Read More
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/114013a3cada/">
+        Vue教程（六）：组件的理解、定义、使用
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        组件的理解什么是组件？
+组件其实就是页面中的一部分，它是一个具有独立的逻辑和功能或界面，同时又能根据规定的接口规则进行相互融合，变成一个完整的应用。就好比电脑的鼠标、硬盘等一个个元件
+前端组件化的核心思路就是将一个巨大复杂的东西才分成粒度合理的小东西
+
+使用组件的好处
+提高开发效率
+方便重复使用
+简化调试步骤
+提升项目的可维护性
+便于协同开发
+
+Vue 中的组件
+Vue 允许我们使用小型、独...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time>2021-03-20</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/vue/">vue</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/114013a3cada/'>
             Read More
           </a>
         </div>
@@ -877,8 +1109,14 @@ CPU与内存的关系：
           </a>
         
         <p class="current">
-          2 / 2
+          2 / 10
         </p>
+        
+          <a class="next" rel="next" href="/page/3/">
+            <section class="post next white-box shadow">
+              &nbsp;Next&nbsp;<i class="fas fa-chevron-right" aria-hidden="true"></i>
+            </section>
+          </a>
         
       </div>
     
@@ -975,6 +1213,56 @@ CPU与内存的关系：
       <ul class="entry navigation">
         
           <li><a class="flat-box"
+            title="/categories/ACM/" href="/categories/ACM/"
+            id="categoriesACM"
+            ><div class='name'>ACM</div><div class='badge'>(12)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/%E5%89%8D%E7%AB%AF/" href="/categories/%E5%89%8D%E7%AB%AF/"
+            id="categoriesE5898DE7ABAF"
+            ><div class='name'>前端</div><div class='badge'>(62)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E5%89%8D%E7%AB%AF/JavaScript/" href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/"
+            id="categoriesE5898DE7ABAFJavaScript"
+            ><div class='name'>JavaScript</div><div class='badge'>(8)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E5%89%8D%E7%AB%AF/css/" href="/categories/%E5%89%8D%E7%AB%AF/css/"
+            id="categoriesE5898DE7ABAFcss"
+            ><div class='name'>css</div><div class='badge'>(2)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E5%89%8D%E7%AB%AF/node/" href="/categories/%E5%89%8D%E7%AB%AF/node/"
+            id="categoriesE5898DE7ABAFnode"
+            ><div class='name'>node</div><div class='badge'>(6)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E5%89%8D%E7%AB%AF/react/" href="/categories/%E5%89%8D%E7%AB%AF/react/"
+            id="categoriesE5898DE7ABAFreact"
+            ><div class='name'>react</div><div class='badge'>(7)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E5%89%8D%E7%AB%AF/vue/" href="/categories/%E5%89%8D%E7%AB%AF/vue/"
+            id="categoriesE5898DE7ABAFvue"
+            ><div class='name'>vue</div><div class='badge'>(18)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E5%89%8D%E7%AB%AF/webpack/" href="/categories/%E5%89%8D%E7%AB%AF/webpack/"
+            id="categoriesE5898DE7ABAFwebpack"
+            ><div class='name'>webpack</div><div class='badge'>(4)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E5%89%8D%E7%AB%AF/%E5%BC%80%E5%8F%91/" href="/categories/%E5%89%8D%E7%AB%AF/%E5%BC%80%E5%8F%91/"
+            id="categoriesE5898DE7ABAFE5BC80E58F91"
+            ><div class='name'>开发</div><div class='badge'>(15)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E5%89%8D%E7%AB%AF/%E9%9A%8F%E7%AC%94%E6%BC%AB%E8%B0%88/" href="/categories/%E5%89%8D%E7%AB%AF/%E9%9A%8F%E7%AC%94%E6%BC%AB%E8%B0%88/"
+            id="categoriesE5898DE7ABAFE99A8FE7AC94E6BCABE8B088"
+            ><div class='name'>随笔漫谈</div><div class='badge'>(2)</div></a></li>
+        
+          <li><a class="flat-box"
             title="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/"
             id="categoriesE5ADA6E6A0A1E8AFBEE7A88B"
             ><div class='name'>学校课程</div><div class='badge'>(16)</div></a></li>
@@ -1016,7 +1304,7 @@ CPU与内存的关系：
 
 
     <div class='content'>
-      <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 14px; color: #999">数据库</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 24px; color: #555">计算机操作系统</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 19px; color: #777">计算机网络</a>
+      <a href="/tags/ES6/" style="font-size: 16.22px; color: #8a8a8a">ES6</a> <a href="/tags/Git/" style="font-size: 19.56px; color: #737373">Git</a> <a href="/tags/JavaScript/" style="font-size: 18.44px; color: #7b7b7b">JavaScript</a> <a href="/tags/css/" style="font-size: 15.11px; color: #919191">css</a> <a href="/tags/expres/" style="font-size: 14px; color: #999">expres</a> <a href="/tags/koa/" style="font-size: 16.22px; color: #8a8a8a">koa</a> <a href="/tags/next-js/" style="font-size: 14px; color: #999">next.js</a> <a href="/tags/node/" style="font-size: 15.11px; color: #919191">node</a> <a href="/tags/react%E5%9F%BA%E7%A1%80/" style="font-size: 18.44px; color: #7b7b7b">react基础</a> <a href="/tags/redux/" style="font-size: 14px; color: #999">redux</a> <a href="/tags/vue-cli/" style="font-size: 14px; color: #999">vue-cli</a> <a href="/tags/vue-router/" style="font-size: 17.33px; color: #828282">vue-router</a> <a href="/tags/vuex/" style="font-size: 16.22px; color: #8a8a8a">vuex</a> <a href="/tags/vue%E5%9F%BA%E7%A1%80/" style="font-size: 22.89px; color: #5d5d5d">vue基础</a> <a href="/tags/webpack/" style="font-size: 17.33px; color: #828282">webpack</a> <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" style="font-size: 15.11px; color: #919191">开发工具</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 16.22px; color: #8a8a8a">数据库</a> <a href="/tags/%E6%B0%B4%E9%A2%98/" style="font-size: 24px; color: #555">水题</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 15.11px; color: #919191">浏览器</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 21.78px; color: #646464">计算机操作系统</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 18.44px; color: #7b7b7b">计算机网络</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 20.67px; color: #6c6c6c">踩坑</a>
     </div>
   </section>
 
