@@ -1,0 +1,2128 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
+
+  <!-- 页面元数据 -->
+  
+  <title>计算机操作系统（八）：页面置换算法 - Ozzie | Nicholas</title>
+  
+    <meta name="keywords" content="计算机操作系统">
+  
+
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://avatars.githubusercontent.com/u/49378661?s=460&u=48820ed6b04ef7690959e325cd670dcd67efa5a5&v=4">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+</head>
+
+  <body>
+    
+
+<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://avatars.githubusercontent.com/u/49378661?s=460&u=48820ed6b04ef7690959e325cd670dcd67efa5a5&v=4'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>更多
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://volantis.js.org/v4/getting-started/
+                  
+                  
+                  
+                    id="https:volantisjsorgv4getting-started"
+                  >
+                  主题文档
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <hr>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/volantis-x/hexo-theme-volantis/
+                  
+                  
+                  
+                    id="https:githubcomvolantis-xhexo-theme-volantis"
+                  >
+                  主题源码
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>更多
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://volantis.js.org/v4/getting-started/
+                  
+                  
+                  
+                    id="https:volantisjsorgv4getting-started"
+                  >
+                  主题文档
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <hr>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/volantis-x/hexo-theme-volantis/
+                  
+                  
+                  
+                    id="https:githubcomvolantis-xhexo-theme-volantis"
+                  >
+                  主题源码
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+        <div id="half" class='cover-wrapper post dock' style="display: ;">
+          
+            <div id='cover-backstretch'></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">Ozzie | Nicholas</p>
+    
+    
+      <p class="subtitle">If not now, when?   If not me, who?</p>
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/"
+              
+              
+              id="home">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f5c3.svg'><p>首页</p>
+            </a>
+          
+            <a href="/categories/"
+              
+              
+              id="categories">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f516.svg'><p>分类</p>
+            </a>
+          
+            <a href="/tags/"
+              
+              
+              id="tags">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f396.svg'><p>标签</p>
+            </a>
+          
+            <a href="/archives/"
+              
+              
+              id="archives">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f389.svg'><p>归档</p>
+            </a>
+          
+            <a href="/friends/"
+              
+              
+              id="friends">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f4f0.svg'><p>友链</p>
+            </a>
+          
+            <a href="/about/"
+              
+              
+              id="about">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f9ec.svg'><p>关于</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        计算机操作系统（八）：页面置换算法
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://avatars.githubusercontent.com/u/49378661?s=460&u=48820ed6b04ef7690959e325cd670dcd67efa5a5&v=4">
+    <p>Ozzie</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/">学校课程</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">计算机操作系统</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Mar 20, 2021</p>
+  </a>
+</div>
+
+          
+        
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <h2 id="虚拟内存"><a href="#虚拟内存" class="headerlink" title="虚拟内存"></a>虚拟内存</h2><p>虚拟内存的基本思想：每个程序都有自己的地址空间，这个空间被分割成多个块，每一个块被称作一页或页面。每一页有连续的地址范围。</p>
+<p>这些页被映射到物理内存，但并不是所有的页都必须在内存中才能运行程序。</p>
+<p>当程序引用到一部分在物理内存中的地址空间时，由硬件立刻执行必要的映射。</p>
+<p>当程序引用到一部分不在物理内存中的地址空间时，由操作系统负责将缺失的部分装入物理内存并重新执行失败的指令。</p>
+<h3 id="Linux-进程内存布局"><a href="#Linux-进程内存布局" class="headerlink" title="Linux 进程内存布局"></a>Linux 进程内存布局</h3><ol>
+<li>进程内存空间通过分段存储来管理</li>
+</ol>
+<p><img src="https://user-images.githubusercontent.com/49378661/99282736-0aa50580-286f-11eb-8938-780eb7c05ad3.png" class="lazyload" data-srcset="https://user-images.githubusercontent.com/49378661/99282736-0aa50580-286f-11eb-8938-780eb7c05ad3.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20201116222635496"></p>
+<ol start="2">
+<li>内核空间（kernel space）(1G)：内核总是驻留在内存中，是操作系统的一部分。内核空间为内核保留，不允许应用程序读写该区域的内容或直接调用内核代码定义的函数。</li>
+<li>用户空间（3G）：<ul>
+<li>环境变量（environment variables）</li>
+<li>命令行参数（command-line arguments）</li>
+<li>栈（stack）：栈又称堆栈，由编译器自动分配释放，用来存储临时数据和栈帧。</li>
+<li>内存映射段（memory mapping segment）：将硬盘文件的内容直接映射到内存，内存映射是一种方便高效的文件I/O方式， 因而被用于装载动态共享库。</li>
+<li>堆（heap）：堆用于存放进程运行时动态分配的内存段。</li>
+<li>BSS段（bss segment）：静态内存分配，保存未初始化的全局及静态变量（皆为0），可读可写。</li>
+<li>数据段（data segment）：静态内存分配，保存已初始化的全局及静态变量，可读可写。</li>
+<li>代码段（text segment）：保存可执行机器码和常量，可读不可写可执行。</li>
+<li>保留区（reserved）(32位cpu下占128M)：位于虚拟地址空间的最低部分，未赋予物理地址。任何对它的引用都是非法的，用于捕捉使用空指针和小整型值指针引用内存的异常情况。<ul>
+<li>它并不是一个单一的内存区域，而是对地址空间中受到操作系统保护而禁止用户进程访问的地址区域的总称。</li>
+<li>在32位X86架构的Linux系统中，用户进程可执行程序一般从虚拟地址空间0x08048000开始加载。该加载地址由ELF文件头决定</li>
+<li>交换分区：在物理内存满时， 如果还需要内存资源，内核则把物理内存中非活动的页面放到交换分区中。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h3><p>大部分虚拟内存系统中都使用一种称为分页的技术。</p>
+<p>由程序产生的地址称为虚拟地址，它们构成了一个虚拟地址空间。在没有虚拟内存的计算机上，系统直接把虚拟地址送到内存总线上，读写操作使用具有相同地址的物理内存字；而在使用虚拟内存的情况下，虚拟地址不是被直接送到内存总线上，而是被送到<strong>内存管理单元</strong>（Memory Management Unit，MMU），MMU把虚拟地址映射为物理内存地址。</p>
+<p>虚拟地址空间按照固定大小划分成被称为页面（page）的若干单元。在物理内存中对应的单元称为<strong>页框</strong>。页面和页框的大小通常是一样的。实际系统中的页面大小从512字节到1GB。</p>
+<p>栗子：一页4KB，64KB的虚拟地址空间和32KB的物理内存可得到16个虚拟页面和8个页框。从虚拟地址到物理地址的流程：<br><img src="https://img-blog.csdnimg.cn/20190810144722509.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjA5NzQx,size_16,color_FFFFFF,t_70#pic_center" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/20190810144722509.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjA5NzQx,size_16,color_FFFFFF,t_70#pic_center" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="在这里插入图片描述"></p>
+<ul>
+<li>在上图中，虚拟地址8196（二进制是0010 0000 0000 0100），输入的16位虚拟地址被分为4位的页号和12位的偏移量。4位的页号可以表示16个页面，12位的偏移量可以为一页内的全部4096个字节编址。</li>
+<li>可用页号作为页表的索引，以得出对应于该虚拟页面的页框号。如果“在/不在”位是0，则引起缺页中断。如果该位是1，则将在页表中查到的页框号复制到输出寄存器的高3位中，再加上输入虚拟地址的低12位偏移量。如此就构成了15位的物理地址。输出寄存器的内容随即被作为物理地址送到内存总线。</li>
+<li>此处讨论<strong>缺页中断</strong>（或称为<strong>缺页错误</strong>）发生的事：假如操作系统访问虚拟页面B产生缺页中断，决定放弃页框1（对应虚拟页面A），那么它将把产生缺页中断所对应的虚拟页面（页面B）装入页框1的起始物理地址，并对MMU映射做两处修改：首先，它要将原来页框1所对应的虚拟页面（页面A）的表项设为未映射，使以后任何对原来虚拟页面（页面A）的访问都导致陷阱。随后，把引起缺页中断（页面B）的的表项设为映射，因此在引起陷阱的指令重新启动时，它将虚拟页面B映射为物理地址页框1中的某个地址。</li>
+</ul>
+<h3 id="页表"><a href="#页表" class="headerlink" title="页表"></a>页表</h3><p>虚拟地址被分成虚拟页号（高地址）和偏移量（低地址）两部分。不同的划分对应了不同的页面大小。</p>
+<p>虚拟页号可作为页表的索引，以找到该虚拟页面对应的页表项。由页表项可以找到对应的页框。然后把页框号拼接到偏移量的高位端，以替换调虚拟页号，形成送往内存的物理地址。</p>
+<p>页表的目的是把虚拟页面映射为页框，把虚拟地址中的虚拟页面域替换成页框域，从而形成物理地址（本篇博客讨论的情况均不涉及虚拟机，每个虚拟机都需要有自己的虚拟内存，因此页表组织变得很复杂，包括影子页表和嵌套页表）。</p>
+<p>页表项的结构：</p>
+<p><img src="https://user-images.githubusercontent.com/49378661/99282795-1ee90280-286f-11eb-87ad-832ffbe5945b.png" class="lazyload" data-srcset="https://user-images.githubusercontent.com/49378661/99282795-1ee90280-286f-11eb-87ad-832ffbe5945b.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20201116223627719"></p>
+<ul>
+<li>页框号：最重要的就是页框号，页映射的目的就是找到这个值</li>
+<li>“在/不在”位：是1时表示该表项是有效的，可以使用；是0时则表示该表项对应的虚拟页面现在不在内存中，访问该页面会引起一个缺页中断。</li>
+<li>保护位：指出一个页允许什么样的方式访问，最简单的形式是只有一位，0表示读/写，1表示只读；更先进的方式是使用三位，各位分别表示是否启用读、写、执行该页面。</li>
+<li>修改位：记录页面的使用情况，在写入一个页时自动设置修改位。如果一个页面已经被修改过（即它是“脏”的），则必须把它写会磁盘。如果没有被修改过（即它是“干净”的），可以直接被丢弃，因为它在磁盘上的副本仍然是有效的。<strong>脏位</strong>，反映看该页面的状态。</li>
+<li>访问位：不论是读还是写，系统都会在该页面被访问时设置访问位。用于页面置换算法中。</li>
+<li>禁止该页面被高速缓存：对于映射到设备寄存器而不是常规内存的页面很重要。具有独立的I/O空间而不使用内存映射I/O的机器不需要这一位。</li>
+</ul>
+<h3 id="加速分页过程"><a href="#加速分页过程" class="headerlink" title="加速分页过程"></a>加速分页过程</h3><p>每次访问内存都需要进行虚拟地址到物理地址的映射，每条指令进行一两次或更多页表访问是必要的。如果执行一条指令需要1ns，页表查询必须在0.2ns之内完成，以避免映射成为一个主要瓶颈。</p>
+<p>现代计算机使用至少32位的虚拟地址。假设页面大小为4KB，32位的地址空间将有100万页，那么页表必然有100万条表项，而且每个进程都需要自己的页表。64位地址空间简直多到超乎你的想象。</p>
+<p>转换检测缓冲区：</p>
+<ul>
+<li> 大多数程序总是对少量的页面进行多次的访问，只有很少的页表项会被反复读取，而其他大的页表项很少被访问。利用这种特性有一种解决方案：为计算机设计一个小型的硬件设备，将虚拟地址直接映射到物理地址，而不必再访问页表。这种设备称为转换检测缓冲区（Translation Lookaside Buffers，TLB），有时又称为相联存储器或快表。它通常在MMU中，包含少量的表项，在实际中很少会超过256个。每个表项记录了一个页面的相关信息，包括虚拟页号、页面的修改位、保护码和该页锁对应的物理页框，还有另外一位用来记录这个表项是否有效（即是否在使用）。</li>
+<li> TLB的工作过程：将一个虚拟地址放入MMU中进行转换时，硬件首先通过将该虚拟页号与TLB中所有表项同时（并行）进行匹配，判断虚拟页面是否在其中。如果发现在，并且不违反保护码，则将页框号直接从TLB中取出而不必再访问页表。如果违反了保护码，则会产生一个保护错误，就像对页表进行非法操作一样。如果虚拟页号不在TLB中，此时就会去进行正常的页表查询。接着从TLB中淘汰掉一个表项，然后用找到的页表项代替它。当一个表项被清除除TLB时，将修改位复制到内存中的页表项，而除了访问位，其他的值不变。当页表项中从页表中装入TLB中时，所有的值都来自内存。</li>
+</ul>
+<p>软件TLB管理：</p>
+<ul>
+<li>现代许多的机器，几乎所有的页面管理都在软件中实现。TLB被操作系统显示地加载，当发生TLB访问失效时，生成一个TLB失效并将问题交给操作系统解决。系统找到该页面，然后从TLB中删除一个项，接着装载一个新的项，最后再执行先前出错的指令。TLB失效比缺页中断更加频繁。</li>
+<li>如果TLB大到（如64个表项）可以减少失效率时，TLB的软件管理就会变得足够有效。</li>
+<li>在减少TLB失效的同时，又要在发生TLB失效时减少处理开销。有时候操作系统能用“直觉”指出哪些页面下一步可能会被用到并预先为它们在TLB中装载表项。</li>
+<li>（软件、硬件）处理TLB失效常用的办法都是找到页表并执行索引操作以定位将要访问的页面。软件做这样的搜索时，通过在内存中的固定位置维护一个大的（如4KB）TLB表项的软件高速缓存（该高速缓存的页面一直保存在TLB中）来减少TLB失效。</li>
+<li>两种不同的TLB失效：<ul>
+<li>软失效：一个页面访问在内存中而不在TLB中，此时要做的是更新TLB，不需要产生磁盘I/O。（10~20个机器指令，几纳秒）</li>
+<li>硬失效：页面本身不在内存中（当然也不TLB中），此时需要一次磁盘存取以装入该页面。（几毫秒，硬失效的处理时间往往是软失效的百万倍）：在也表中查找相应的映射被称为<strong>页表遍历</strong>，假设页表遍历没有在进程的页表汇总找到需要的页，从而产生了一个缺页错误，此时有三种可能：<ul>
+<li>所需要的页面就在内存中，但未记录在该进程的页表里。比如该页面可能已由其他其他进程从硬盘中调入内存，这种情况只需要把所需要的页面正确映射到页表中，而不是从磁盘调入。这是一种软失效，称为<strong>次要缺页错误</strong>。</li>
+<li>需要从硬盘重新调入页面，这就是<strong>严重缺页错误</strong>。</li>
+<li>程序访问了一个非法地址，根本不需要向TLB中新增映射。此时，操作系统一般会通过报告<strong>段错误</strong>来终止该程序。只有第三种缺页属于程序错误，其他缺页情况都会被硬件或操作系统以降低性能为代价而自动修复。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="针对大内存的页表"><a href="#针对大内存的页表" class="headerlink" title="针对大内存的页表"></a>针对大内存的页表</h3><p>两种办解决巨大的虚拟地址空间？</p>
+<ol>
+<li><p>多级页表：32位的虚拟地址被划分为10位的PT1域，10位的PT2域和12位的Offset(偏移量)域。因为偏移量是12位，所以页面大小是4KB，共有220个页面。假设每个进程都占用了4G的线性地址空间，页表共含1M个表项，每个表项占4个字节，那么每个进程的页表要占据4M的内存空间。为了节省页表占用的空间，我们使用两级页表。每个进程都会被分配一个页目录，但是只有被实际使用页表才会被分配到内存里面。一级页表需要一次分配所有页表空间，两级页表则可以在需要的时候再分配页表空间。</p>
+<ul>
+<li><p>引入多级页表的原因是避免把全部页表一直保存在内存中（特别是一些从不需要的页表）：<br><img src="https://img-blog.csdnimg.cn/20190810205728364.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjA5NzQx,size_16,color_FFFFFF,t_70#pic_center" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/20190810205728364.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQxMjA5NzQx,size_16,color_FFFFFF,t_70#pic_center" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="在这里插入图片描述"></p>
+</li>
+<li><p>在左边的是顶级页表（页目录表），它有1024个表项，对应于10位的PT1域。当一个虚拟地址被送到MMU时，MMU首先提取PT1域并把该值作为访问顶级页表的索引。因为整个4GB（即32位）虚拟地址空间已经按4KB大小分块，所以顶级页表中这1024个表项的每一个都表示4M的块地址范围。二级页表的每一项都表示4KB的地址范围。Offset对4096个地址进行编址。</p>
+</li>
+<li><p>由索引顶级页表得到的表项中含有二级页表的地址或页框号。顶级页表的表项0指向程序正文的页表，表项1指向数据的页表，表项1023指向堆栈的页表，其他的表项未用，现在把PT2域作为访问选定的二级页表的索引，以便找到该虚拟页面的对应页框号。</p>
+</li>
+<li><p>虽然虚拟地址空间超过100万个页面，实际上只需要4个页表：顶级页表，0-4M（正文段），4M-8M（数据段）和顶端4M（堆栈段）的二级页表。顶级页表中1021个表项的“在/不在”都设成0，当访问他们时强制产生一个缺页中断。</p>
+</li>
+<li><p>二级页表可扩充为三级、四级或更多级。级数越多，灵活性就越大。</p>
+</li>
+<li><p><strong>页目录指针表</strong>。每一级的页表项由32位扩展到了64位，这样处理器就能寻址到4GB以外的地址空间。</p>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="最优页面置换算法"><a href="#最优页面置换算法" class="headerlink" title="最优页面置换算法"></a>最优页面置换算法</h2><blockquote>
+<p>当发生缺页中断时，操作系统必须在内存中选择一个页面将其换出内存，来为即将调入的页面腾出空间。</p>
+</blockquote>
+<ol>
+<li>此算法不可能实现。在发生缺页中断的时候，在内存中的页面有的很快就会被访问，而有的页面可能要到10、100、1000条指令后才会被访问。此时要置换最迟被访问的页面，把因调用被替换的页面而引起的中断推迟到将来，越久越好。当缺页中断发生时，操作系统无法知道各个页面下一次将在什么时候被访问，因此这个算法是无法被实现的。</li>
+<li>这个算法可以用来对其他可实现算法的性能进行比较。</li>
+</ol>
+<hr>
+<h2 id="最近未使用页面置换算法（NRU，Not-Recently-Used）"><a href="#最近未使用页面置换算法（NRU，Not-Recently-Used）" class="headerlink" title="最近未使用页面置换算法（NRU，Not Recently Used）"></a>最近未使用页面置换算法（NRU，Not Recently Used）</h2><ol>
+<li><p>当页面被访问（读或写）时设置R位，页面被写入（修改）时设置M位。</p>
+</li>
+<li><p>当启动一个进程时，它的所有页面的两个位都由操作系统设为0，R位被定期地（比如在每次时钟中断时）清零，以区别最近没有被访问的页面和被访问的页面。</p>
+</li>
+<li><p>当发生缺页中断时，操作系统检查所有的页面并根据它们当前的R位和M位的值，把它们分为4类：</p>
+<ul>
+<li>第0类：没有被访问，没有被修改。</li>
+<li>第1类：没有被访问，已被修改（M）。</li>
+<li>第2类：已被访问，没有被修改（R）。</li>
+<li>第3类：已被访问，已被修改（RM）。</li>
+</ul>
+</li>
+<li><p>NRU 算法随机地从类编号最小的非空类中挑选一个页面淘汰。在一个时间滴答中（大约20ms）淘汰一个没有被访问的已修改页面要比淘汰一个被频繁使用的“干净”页面好。NRU算法的主要优点是易于理解和能够有效地被实现，虽然它的性能不是最好的，但是已经够用了。</p>
+</li>
+<li><p>算法思路：用一个数组来存储数据，给每一个数据项标记一个访问时间戳，每次插入新数据项的时候，先把数组中存在的数据项的时间戳自增，并将新数据项的时间戳置为0并插入到数组中。每次访问数组中的数据项的时候，将被访问的数据项的时间戳置为0。当数组空间已满时，将时间戳最大的数据项淘汰。</p>
+<ul>
+<li>所以要用此方法，必须定义一个二维数组或者是结构体，我结合了时间戳、栈和顺序表的思路，重新设计了一个较好的方法。</li>
+</ul>
+</li>
+<li><p>代码实现：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 100</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">judge</span><span class="params">(<span class="keyword">int</span> a[],<span class="keyword">int</span> n,<span class="keyword">int</span> x)</span> </span>&#123; <span class="comment">//判断数组中是否已有x，若有返回其下标值，没有则返回-1</span></span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;n; i++)</span><br><span class="line">      <span class="keyword">if</span>(x==a[i])</span><br><span class="line">        <span class="keyword">return</span> i;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">int</span> a[],<span class="keyword">int</span> n)</span> </span>&#123; <span class="comment">//初始化数组为-1</span></span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;n; i++)</span><br><span class="line">      a[i]=<span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> a[],<span class="keyword">int</span> n,<span class="keyword">int</span> x)</span> </span>&#123; <span class="comment">//栈法插入(第一个元素出，后面元素前移，新元素从尾部入)</span></span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;n<span class="number">-1</span>; i++)</span><br><span class="line">      a[i]=a[i+<span class="number">1</span>];</span><br><span class="line">    a[n<span class="number">-1</span>]=x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">move</span><span class="params">(<span class="keyword">int</span> a[],<span class="keyword">int</span> n,<span class="keyword">int</span> i)</span> </span>&#123; <span class="comment">//移动下标为i的元素到尾部</span></span><br><span class="line">    <span class="keyword">int</span> j;</span><br><span class="line">    <span class="keyword">int</span> m=a[i];</span><br><span class="line">    <span class="keyword">for</span>(j=i; j&lt;n<span class="number">-1</span>; j++)</span><br><span class="line">      a[j]=a[j+<span class="number">1</span>];</span><br><span class="line">    a[n<span class="number">-1</span>]=m;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> a[],<span class="keyword">int</span> n)</span> </span>&#123; <span class="comment">//输出当前数组元素</span></span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;n; i++)</span><br><span class="line">      <span class="keyword">if</span>(a[i]!=<span class="number">-1</span>)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot; %d&quot;</span>,a[i]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">stack</span>[MAX];</span><br><span class="line">    <span class="keyword">int</span> top=<span class="number">-1</span>; <span class="comment">//模仿栈的定义</span></span><br><span class="line">    <span class="keyword">int</span> n,x;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;请输入物理块数：\n&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">    init(<span class="built_in">stack</span>,n); <span class="comment">//初始化数组</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;请输入内存访问序列：\n&quot;</span>);</span><br><span class="line">    <span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;x)) &#123;    <span class="comment">//自动读数</span></span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;访问页面%d:\n&quot;</span>,x);</span><br><span class="line">      top++; <span class="comment">//读数后top自动+1</span></span><br><span class="line">      <span class="keyword">if</span>(top==<span class="number">0</span>) <span class="comment">//若数组无元素</span></span><br><span class="line">        <span class="built_in">stack</span>[top]=x; <span class="comment">//插入一个元素</span></span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">if</span>(top&lt;n) &#123; <span class="comment">//若在物理块范围内</span></span><br><span class="line">        <span class="keyword">if</span>(judge(<span class="built_in">stack</span>,n,x)==<span class="number">-1</span>) <span class="comment">//若数组中不存在待插入元素</span></span><br><span class="line">          <span class="built_in">stack</span>[top]=x; ree<span class="comment">//新元素从尾部插入</span></span><br><span class="line">        <span class="keyword">else</span> &#123; <span class="comment">//若数组中存在待插入元素</span></span><br><span class="line">          move(<span class="built_in">stack</span>,top,judge(<span class="built_in">stack</span>,n,x)); <span class="comment">//移动下标为i的元素到尾部</span></span><br><span class="line">          top--; <span class="comment">//因为没有插入新元素，回滚top值</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">//超过物理块数的元素</span></span><br><span class="line">        <span class="keyword">if</span>(judge(<span class="built_in">stack</span>,n,x)==<span class="number">-1</span>) &#123; <span class="comment">//若数组中不存在待插入元素</span></span><br><span class="line">          insert(<span class="built_in">stack</span>,n,x);</span><br><span class="line">        　<span class="comment">//栈法插入(第一个元素出，后面元素前移，新元素从尾部入)</span></span><br><span class="line">          top--; <span class="comment">//因为没有插入新元素，回滚top值</span></span><br><span class="line">      &#125; <span class="keyword">else</span> &#123; <span class="comment">//若数组中存在待插入元素</span></span><br><span class="line">          move(<span class="built_in">stack</span>,n,judge(<span class="built_in">stack</span>,n,x)); <span class="comment">//移动下标为i的元素到尾部</span></span><br><span class="line">          top--;  <span class="comment">//因为没有插入新元素，回滚top值</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">      print(<span class="built_in">stack</span>,n); <span class="comment">//读一个序列号，输出当前数组元素</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h2 id="先进先出页面置换算法（FIFO）"><a href="#先进先出页面置换算法（FIFO）" class="headerlink" title="先进先出页面置换算法（FIFO）"></a>先进先出页面置换算法（FIFO）</h2><p>开销同样较小的FIFO算法，最新进入的页面放在表尾，最早进入的页面放在表头。当缺页中断时，淘汰表头的页面并把新调入的页面加到表尾。这种算法的缺点是可能会把有用的页面淘汰掉。</p>
+<p><img src="https://img-blog.csdnimg.cn/20200523191127778.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTAyODQ0,size_16,color_FFFFFF,t_70" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/20200523191127778.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzM4OTAyODQ0,size_16,color_FFFFFF,t_70" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="在这里插入图片描述"></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;time.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> totalCmdNum 320 <span class="comment">// 指令总数</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BlockNum 4 <span class="comment">// 内存块总数</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 内存块结构体</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> &#123;</span></span><br><span class="line">    <span class="keyword">int</span> id; <span class="comment">// 物理地址</span></span><br><span class="line">    <span class="keyword">int</span> page; <span class="comment">// 页号(默认为-1)</span></span><br><span class="line">    <span class="keyword">int</span> keepTime; <span class="comment">// 在内存中驻留的时间</span></span><br><span class="line">&#125; Block;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> cmdNum = <span class="number">0</span>; <span class="comment">// 指令执行次数</span></span><br><span class="line"><span class="keyword">int</span> curCmd; <span class="comment">// 当前正在执行的指令</span></span><br><span class="line"><span class="keyword">int</span> isExecute[totalCmdNum]; <span class="comment">// 判断每条指令是否执行的标志数组</span></span><br><span class="line"><span class="keyword">double</span> lostPage = <span class="number">0</span>; <span class="comment">// 缺页次数</span></span><br><span class="line">Block *blocks[BlockNum]; <span class="comment">// 内存块指针数组</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span> </span>&#123;</span><br><span class="line">  <span class="comment">// 初始化标志数组</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; totalCmdNum; i++) &#123;</span><br><span class="line">    <span class="comment">// 0代表未执行</span></span><br><span class="line">      isExecute[i] = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// 设置随机数种子</span></span><br><span class="line">    srand(time(<span class="literal">NULL</span>));</span><br><span class="line">  <span class="comment">// 初始化内存块数组</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; BlockNum; i++) &#123;</span><br><span class="line">    <span class="comment">// 分配空间</span></span><br><span class="line">      blocks[i] = (Block *)<span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(Block));</span><br><span class="line">      blocks[i]-&gt;id = i + <span class="number">1</span>; <span class="comment">// 物理地址</span></span><br><span class="line">      blocks[i]-&gt;page = <span class="number">-1</span>; <span class="comment">// -1 代表此页还未分配</span></span><br><span class="line">      blocks[i]-&gt;keepTime = <span class="number">0</span>; <span class="comment">// 内存驻留时间</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 产生指令</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">genCmd</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cmdNum++; <span class="comment">// 累计指令条数</span></span><br><span class="line">    <span class="keyword">if</span> (cmdNum == <span class="number">1</span>) &#123;</span><br><span class="line">      curCmd = rand() % totalCmdNum;</span><br><span class="line">  &#125;</span><br><span class="line">    <span class="keyword">if</span> (cmdNum == <span class="number">2</span>) &#123;</span><br><span class="line">      curCmd++; <span class="comment">// 顺序执行下一条指令</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (cmdNum &gt;= <span class="number">3</span>) &#123;</span><br><span class="line">      <span class="keyword">switch</span> ((cmdNum - <span class="number">2</span>) % <span class="number">4</span>) &#123;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">1</span>: <span class="comment">// 前地址部分</span></span><br><span class="line">          curCmd = rand() % (curCmd - <span class="number">2</span>);</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">2</span>:</span><br><span class="line">        <span class="keyword">case</span> <span class="number">0</span>:</span><br><span class="line">          curCmd++; <span class="comment">// 顺序执行下一条指令</span></span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">        <span class="keyword">case</span> <span class="number">3</span>: <span class="comment">// 后地址部分</span></span><br><span class="line">          curCmd = curCmd + <span class="number">1</span> + rand() % (totalCmdNum - curCmd);</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">    isExecute[curCmd] = <span class="number">1</span>; <span class="comment">// 1代表该指令已被执行(可以重复执行)</span></span><br><span class="line">    <span class="keyword">return</span> curCmd;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 判断所有指令是否全部执行了一遍</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">isFinish</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> flag = <span class="number">1</span>;</span><br><span class="line">  <span class="comment">// 遍历所有指令执行情况</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; totalCmdNum; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (isExecute[i] == <span class="number">0</span>) &#123;</span><br><span class="line">        flag = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">    <span class="keyword">return</span> flag;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 作业调度</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">dispatchJob</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> page = genCmd() / <span class="number">10</span>; <span class="comment">// 根据指令号计算页号</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (; i &lt; BlockNum; i++) &#123;</span><br><span class="line">    <span class="comment">// 如果访问的指令在内存中，则显示其物理地址</span></span><br><span class="line">      <span class="keyword">if</span> (blocks[i]-&gt;page == page) &#123;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;指令%3d在内存块%d中\n&quot;</span>, curCmd, blocks[i]-&gt;id);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 如果访问的指令不在内存中</span></span><br><span class="line">    <span class="keyword">if</span> (i &gt;= BlockNum) &#123;</span><br><span class="line">      i = <span class="number">0</span>;</span><br><span class="line">      <span class="keyword">for</span> (; i &lt; BlockNum; i++) &#123; <span class="comment">// 寻找未分配的内存块</span></span><br><span class="line">        <span class="keyword">if</span> (blocks[i]-&gt;page == <span class="number">-1</span>) &#123;</span><br><span class="line">          blocks[i]-&gt;page = page;</span><br><span class="line">          <span class="comment">//printf(&quot;内存块未分配\n&quot;);</span></span><br><span class="line">          <span class="built_in">printf</span>(<span class="string">&quot;指令%3d在内存块%d中\n&quot;</span>, curCmd, blocks[i]-&gt;id);</span><br><span class="line">          <span class="keyword">break</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 如果所有内存块都已被分配</span></span><br><span class="line">    <span class="keyword">if</span> (i &gt;= BlockNum) &#123;</span><br><span class="line">      <span class="keyword">int</span> oldestBlock = <span class="number">0</span>; <span class="comment">// 最先被分配的内存块</span></span><br><span class="line">      <span class="keyword">int</span> maxKeepTime = blocks[<span class="number">0</span>]-&gt;keepTime; <span class="comment">// 最长内存驻留时间</span></span><br><span class="line">      i = <span class="number">1</span>;</span><br><span class="line">      <span class="keyword">for</span> (; i &lt; BlockNum; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (blocks[i]-&gt;keepTime &gt; maxKeepTime) &#123;</span><br><span class="line">          oldestBlock = blocks[i]-&gt;id;</span><br><span class="line">          maxKeepTime = blocks[i]-&gt;keepTime;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">      blocks[oldestBlock]-&gt;page = page;</span><br><span class="line">      blocks[oldestBlock]-&gt;keepTime = <span class="number">0</span>;</span><br><span class="line">      lostPage++; <span class="comment">// 累计缺页次数</span></span><br><span class="line">      <span class="comment">//printf(&quot;缺页了\n&quot;);</span></span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;指令%3d在内存块%d中\n&quot;</span>, curCmd, blocks[oldestBlock]-&gt;id);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">    i = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (; i &lt; BlockNum; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (blocks[i]-&gt;page != <span class="number">-1</span>) &#123;</span><br><span class="line">        blocks[i]-&gt;keepTime++; <span class="comment">// 累计驻留时间</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    init(); <span class="comment">// 初始化</span></span><br><span class="line">    <span class="keyword">while</span> (<span class="number">1</span>) &#123;</span><br><span class="line">      dispatchJob(); <span class="comment">// 作业调度</span></span><br><span class="line">      <span class="keyword">if</span> (isFinish()) &#123;  <span class="comment">// 判断作业是否运行完成</span></span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n共执行指令%d条\n&quot;</span>, cmdNum);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;缺页率约为:%.1lf%%\n&quot;</span>, (lostPage / cmdNum)*<span class="number">100</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="第二次机会页面置换算法（SC，Second-Chance）"><a href="#第二次机会页面置换算法（SC，Second-Chance）" class="headerlink" title="第二次机会页面置换算法（SC，Second Chance）"></a>第二次机会页面置换算法（SC，Second Chance）</h2><ol>
+<li>对FIFO算法的改进，对FIFO算法做一个简单的修改：检查最老页面的R位。如果R位是0，那么这个页面既老又没有被使用，可以立刻置换掉；如果是1，就将R位置0，并把该页面放到链表的尾端，修改它的装入时间使它就像刚装入时间使它就像刚装入的一样，然后继续搜索。</li>
+<li>第二次机会（second chance）算法是寻找一个在最近的时钟间隔内没有被访问过的页面。如果所有的页面都被访问过了，该算法就简化为纯粹的FIFO算法。假设所有页面的R位都被设置了，操作系统将会一个接一个地把每个页面都移动到链表的尾部并清除被移动的页面的R位。最后又会回到原来的表头页面，此时它的R位已经被清除了，因此这个页面会被淘汰，所以这个算法总是可以结束的。</li>
+<li>假设在时间20发生了一次缺页中断，这时最老的页面是A，它是在时刻0到达的。如果A的R位是0，则将它淘汰出内存，或者把它写回磁盘（如果它已被修改过），或者只是简单地放弃（如果它是“干净”的）；另一方面，如果其R位已经设置了，则将A放到链表的尾部并且重新设置“装入时间”为当前时刻（20），然后清除R位。然后从B页面开始继续搜索合适的页面。</li>
+<li>第二次机会算法就是寻找一个最近的时钟间隔以来没有被访问过的页面。如果所有的页面都被访问过了，该算法就简化为纯粹的FIFO算法。特别地，想象一下，假设图3-15a中所有的页面的R位都被设置了，操作系统将会一个接一个地把每个页面都移动到链表的尾部并清除被移动的页面的R位。算法又将回到页面A，此时它的R位已经被清除了，因此A页面将被淘汰，所以这个算法总是可以结束的。</li>
+</ol>
+<hr>
+<h2 id="时钟页面置换算法（CLOCK）"><a href="#时钟页面置换算法（CLOCK）" class="headerlink" title="时钟页面置换算法（CLOCK）"></a>时钟页面置换算法（CLOCK）</h2><ol>
+<li><p>对第二次机会算法的改进，第二次机会算法经常要在链表中移动页面，既降低了效率又不是很必要。</p>
+</li>
+<li><p>一个更好的做法就是把所有的页面都保存在一个类似钟面的环形链表中，一个表指针指向最老的页面。当发生缺页中断时，首先检查表指针指向的页面，如果它的R位是0就淘汰该页面，并把新的页面插入这个位置，然后把表指针前移一个位置。如果R位是1就清除R位并把表指针前移一个位置；重复这个过程一直到找到一个R位为0的页面为止。</p>
+</li>
+<li><p>代码：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * clock_pro.c</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> *  Created on: 2019年12月6日</span></span><br><span class="line"><span class="comment"> *      Author: zyli</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdbool.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> Maxblocks 3</span></span><br><span class="line"><span class="keyword">int</span> blocks[Maxblocks] = &#123;&#125;;</span><br><span class="line"><span class="keyword">int</span> access[Maxblocks] = &#123;&#125;;</span><br><span class="line"><span class="keyword">int</span> modify[Maxblocks] = &#123;&#125;;</span><br><span class="line"><span class="keyword">int</span> pages_in_blocks = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> is_modified = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">int</span> aimed_i=<span class="number">-1</span>;</span><br><span class="line"><span class="function"><span class="keyword">bool</span> <span class="title">is_aimed</span><span class="params">(<span class="keyword">int</span> pn)</span> </span>&#123;</span><br><span class="line">    aimed_i=<span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;pages_in_blocks; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span>(blocks[i]==pn) &#123;</span><br><span class="line">        aimed_i=i;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">loop</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> taotaip=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;<span class="number">2</span>; j++) &#123;</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;pages_in_blocks; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(!access[i]&amp;&amp;!modify[i]) &#123;</span><br><span class="line">          taotaip=blocks[i];</span><br><span class="line">          <span class="keyword">for</span>(; i&lt;pages_in_blocks; i++) &#123;</span><br><span class="line">            blocks[i]=blocks[i+<span class="number">1</span>];</span><br><span class="line">            access[i]=access[i+<span class="number">1</span>];</span><br><span class="line">            modify[i]=modify[i+<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">          <span class="keyword">if</span>(!j) <span class="built_in">printf</span>(<span class="string">&quot;第一圈有（0，0）的，是页面  %d，淘汰！把新页面放入队尾\n&quot;</span>,taotaip);</span><br><span class="line">          <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;第三圈有（0，0）的，是页面  %d，淘汰！把新页面放入队尾\n&quot;</span>,taotaip);</span><br><span class="line">          <span class="keyword">return</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">      <span class="keyword">if</span>(!j) <span class="built_in">printf</span>(<span class="string">&quot;第一圈没有（0，0）的，接着找（0，1）的\n&quot;</span>);</span><br><span class="line">      <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;第三圈没有（0，0）的，即上一圈（第二圈）全为（0，1）\n&quot;</span>);</span><br><span class="line">      <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;pages_in_blocks; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span>(!(!access[i]&amp;&amp;modify[i])) &#123;</span><br><span class="line">          access[i]=<span class="number">0</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">          taotaip=blocks[i];</span><br><span class="line">          <span class="keyword">for</span>(; i&lt;pages_in_blocks; i++) &#123;</span><br><span class="line">            blocks[i]=blocks[i+<span class="number">1</span>];</span><br><span class="line">            access[i]=access[i+<span class="number">1</span>];</span><br><span class="line">            modify[i]=modify[i+<span class="number">1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">          <span class="keyword">if</span>(!j) <span class="built_in">printf</span>(<span class="string">&quot;第二圈有（0，1）的，是页面  %d，淘汰！第一个（0，1）之前的页面访问位全部置为0，并把新页面放入队尾\n&quot;</span>,taotaip);</span><br><span class="line">          <span class="keyword">else</span> <span class="built_in">printf</span>(<span class="string">&quot;第四圈必有（0，1）的，将第一个（0，1）的，即页面%d淘汰！把新页面放入队尾\n&quot;</span>,taotaip);</span><br><span class="line">          <span class="keyword">return</span>;</span><br><span class="line"></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;第二圈没有（0，1）的，但把所有访问位置为0了，接着第三圈找（0，0）的\n&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">clock_pro</span><span class="params">(<span class="keyword">int</span> pn)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(pages_in_blocks&lt;Maxblocks) &#123;</span><br><span class="line">      <span class="keyword">if</span>(is_aimed(pn)) &#123;</span><br><span class="line">        access[aimed_i]=<span class="number">1</span>;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;输入页面是否被修改%d    (0/1)\n&quot;</span>,pn);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;is_modified);</span><br><span class="line">        <span class="keyword">if</span>(is_modified) modify[aimed_i]=<span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        blocks[pages_in_blocks]=pn;</span><br><span class="line">        access[pages_in_blocks]=<span class="number">1</span>;</span><br><span class="line">        modify[pages_in_blocks]=<span class="number">0</span>;</span><br><span class="line">        pages_in_blocks++;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">      <span class="keyword">if</span>(is_aimed(pn)) &#123;</span><br><span class="line">        access[aimed_i]=<span class="number">1</span>;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;输入页面是否被修改%d    (0/1)\n&quot;</span>,pn);</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;is_modified);</span><br><span class="line">        <span class="keyword">if</span>(is_modified) modify[aimed_i]=<span class="number">1</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        loop();</span><br><span class="line">        blocks[Maxblocks<span class="number">-1</span>]=pn;</span><br><span class="line">        access[Maxblocks<span class="number">-1</span>]=<span class="number">1</span>;</span><br><span class="line">        modify[Maxblocks<span class="number">-1</span>]=<span class="number">0</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print_blocks</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> cato=<span class="number">0</span>;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;此时内存块里状态为：\n&quot;</span>);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;pages_in_blocks; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span>(!access[i] &amp;&amp; !modify[i]) cato=<span class="number">1</span>;</span><br><span class="line">      <span class="keyword">if</span>(!access[i] &amp;&amp;  modify[i]) cato=<span class="number">2</span>;</span><br><span class="line">      <span class="keyword">if</span>( access[i] &amp;&amp; !modify[i]) cato=<span class="number">3</span>;</span><br><span class="line">      <span class="keyword">if</span>( access[i] &amp;&amp;  modify[i]) cato=<span class="number">4</span>;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;%d    %d    %d  ,对应第%d类型页面\n&quot;</span>,blocks[i],access[i],modify[i],cato);</span><br><span class="line">  &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;Maxblocks; i++) &#123;</span><br><span class="line">      blocks[i]=<span class="number">-1</span>;</span><br><span class="line">      access[i]=<span class="number">0</span>;</span><br><span class="line">      modify[i]=<span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">    <span class="keyword">int</span> n=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">while</span>(n&gt;=<span class="number">0</span>) &#123;</span><br><span class="line">      is_modified=<span class="number">0</span>;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;输入此时进程对哪个页面访问,输入-1结束程序\n&quot;</span>);</span><br><span class="line">      <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">      <span class="keyword">if</span>(n&gt;=<span class="number">0</span>) &#123;</span><br><span class="line">        clock_pro(n);</span><br><span class="line">        print_blocks();</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">    system(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h2 id="最近最少使用页面置换算法（LRU，Least-Recently-Used）"><a href="#最近最少使用页面置换算法（LRU，Least-Recently-Used）" class="headerlink" title="最近最少使用页面置换算法（LRU，Least Recently Used）"></a>最近最少使用页面置换算法（LRU，Least Recently Used）</h2><ol>
+<li><p>在缺页中断发生时，置换未使用时间最长的页面。</p>
+</li>
+<li><p>LRU理论上是可以实现的，但是代价很高。维护一个所有页面的链表，最近最多使用的页面在表头，最近最少使用的页面在表尾。困难的是在每次访问内存时都必须要更新整个链表。</p>
+</li>
+<li><p>假设用硬件实现：硬件有一个64位计数器C，它在每条指令执行完后自动加1，每个页表项必须有一个足够容纳这个计数器值的域。在每次访问完内存后，将当前的C值保存到被访问页面的页表项中。一旦发生缺页中断，操作系统就检查所有页表项中计数器的值，找到值最小的一个页面，这个页面就是最近最少使用的页面，但是只有非常少的计算机拥有这样的硬件。</p>
+</li>
+<li><p>算法过程：用一个数组来存储数据，给每一个数据项标记一个访问时间戳，每次插入新数据项的时候，先把数组中存在的数据项的时间戳自增，并将新数据项的时间戳置为0并插入到数组中。每次访问数组中的数据项的时候，将被访问的数据项的时间戳置为0。当数组空间已满时，将时间戳最大的数据项淘汰，所以要用此方法，必须定义一个二维数组或者是结构体，我结合了时间戳、栈和顺序表的思路，重新设计了一个较好的方法。</p>
+</li>
+<li><p>代码实现：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 100</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">judge</span><span class="params">(<span class="keyword">int</span> a[],<span class="keyword">int</span> n,<span class="keyword">int</span> x)</span> </span>&#123; <span class="comment">//判断数组中是否已有x，若有返回其下标值，没有则返回-1</span></span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;n; i++)</span><br><span class="line">      <span class="keyword">if</span>(x==a[i])</span><br><span class="line">        <span class="keyword">return</span> i;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">int</span> a[],<span class="keyword">int</span> n)</span> </span>&#123; <span class="comment">//初始化数组为-1</span></span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;n; i++)</span><br><span class="line">      a[i]=<span class="number">-1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">insert</span><span class="params">(<span class="keyword">int</span> a[],<span class="keyword">int</span> n,<span class="keyword">int</span> x)</span> </span>&#123; <span class="comment">//栈法插入(第一个元素出，后面元素前移，新元素从尾部入)</span></span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;n<span class="number">-1</span>; i++)</span><br><span class="line">      a[i]=a[i+<span class="number">1</span>];</span><br><span class="line">    a[n<span class="number">-1</span>]=x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">move</span><span class="params">(<span class="keyword">int</span> a[],<span class="keyword">int</span> n,<span class="keyword">int</span> i)</span> </span>&#123; <span class="comment">//移动下标为i的元素到尾部</span></span><br><span class="line">    <span class="keyword">int</span> j;</span><br><span class="line">    <span class="keyword">int</span> m=a[i];</span><br><span class="line">    <span class="keyword">for</span>(j=i; j&lt;n<span class="number">-1</span>; j++)</span><br><span class="line">      a[j]=a[j+<span class="number">1</span>];</span><br><span class="line">    a[n<span class="number">-1</span>]=m;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">print</span><span class="params">(<span class="keyword">int</span> a[],<span class="keyword">int</span> n)</span> </span>&#123; <span class="comment">//输出当前数组元素</span></span><br><span class="line">    <span class="keyword">int</span> i;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;n; i++)</span><br><span class="line">      <span class="keyword">if</span>(a[i]!=<span class="number">-1</span>)</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot; %d&quot;</span>,a[i]);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;\n&quot;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> <span class="built_in">stack</span>[MAX];</span><br><span class="line">    <span class="keyword">int</span> top=<span class="number">-1</span>; <span class="comment">//模仿栈的定义</span></span><br><span class="line">    <span class="keyword">int</span> n,x;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;请输入物理块数：\n&quot;</span>);</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;n);</span><br><span class="line">    init(<span class="built_in">stack</span>,n);  <span class="comment">//初始化数组</span></span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;请输入内存访问序列：\n&quot;</span>);</span><br><span class="line">    <span class="keyword">while</span>(~<span class="built_in">scanf</span>(<span class="string">&quot;%d&quot;</span>,&amp;x)) &#123; <span class="comment">//自动读数</span></span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;访问页面%d:\n&quot;</span>,x);</span><br><span class="line">      top++; <span class="comment">//读数后top自动+1</span></span><br><span class="line">      <span class="keyword">if</span>(top==<span class="number">0</span>) <span class="comment">//若数组无元素</span></span><br><span class="line">        <span class="built_in">stack</span>[top]=x; <span class="comment">//插入一个元素</span></span><br><span class="line">      <span class="keyword">else</span> <span class="keyword">if</span>(top&lt;n) &#123; <span class="comment">//若在物理块范围内</span></span><br><span class="line">        <span class="keyword">if</span>(judge(<span class="built_in">stack</span>,n,x)==<span class="number">-1</span>) <span class="comment">//若数组中不存在待插入元素</span></span><br><span class="line">          <span class="built_in">stack</span>[top]=x; <span class="comment">//新元素从尾部插入</span></span><br><span class="line">        <span class="keyword">else</span> &#123; <span class="comment">//若数组中存在待插入元素</span></span><br><span class="line">          move(<span class="built_in">stack</span>,top,judge(<span class="built_in">stack</span>,n,x)); <span class="comment">//移动下标为i的元素到尾部</span></span><br><span class="line">          top--; <span class="comment">//因为没有插入新元素，回滚top值</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123; <span class="comment">//超过物理块数的元素</span></span><br><span class="line">        <span class="keyword">if</span>(judge(<span class="built_in">stack</span>,n,x)==<span class="number">-1</span>) &#123; <span class="comment">//若数组中不存在待插入元素</span></span><br><span class="line">          insert(<span class="built_in">stack</span>,n,x);</span><br><span class="line">        　<span class="comment">//栈法插入(第一个元素出，后面元素前移，新元素从尾部入)</span></span><br><span class="line">          top--; <span class="comment">//因为没有插入新元素，回滚top值</span></span><br><span class="line">      &#125; <span class="keyword">else</span> &#123; <span class="comment">//若数组中存在待插入元素</span></span><br><span class="line">          move(<span class="built_in">stack</span>,n,judge(<span class="built_in">stack</span>,n,x)); <span class="comment">//移动下标为i的元素到尾部</span></span><br><span class="line">          top--; <span class="comment">//因为没有插入新元素，回滚top值</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">      print(<span class="built_in">stack</span>,n); <span class="comment">//读一个序列号，输出当前数组元素</span></span><br><span class="line">  &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h2 id="最不常用页面置换算法（NFU）（Not-Frequently-Used）"><a href="#最不常用页面置换算法（NFU）（Not-Frequently-Used）" class="headerlink" title="最不常用页面置换算法（NFU）（Not Frequently Used）"></a>最不常用页面置换算法（NFU）（Not Frequently Used）</h2><ol>
+<li>用一个软件模拟LRU，该算法将每个页面与一个软件计数器相关联。计数器的初值为0。每次时钟中断时，由操作系统扫描内存中所有的页面，将每个页面的R位（它是0或1）加到它的计数器上。这个计数器大体上跟踪了各个页面被访问的频繁程度。发生缺页中断时，则置换计数器值最小的页面。</li>
+<li>NFU的缺点是它不从不忘记任何事，比如一个页面之前频繁被访问，导致这个它的计数器很大，但是后来它不被访问了，而它的计数器的值还是很大，所以它一直不会被置换出去。</li>
+</ol>
+<hr>
+<h2 id="老化算法"><a href="#老化算法" class="headerlink" title="老化算法"></a>老化算法</h2><ol>
+<li>老化算法是对NFU算法的修改，其修改包括两个部分，首先，在R位被加进之前将计数器右移一位，其次，将R位加到计数器最左端的位而不是最右端的位。</li>
+<li>老化算法中的计数器只有有限位数，如果时钟滴答是20ms，8位一般是够用的。假如一个页面160ms没有被访问过，那么它很可能并不重要。</li>
+</ol>
+<hr>
+<h2 id="工作集页面置换算法"><a href="#工作集页面置换算法" class="headerlink" title="工作集页面置换算法"></a>工作集页面置换算法</h2><ol>
+<li>一个进程当前正在使用的页面的集合称为它的工作集。</li>
+<li>若每执行几条指令就产生一次缺页中断，那么就称这个程序发生了颠簸。</li>
+<li>在单纯的分页系统中，刚启动进程时，在内存中并没有页面。在CPU试图读取第一条指令时就会产生一次缺页中断，使操作系统装入含有第一条指令的页面，其他由访问全局数据和堆栈引起的缺页中断通常会紧接着发生。一段时间后，进程需要的大部分页面都已经在内存了，进程开始在较少缺页中断的情况下运行。这个策略被称为请求调页。</li>
+<li>有不少分页系统会设法跟踪进程的工作集，以确保在让进程运行以前，它的工作集就已经在内存中了。该方法称为工作集模型，大大减少缺页中断率。在进程前装入其工作集页面也称为预先调页。工作集是随时间变化的。</li>
+<li>事实上大多数程序会任意访问一小部分页面，工作集随时间缓慢变化。当程序重新开始时，就有可能根据它上次结束时的工作集对要用到的页面做一个合理的推测，预先调页就是在程序IXUS运行之前预先装入推测的工作集的页面。</li>
+<li>按照以前的方法，定义工作集为前1000万次内存访问锁使用过的页面的集合，那么现在就可以这样定义：工作集即是过去10ms中的内存访问所用到的页面的集合。这样的模型很合适而且更容易实现。要注意到，每个进程只计算它自己的执行时间。因此，如果一个进程在T时刻开始，在(T+100ms)的时刻使用了40msCPU时间，对工作集而言，它的时间就是40ms。一个程序从它开始执行到当前所实际使用的CPU时间总数通常称作当前实际运行时间。通过这个近似的方法，进程的工作集可以被称为在过去的τ秒实际运行时间中它所访问过的页面的集合。</li>
+<li>基于工作集的页面置换算法就是找出一个不在工作集中的页面并淘汰它。每个表项至少包含两条信息：上次使用该页面的近似时间和R（访问位）。</li>
+<li>过程：<ul>
+<li>扫描所有的页面检查R位</li>
+<li> 若（R == 1）：设置上次使用时间为当前实际时间，以表示缺页中断时该页面正在被使用</li>
+<li>若（R == 0 且生存时间&gt;τ）：移出这个页面，该页面在当前时钟滴答中未被访问，不在工作集中，用新的页面置换它。扫描会继续进行以更新剩余的表项。</li>
+<li>若（R == 0 且生存时间≤τ）：记住最小时间。如果该页面R==0且生存时间小于或等于τ，则页面仍在工作集中。把页面临时保存下来，但是要记住生存时间最长（“上次使用时间”的最小值）。如果扫描完整个页表却没有找到合适的淘汰的页面，如果找到了一个或多个R == 0的页面，就淘汰生存时间最长的页面。</li>
+</ul>
+</li>
+<li>在最坏的情况下，在当前时钟滴答中，所有的页面都被访问过了，也就是所有的R都为1，因此就随机选择一个页面淘汰，如果有的话最好选一个干净页面。</li>
+</ol>
+<hr>
+<h2 id="工作集时钟页面置换算法"><a href="#工作集时钟页面置换算法" class="headerlink" title="工作集时钟页面置换算法"></a>工作集时钟页面置换算法</h2><ol>
+<li>在工作集页面置换算法中中，当缺页中断发生后，需要扫描整个页表才能确定被淘汰的页面，因此基本工作集算法是比较费时的。</li>
+<li>基于时钟算法，并且使用了工作集信息，被称为WSClock（工作集时钟）算法。由于它实现简单，性能较好，所以在实际工作中得到了广泛应用。</li>
+<li>与时钟算法一样，所需的数据结构是一个以页框为元素的循环表。最初，该表示空的，当装入第一个页面后，把它加到该表中。随着更多的页面加入，它们形成一个环。每个表项包含来自基本工作集算法的上次使用时间，以及R位和M位。</li>
+<li>与时钟算法一样，每次缺页中断时，首先检查指针指向的页面。如果R位是1，该页面在当前时钟滴答中就被使用过，那么该页面就不适合被淘汰。然后把该页面的R位置为0，指针指向下一个页面，并重复该算法。</li>
+<li>如果R位是0，查看生存时间，如果生存时间大于τ并且该页面是干净的，它就不在工作集中，而且在磁盘上它有一个有效的副本。申请此页框，并把新页面放在其中。如果该页面已经被修改过，就不立即申请此页框，为了避免由于调度写磁盘操作引起的进程切换，指针继续向前走，算法继续对下一个页面进行操作，有可能存在一个旧的而且干净的页面可以立即使用。</li>
+<li>原则上，所有的页面都有可能因为磁盘I/O在某个时钟周期被调度，为了降低磁盘阻塞，需要设置一个限制，即最大只允许写回n个页面。一旦达到该限制，就不允许调度新的写操作。</li>
+<li>指针经过一圈返回它的起点，有两种情况：<ul>
+<li>至少调用了一次写操作<ul>
+<li>执行了写操作的页面已经是干净的了，置换遇到的第一个干净页面，这个页面不一定是第一个被调度写操作的页面，因为硬盘驱动程序为了优化性能可能已经把写操作重排序了。</li>
+</ul>
+</li>
+<li>没有调用过写操作<ul>
+<li>所有的页面都在工作集中，否则将至少执行了一个写操作。由于缺乏额外的信息，一个简单的方法就是随便置换一个干净的页面来使用，扫描中需要记录干净页面的位置。如果不存在干净页面，就选定当前页面并把它协会磁盘。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=http://ozziely.com/61c42f2ee851/>http://ozziely.com/61c42f2ee851/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-20T09:42:37+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Mar 20, 2021</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>计算机操作系统</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ozziely.com/61c42f2ee851/&title=计算机操作系统（八）：页面置换算法 - Ozzie | Nicholas&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://ozziely.com/61c42f2ee851/&title=计算机操作系统（八）：页面置换算法 - Ozzie | Nicholas&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://ozziely.com/61c42f2ee851/&title=计算机操作系统（八）：页面置换算法 - Ozzie | Nicholas&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/36379c8f0263/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>系统学习计算机网络（一）：概述</p>
+          <p class='content'>互联网概述
+计算机网络是由若干个结点以及连接这些结点的链路组成。
+网络把计算机连接在一起，而互联网则通过路由器把网络连接在一起，与网络相连的计算机常称为主机。
+
+互联网的组成
+虽然互联网的拓扑结...</p>
+        </a>
+      
+      
+        <a class='next' href='/b56da1eb9025/'>
+          <p class='title'>计算机操作系统（七）：虚拟存储器<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>虚拟存储器概述交换技术与覆盖技术
+是在多道环境下扩充内存的方法，用以解决在较小的存储空间中运行较大程序时遇到的矛盾。
+交换技术被广泛用于小型分时系统中，交换技术的发展导致了虚存技术的出现；覆盖技...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9F%E5%86%85%E5%AD%98"><span class="toc-text">虚拟内存</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux-%E8%BF%9B%E7%A8%8B%E5%86%85%E5%AD%98%E5%B8%83%E5%B1%80"><span class="toc-text">Linux 进程内存布局</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%86%E9%A1%B5"><span class="toc-text">分页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A1%B5%E8%A1%A8"><span class="toc-text">页表</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8A%A0%E9%80%9F%E5%88%86%E9%A1%B5%E8%BF%87%E7%A8%8B"><span class="toc-text">加速分页过程</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%92%88%E5%AF%B9%E5%A4%A7%E5%86%85%E5%AD%98%E7%9A%84%E9%A1%B5%E8%A1%A8"><span class="toc-text">针对大内存的页表</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E4%BC%98%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="toc-text">最优页面置换算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E8%BF%91%E6%9C%AA%E4%BD%BF%E7%94%A8%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95%EF%BC%88NRU%EF%BC%8CNot-Recently-Used%EF%BC%89"><span class="toc-text">最近未使用页面置换算法（NRU，Not Recently Used）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%88%E8%BF%9B%E5%85%88%E5%87%BA%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95%EF%BC%88FIFO%EF%BC%89"><span class="toc-text">先进先出页面置换算法（FIFO）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AC%AC%E4%BA%8C%E6%AC%A1%E6%9C%BA%E4%BC%9A%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95%EF%BC%88SC%EF%BC%8CSecond-Chance%EF%BC%89"><span class="toc-text">第二次机会页面置换算法（SC，Second Chance）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%97%B6%E9%92%9F%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95%EF%BC%88CLOCK%EF%BC%89"><span class="toc-text">时钟页面置换算法（CLOCK）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E8%BF%91%E6%9C%80%E5%B0%91%E4%BD%BF%E7%94%A8%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95%EF%BC%88LRU%EF%BC%8CLeast-Recently-Used%EF%BC%89"><span class="toc-text">最近最少使用页面置换算法（LRU，Least Recently Used）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%80%E4%B8%8D%E5%B8%B8%E7%94%A8%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95%EF%BC%88NFU%EF%BC%89%EF%BC%88Not-Frequently-Used%EF%BC%89"><span class="toc-text">最不常用页面置换算法（NFU）（Not Frequently Used）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%80%81%E5%8C%96%E7%AE%97%E6%B3%95"><span class="toc-text">老化算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E9%9B%86%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="toc-text">工作集页面置换算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%B7%A5%E4%BD%9C%E9%9B%86%E6%97%B6%E9%92%9F%E9%A1%B5%E9%9D%A2%E7%BD%AE%E6%8D%A2%E7%AE%97%E6%B3%95"><span class="toc-text">工作集时钟页面置换算法</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="计算机操作系统（八）：页面置换算法";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.remove("show");
+  
+  
+    // cover
+    var cover_wrapper=document.querySelector('.cover-wrapper');
+    
+    cover_wrapper.id="half";
+    cover_wrapper.style.display="";
+    
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+      
+    
+      
+        <div><p>Blog content follows the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+      
+    
+      
+        Use
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        as theme
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2019~2022 OzzieNicholas All Rights Reserved 蜀ICP备19036020号</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+        var imgs=["https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/001.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/002.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/003.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/004.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/005.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/006.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/012.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/016.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/019.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/025.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/034.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/035.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/038.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/039.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/042.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/046.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/051.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/052.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/054.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/056.jpg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+	  function Pjax_backstretch(){
+        
+          $('#cover-backstretch').backstretch(
+            imgs,
+          {
+            duration: "10000",
+            fade: "1500"
+          });
+        
+	  }
+	  loadScript("https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js",Pjax_backstretch)
+    </script>
+  
+
+
+
+  
+  
+
+  <div id="rightmenu-wrapper">
+    <ul class="list-v rightmenu" id="rightmenu-content">
+      <li class='option'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-text' onclick="document.execCommand('copy')"><i class='fa fa-copy fa-fw'></i>Copy Text</a>
+        <hr id='hr-text'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-href'><i class='fa fa-link fa-fw'></i>Copy Link</a>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-open-href'><i class='fa fa-external-link-square-alt fa-fw'></i>Open Link in New Tab</a>
+        <hr id='hr-href'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-src'><i class='fa fa-image fa-fw'></i>Copy Image Link</a>
+        <hr id='hr-src'>
+      </li>
+      
+        <li class='navigation'>
+          <a class='nav icon-only fix-cursor-default' onclick='history.back()'><i class='fa fa-arrow-left fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' onclick='history.forward()'><i class='fa fa-arrow-right fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' onclick='window.location.reload()'><i class='fa fa-redo fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' href='/'><i class='fa fa-home fa-fw'></i></a>
+        </li>
+      
+      <hr>
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default toggle-mode-btn' 
+        
+        
+        
+        >
+        <i class='fas fa-moon fa-fw'></i> 天满纤月
+      </a>
+    </li>
+  
+        
+      
+        
+          <hr>
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default ' href=https://volantis.js.org/faqs/
+        
+        
+        
+        
+          id="https:volantisjsorgfaqs"
+        >
+        <i class='fa fa-question fa-fw'></i> 常夜孤月
+      </a>
+    </li>
+  
+        
+      
+        
+          <hr>
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default ' 
+        
+        
+        
+          onclick="document.execCommand('print')"
+        
+        >
+        <i class='fa fa-print fa-fw'></i> 厄镜月映
+      </a>
+    </li>
+  
+        
+      
+    </ul>
+  </div>
+
+  <script>
+    window.document.oncontextmenu = function (event) {
+      if (event.ctrlKey) return true;
+      if (/Android|webOS|BlackBerry/i.test(navigator.userAgent)) return true;
+      return popMenu(event);
+    };
+    document.addEventListener("click", function (event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      mymenu.style.display = "none";
+    });
+    function popMenu(event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      var menuContent = document.getElementById('rightmenu-content');
+      var screenWidth = document.documentElement.clientWidth || document.body.clientWidth;
+      var screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      mymenu.style.left = event.clientX + "px"; // 获取鼠标位置
+      mymenu.style.top = event.clientY + "px";
+      mymenu.style.display = 'block';
+      if (event.clientX * 2 > screenWidth) {
+        menuContent.classList.add('left');
+      } else {
+        menuContent.classList.remove('left');
+      }
+      if (event.clientY * 2 > screenHeight) {
+        menuContent.classList.add('top');
+      } else {
+        menuContent.classList.remove('top');
+      }
+
+      let hrText = document.getElementById('hr-text');
+      let hrSrc = document.getElementById('hr-src');
+      let hrHref = document.getElementById('hr-href');
+
+      // 选中图片
+      let copySrc = document.getElementById('menu-copy-src');
+      if (copySrc != undefined) {
+        if (event.target.currentSrc) {
+          copySrc.style.display = 'block';
+          copySrc.addEventListener("click", function (e) {
+            copyString(event.target.currentSrc);
+          },{once: true});
+          hrSrc.style.display = 'block';
+        } else {
+          copySrc.style.display = 'none';
+          hrSrc.style.display = 'none';
+        }
+      }
+
+      // 选中按钮
+      // 判断是不是按钮
+      let href = '';
+      if (event.path) {
+        for (i = 0; i < event.path.length; i++) {
+          if (event.path[i].href != undefined && event.path[i].href.length > 0) {
+            href = event.path[i].href;
+          }
+        }
+      }
+
+      let copyText = document.getElementById('menu-copy-text');
+      copyText.style.display = 'none';
+      hrText.style.display = 'none';
+      if (href.length == 0) {
+        // 选中文本
+        if (window.getSelection().toString()) {
+          if ('' == 'true') {
+            copyText.style.display = 'block';
+            hrText.style.display = 'block';
+          }
+        }
+      }
+
+      // 在新标签页打开
+      let openHref = document.getElementById('menu-open-href');
+      if (openHref != undefined) {
+        if (href.length > 0) {
+          openHref.style.display = 'block';
+          openHref.addEventListener("click", function (e) {
+            window.open(href);
+          },{once: true});
+          hrHref.style.display = 'block';
+        } else {
+          openHref.style.display = 'none';
+          hrHref.style.display = 'none';
+        }
+      }
+      // 复制链接
+      let copyHref = document.getElementById('menu-copy-href');
+      if (copyHref != undefined) {
+        if (href.length > 0) {
+          copyHref.style.display = 'block';
+          copyHref.addEventListener("click", function (e) {
+            copyString(href);
+          },{once: true});
+        } else {
+          copyHref.style.display = 'none';
+        }
+      }
+      // 有音乐播放器 see: layout/_third-party/aplayer/script.ejs
+      
+      return false; // 该行代码确保系统自带的右键菜单不会被调出
+    }
+    function hideMenu() {
+      document.getElementById('rightmenu-wrapper').style.display = 'none';
+    }
+    function copyString(str) {
+      const input = document.createElement('input');
+      input.setAttribute('readonly', 'readonly');
+      document.body.appendChild(input);
+      input.setAttribute('value', str);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+    }
+    document.execCommand('click');
+  </script>
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('/js/issues.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+<script src="/js/valine.js"></script>
+
+
+<script>
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    var valine = new Valine();
+    valine.init(Object.assign({"path":null,"placeholder":"快来评论吧~","appId":null,"appKey":null,"meta":["nick","mail","link"],"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false}, {
+      el: '#valine_container',
+      path: path,
+      placeholder: pagePlaceholder,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps,
+    }))
+  }
+  $(function () {
+    pjax_valine();
+  });
+  volantis.pjax.push(pjax_valine);
+</script>
+
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2.6.4/js/search.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'http://ozziely.com' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'http://ozziely.com' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'http://ozziely.com' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+  <script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+ 
+	   
+	    
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+		// 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+		volantis.pjax.method.complete.start();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+ 
+	  
+    </div>
+  </body>
+</html>
