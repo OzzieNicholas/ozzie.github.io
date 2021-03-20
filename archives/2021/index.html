@@ -5,6 +5,8 @@
   <!-- SEO相关 -->
   
     
+      <meta name="robots" content="noindex,follow">
+    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -22,9 +24,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>细解浏览器缓存 - Ozzie | Nicholas</title>
-  
-    <meta name="keywords" content="探索笔记">
+  <title>Archive: 2021 - Ozzie | Nicholas</title>
   
 
   
@@ -469,7 +469,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="half" class='cover-wrapper post dock' style="display: ;">
+        <div id="half" class='cover-wrapper  dock' style="display: ;">
           
             <div id='cover-backstretch'></div>
           
@@ -547,466 +547,127 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
 
 <div class='l_main'>
-  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
-  
-
-
-  
-  <div class="article-meta" id="top">
+	
+		
+  <section class="post-list">
     
-    
-    
-      <h1 class="title">
-        细解浏览器缓存
-      </h1>
-      <div class='new-meta-box'>
+      
         
-          
-            
-<div class='new-meta-item author'>
-  <a class='author' href="/" rel="nofollow">
-    <img no-lazy src="https://avatars.githubusercontent.com/u/49378661?s=460&u=48820ed6b04ef7690959e325cd670dcd67efa5a5&v=4">
-    <p>Ozzie</p>
-  </a>
-</div>
-
           
         
           
-            
-  <div class='new-meta-item category'>
-    <a class='notlink'>
-      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/%E6%8E%A2%E7%B4%A2%E7%AC%94%E8%AE%B0/">探索笔记</a>
-    </a>
+        
+      
+    
+    
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/279bab449d3d/">
+        计算机操作系统（二）：进程的初步认识
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        进程与线程的知识体系图
+
+在之后的文章中会陆续讲到，这里我们只说线程的知识
+
+前言操作系统中最核心的概念就是进程，进程是对正在运行中的程序的一个抽象。操作系统的其他所有内容都是围绕着进程展开的。进程是操作系统提供的最古老也是最重要的概念之一。即使可以使用的CPU只有一一个，它们也支持（伪） 并发操作。它们会将一 一个单独的CPU抽象为多个虚拟机的CPU。可以说，没有进程的抽象，现代操作系统将...
+      
+    
   </div>
-
-
-          
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
         
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Aug 2, 2020</p>
-  </a>
-</div>
-
-          
+        <time>2021-03-20</time>
         
-          
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/">学校课程</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">计算机操作系统</a>
         
       </div>
-    
-  </div>
-
-
-  
-  
-  <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><ol>
-<li><p>在开发中，我们总会提到 “合理设置缓存”，缓存机制非常普遍，有客户端缓存、服务器缓存、代理服务器缓存等等，在 HTTP 中，具有缓存功能的是浏览器缓存。 HTTP 缓存是作为web 性能优化的重要手段。</p>
-</li>
-<li><p>HTML5 引入了应用程序缓存，在没有网络的情况下也能进行访问，同时，还引入了 storage 本地存储，这些都属于应用缓存，本文主要是和浏览器缓存相关的，也可以说是 HTTP 缓存。</p>
-</li>
-<li><p>什么是浏览器缓存？</p>
-<ul>
-<li><p>MDN 的解释是：</p>
-<blockquote>
-<p>A browser cache holds all documents downloaded via HTTP by the user … without requiring an additional trip to the server.</p>
-</blockquote>
-<p>意思就是，浏览器缓存保存着用户通过 <code>HTTP</code> 获取的所有资源，再下一次请求时可以避免重复向服务器发出多余的请求，简单说，就是在你访问过某网站之后，这个站点的文字、图片等所有资源都被下载到本地了，下次再党文该网站时，会判断是否满足缓存条件，如果满足，则不用再花时间去等待资源的获取了。</p>
-</li>
-<li><p>浏览器的缓存机制也就是我们说的 HTTP 缓存机制，其机制是根据 HTTP 报文的缓存标识进行的所以在分析浏览器缓存机制之前，我们待会儿得先简单介绍一下 HTTP 报文。</p>
-</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h2 id="HTTP-报文"><a href="#HTTP-报文" class="headerlink" title="HTTP 报文"></a>HTTP 报文</h2><ol>
-<li><p>HTTP 报文分两种：</p>
-<ul>
-<li><p>HTTP 请求（Resquest）报文，报文格式为：请求行 — HTTP 头（通用信息头、请求头、实体头）— 请求报文主体（只有 POST 才有报文主体），如图：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UAmTQvAXcAARn6lyQKXxoQbxkSWdcVicZoAvUxILHMgHLdO2RRo2qia39A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" class="lazyload" data-srcset="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UAmTQvAXcAARn6lyQKXxoQbxkSWdcVicZoAvUxILHMgHLdO2RRo2qia39A/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UAX9mOHmr8qBEmNDbpKg4quBwFxGcicbotsk5YMOSZrAhkXm9hMEl0TYg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" class="lazyload" data-srcset="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UAX9mOHmr8qBEmNDbpKg4quBwFxGcicbotsk5YMOSZrAhkXm9hMEl0TYg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-</li>
-<li><p>HTTP 响应（Response）报文，报文格式为：状态行 — HTTP头（通用信息头、请求头、实体头）— 响应报文主体，如图：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UALic2c6WYg1WJqgcPmycZ8iaFNy53ygaMGXUlyQazVHYFbzExq3boCrCw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" class="lazyload" data-srcset="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UALic2c6WYg1WJqgcPmycZ8iaFNy53ygaMGXUlyQazVHYFbzExq3boCrCw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-<p><img src="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UA81lN1ayibiaT5rWSjnax9ZyQCF6SIbsgsvF8YB0KHkObpK02ITmb2f7w/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" class="lazyload" data-srcset="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UA81lN1ayibiaT5rWSjnax9ZyQCF6SIbsgsvF8YB0KHkObpK02ITmb2f7w/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-</li>
-</ul>
-</li>
-<li><p>注意：</p>
-<ul>
-<li>通用信息头指的是请求和响应报文都支持的头域，分别为：<code>Cache-Control、Connection、Date、Pragma、Transfer-Encoding、Upgrade、Via</code></li>
-<li>实体头则是实体信息的实体头域，分别为：<code>Allow、Content-Base、Content-Encoding、Content-Language、Content-Length、Content-Location、Content-MD5、Content-Range、Content-Type、Etag、Expires、Last-Modified、extension-header</code></li>
-<li>之前是为了方别理解，而将通用信息头、响应头/请求头、实体头都归为了 HTTP 头</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h2 id="缓存的优点"><a href="#缓存的优点" class="headerlink" title="缓存的优点"></a>缓存的优点</h2><ol>
-<li>减少了冗余的数据传递，节省宽带流量</li>
-<li>减少了服务器的负担，大大提高了网站性能</li>
-<li>加快了客户端加载网页的速度 这也正是HTTP缓存属于客户端缓存的原因</li>
-</ol>
-<hr>
-<h2 id="缓存过程分析"><a href="#缓存过程分析" class="headerlink" title="缓存过程分析"></a>缓存过程分析</h2><ol>
-<li>浏览器与服务器通信的方式是应答模式，即为：浏览器发起 HTTP 请求 — 服务器响应该请求，那么，浏览器第一次向服务器发起该请求后拿到结果，会根据响应报文中的 HTTP 头的缓存标识，决定是否缓存结果，若是，则将请求结果和缓存标识存入浏览器缓存中，如图：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UA8FuX3NsJgyJWQS4RiaBIaOmRYvSNcNcibiam2SqjtV9NXwJdHGRpljZEw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" class="lazyload" data-srcset="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UA8FuX3NsJgyJWQS4RiaBIaOmRYvSNcNcibiam2SqjtV9NXwJdHGRpljZEw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></li>
-<li>由上图可知：<ul>
-<li>浏览器每次发起请求，都会先在浏览器缓存中查找该请求的结果以及缓存标识</li>
-<li>浏览器每次拿到返回的请求结果都会将该结果和缓存标识存入浏览器缓存中</li>
-</ul>
-</li>
-<li>以上两点结论就是浏览器缓存机制的关键，它确保了每个请求的缓存存入与读取，下面开始理解浏览器缓存的使用规则</li>
-</ol>
-<hr>
-<h2 id="缓存的规则"><a href="#缓存的规则" class="headerlink" title="缓存的规则"></a>缓存的规则</h2><h3 id="缓存的分类"><a href="#缓存的分类" class="headerlink" title="缓存的分类"></a>缓存的分类</h3><ol>
-<li>一般来说，浏览器缓存可以分为：<ul>
-<li>强缓存</li>
-<li>协商缓存（对比缓存）</li>
-</ul>
-</li>
-<li>浏览器在加载资源时，会先判断是否命中强缓存，再验证是否命中协商缓存</li>
-</ol>
-<h3 id="强缓存"><a href="#强缓存" class="headerlink" title="强缓存"></a>强缓存</h3><ol>
-<li><p>浏览器在加载资源时，会先根据本地缓存资源的 <code>header</code> 中的信息判断是否命中强缓存，如果命中，则直接使用缓存中的资源，而不会再向服务器发送请求，如图：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/j3vcKBBdH46gEGrNj33aKfAoWXzuPhFwuhcAHTEc5ciaq8GZorWDQhn9mWiasWQLqiaDZeR3WBd5Blhvml6oBmsPQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" class="lazyload" data-srcset="https://mmbiz.qpic.cn/mmbiz_png/j3vcKBBdH46gEGrNj33aKfAoWXzuPhFwuhcAHTEc5ciaq8GZorWDQhn9mWiasWQLqiaDZeR3WBd5Blhvml6oBmsPQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-</li>
-<li><p>从图中可以看出，强缓存的一般流程是：</p>
-<ul>
-<li>查看 <code>header</code> 头中的 <code>Expire</code> 和 <code>Cache-control</code> 来判断是否满足规则</li>
-<li>如果满足规则，就返回缓存的数据</li>
-<li>如果不满足规则，就向服务器发送请求</li>
-<li>服务器返回数据</li>
-<li>将新数据存入缓存</li>
-</ul>
-</li>
-<li><p>接下来我们主要就关注 <code>Expire</code> 和 <code>Cache-control</code> 这两个字段</p>
-</li>
-<li><p>Expire：</p>
-<ul>
-<li><p>Expires 是 HTTP/1.0 控制网页缓存的字段，其值为服务器返回该请求结果缓存的到期时间，即再次发起该请求时，当客户端的时间小于 Expires 的值时，直接使用缓存结果。</p>
-</li>
-<li><p>再看看 MDN 中如何解释这个字段：</p>
-<blockquote>
-<p>The Expires header contains the date/time after which the response is considered stale.</p>
-</blockquote>
-</li>
-<li><p>这个字段包含了一个时间，过了这个时间，响应将会失效。也就是说，<code>Expire</code> 这个字段表示缓存到期时间，我们来打开一个网站并查看 <code>Response Header</code> 看看这个字段：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Expires:Fri, 27 Oct 2017 07:55:30 GMT</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>可能在你查看这的时候发现时间都已经是过去了 ~，<code>GMT</code> 表示的是格林威治时间，和北京时间相差8小时，上面的这个时间表示的是 <code>2017年10月27日15:55:30</code>。</p>
-</li>
-<li><p>通过设置 <code>Expire</code> 来设置缓存有一个缺点：这个是个绝对时间，也就是说，如果我修改了客户端的本地时间，是不是就会导致判断缓存失效了呢。</p>
-</li>
-<li><p>Expires 是 HTTP/1.0的字段，但是现在浏览器默认使用的是 HTTP/1.1，那么在HTTP/1.1 中网页缓存还是否由 Expires 控制？</p>
-<ul>
-<li>到了 HTTP/1.1，Expire 已经被 Cache-Control 替代，原因在于 Expires 控制缓存的原理是使用客户端的时间与服务端返回的时间做对比，那么如果客户端与服务端的时间因为某些原因（例如时区不同；客户端和服务端有一方的时间不准确）发生误差，那么强制缓存则会直接失效，这样的话强制缓存的存在则毫无意义。接下来我们开始认识 Cache-Control。</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Cache-Control：</p>
-<ul>
-<li><p>在HTTP/1.1中，Cache-Control是最重要的规则，主要用于控制网页缓存。</p>
-</li>
-<li><p>承接上面的例子，既然不能设置绝对时间，那就设置相对时间吧</p>
-</li>
-<li><p>在 <code>HTTP/1.1</code> 中，增加了一个字段 <code>Cache-Control</code> ，它包含一个 <code>max-age</code> 属性，该字段表示资源缓存的最大有效时间，这就是一个相对时间：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cache-Control:max-age&#x3D;600</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>这个表示的就是最大有效时间是 <code>600s</code> ，对的，它的单位是秒。</p>
-</li>
-<li><p><code>Cache-Control</code> 除了 <code>max-age</code> 属性之外还有一些属性：</p>
-<ul>
-<li><code>no-cache</code>：需要进行协商缓存，发送请求到服务器确认是否使用缓存。</li>
-<li><code>no-store</code>：禁止使用缓存，每一次都要重新请求数据。</li>
-<li><code>public</code>：默认设置。</li>
-<li><code>private</code>：不能被多用户共享。</li>
-</ul>
-</li>
-<li><p>接下来，我们直接看一个例子，如下：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UAEicgkB9SxLPeF3HdN72RppOXGOaGIRSCDjJia4cwZyUQowR1PXanYFTw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" class="lazyload" data-srcset="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UAEicgkB9SxLPeF3HdN72RppOXGOaGIRSCDjJia4cwZyUQowR1PXanYFTw/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII="></p>
-</li>
-<li><p>由上面的例子我们可以知道：</p>
-<ul>
-<li>HTTP 响应报文中 Expires 的时间值，是一个绝对值</li>
-<li>HTTP响应报文中 Cache-Control 为 max-age=600，是相对值</li>
-</ul>
-</li>
-<li><p>由于 Cache-Control 的优先级比 Expires，那么直接根据 Cache-Control 的值进行缓存，意思就是说在600秒内再次发起该请求，则会直接使用缓存结果，强制缓存生效。注：在无法确定客户端的时间是否与服务端的时间同步的情况下，Cache-Control 相比于Expires 是更好的选择，所以同时存在时，只有 Cache-Control生效。了解强制缓存的过程后，我们拓展性的思考一下：<strong>浏览器的缓存存放在哪里，如何在浏览器中判断强制缓存是否生效？</strong></p>
-</li>
-<li><p>我们以博客的请求为例，状态码为灰色的请求则代表使用了强制缓存，请求对应的 Size值则代表该缓存存放的位置，分别为 from memory cache 和 from disk cache：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UA7Fq598qw8oo3auVV4icNTYezGoA7Y1eSbhib8gEDUicaXf6yVh9NBDSLA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" class="lazyload" data-srcset="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UA7Fq598qw8oo3auVV4icNTYezGoA7Y1eSbhib8gEDUicaXf6yVh9NBDSLA/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
-</li>
-<li><p>那么 from memory cache 和 from disk cache又分别代表的是什么呢？什么时候会使用from disk cache，什么时候会使用from memory cache呢？</p>
-</li>
-<li><p>from memory cache 代表使用内存中的缓存，from disk cache 则代表使用的是硬盘中的缓存，浏览器读取缓存的顺序为 <code>memory –&gt; disk</code></p>
-</li>
-<li><p>对于上个结论，我们需要了解内存缓存（from memory cache）和硬盘缓存（from disk cache），如下:</p>
-<ul>
-<li>内存缓存（from memory cache）：内存缓存具有两个特点，分别是快速读取和时效性。</li>
-<li>快速读取：内存缓存会将编译解析后的文件，直接存入该进程的内存中，占据该进程一定的内存资源，以方便下次运行使用时的快速读取。</li>
-<li>时效性：一旦该进程关闭，则该进程的内存则会清空。</li>
-<li>硬盘缓存（from disk cache）：硬盘缓存则是直接将缓存写入硬盘文件中，读取缓存需要对该缓存存放的硬盘文件进行I/O操作，然后重新解析该缓存内容，读取复杂，速度比内存缓存慢。</li>
-</ul>
-</li>
-<li><p>在浏览器中，浏览器会在 js 和图片等文件解析执行后直接存入内存缓存中，那么当刷新页面时只需直接从内存缓存中读取（from memory cache）；而 css 文件则会存入硬盘文件中，所以每次渲染页面都需要从硬盘读取缓存（from disk cache）</p>
-</li>
-</ul>
-</li>
-<li><p>现在基本上都会同时设置 <code>Expire</code> 和 <code>Cache-Control</code> ，<code>Cache-Control</code> 的优先级别更高。</p>
-</li>
-</ol>
-<h3 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h3><ol>
-<li><p>当强缓存没有命中的时，浏览器会发送一个请求到服务器，服务器根据请求头中的部分信息来判断是否命中缓存。如果命中，则返回 <code>304</code> ，告诉浏览器资源未更新，可使用本地的缓存。</p>
-</li>
-<li><p>协商缓存就是强制缓存失效后，浏览器携带缓存标识向服务器发起请求，由服务器根据缓存标识决定是否使用缓存的过程，主要有以下两种情况：</p>
-<ul>
-<li>协商缓存生效，返回304，如下：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UAYuh8P5Tmm65mboKQOWg5dW83jAmyxceceYYVSfK8ibbq5GmkGKNghvQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" class="lazyload" data-srcset="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UAYuh8P5Tmm65mboKQOWg5dW83jAmyxceceYYVSfK8ibbq5GmkGKNghvQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></li>
-<li>协商缓存失效，返回200和请求结果结果，如下：<img src="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UAwSic1Tk9mx9BkHDeQiaoXIBrO4cpicUWlbQv6Mnx0MXXK8YxXGlvl2SzQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" class="lazyload" data-srcset="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UAwSic1Tk9mx9BkHDeQiaoXIBrO4cpicUWlbQv6Mnx0MXXK8YxXGlvl2SzQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></li>
-</ul>
-</li>
-<li><p>协商缓存整体流程图：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/j3vcKBBdH46gEGrNj33aKfAoWXzuPhFw7eLia7lb2a0r0nnZ01kQSST6k4WHK0VuPbqLVwibE6znVF84I4F43IjA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" class="lazyload" data-srcset="https://mmbiz.qpic.cn/mmbiz_png/j3vcKBBdH46gEGrNj33aKfAoWXzuPhFw7eLia7lb2a0r0nnZ01kQSST6k4WHK0VuPbqLVwibE6znVF84I4F43IjA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
-<ul>
-<li>从图中可以看出，协商缓存一般是这样一个流程：<ul>
-<li>把资源标识，比如 <code>If-Modify-Since</code> 或 <code>Etag</code> 发送到服务器，确认资源是否更新</li>
-<li>如果资源未更新，请求响应返回的http状态为 <code>304</code> 并且会显示一个 <code>Not Modified</code> 的字符串，告诉浏览器使用本地缓存</li>
-<li>如果资源已经更新，返回新的数据</li>
-<li>将新数据存入缓存</li>
-</ul>
-</li>
-</ul>
-</li>
-<li><p>Last-Modified / If-Modified-Since：</p>
-<ul>
-<li><p><code>Last-Modified</code> 是浏览器第一次请求资源的时候，服务器返回的 <code>header</code> 上会带有一个 <code>Last-Modified</code> 字段，服务器响应请求时，返回该资源文件在服务器最后被修改的时间，如下：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UAabMhy3YmTiarkDQJYyibak7WNEic5OsapqOgpnS0DJBc7ia5azajD1D9yg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" class="lazyload" data-srcset="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UAabMhy3YmTiarkDQJYyibak7WNEic5OsapqOgpnS0DJBc7ia5azajD1D9yg/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
-</li>
-<li><p>同样的，这是一个 <code>GMT</code> 的绝对时间。</p>
-</li>
-<li><p><code>If-Modified-Since</code> 则是客户端再次发起该请求时，携带上次请求返回的 <code>Last-Modified</code> 值，通过此字段值告诉服务器该资源上次请求返回的最后被修改时间。服务器收到该请求，发现请求头含有 <code>If-Modified-Since</code> 字段，则会根据 <code>If-Modified-Since</code> 的字段值与该资源在服务器的最后被修改时间做对比，若服务器的资源最后被修改时间大于 <code>If-Modified-Since</code> 的字段值，则重新返回资源，状态码为200；否则则返回304，代表资源无更新，可继续使用缓存文件，如下：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UAXKRPNx7nUE9OR4ibo5mMRKdrzcIH9MIXX52WwcddWhae9O6kSwExHPQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" class="lazyload" data-srcset="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UAXKRPNx7nUE9OR4ibo5mMRKdrzcIH9MIXX52WwcddWhae9O6kSwExHPQ/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
-</li>
-<li><p>当然，这个方法也是有缺点的：</p>
-<ul>
-<li>最小单位是秒。也就是说如果我短时间内资源发生了改变，<code>Last-Modified</code> 并不会发生变化；</li>
-<li>周期性变化。如果这个资源在一个周期内修改回原来的样子了，我们认为是可以使用缓存的，但是 <code>Last-Modified</code> 可不这样认为。</li>
-</ul>
-</li>
-<li><p>所以，后来又引入一个 <code>Etag</code></p>
-</li>
-</ul>
-</li>
-<li><p>Etag：</p>
-<ul>
-<li><code>Etag</code> 是服务器响应请求时，返回当前资源文件的一个唯一标识(由服务器生成)，如下：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UAicSQxy35icJVqPicqhnaMG8uxhQuiaoL06ic8DEJu2zRAG0ZjgYEpcwxrKA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" class="lazyload" data-srcset="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UAicSQxy35icJVqPicqhnaMG8uxhQuiaoL06ic8DEJu2zRAG0ZjgYEpcwxrKA/640?wx_fmt=png&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></li>
-<li><code>If-None-Match</code>c是客户端再次发起该请求时，携带上次请求返回的唯一标识 <code>Etag</code> 值，通过此字段值告诉服务器该资源上次请求返回的唯一标识值。服务器收到该请求后，发现该请求头中含有 <code>If-None-Match</code>，则会根据 <code>If-None-Match</code> 的字段值与该资源在服务器的 <code>Etag</code> 值做对比，一致则返回304，代表资源无更新，继续使用缓存文件；不一致则重新返回资源文件，状态码为200，如下：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UAS11SqbSBOLW3caGq6KjbDVCNQsS4MJHZxSKYmoPQverXZ6h9XMuKYg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" class="lazyload" data-srcset="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UAS11SqbSBOLW3caGq6KjbDVCNQsS4MJHZxSKYmoPQverXZ6h9XMuKYg/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></li>
-<li>它一般是由文件内容 <code>hash</code> 生成的，也就是说它可以保证资源的唯一性，资源发生改变就会导致 <code>Etag</code>发生改变。</li>
-<li>同样地，在浏览器第一次请求资源时，服务器会返回一个 <code>Etag</code> 标识。当再次请求该资源时， 会通过 <code>If-no-match</code> 字段将 <code>Etag</code> 发送回服务器，然后服务器进行比较，如果相等，则返回 <code>304</code> 表示未修改。</li>
-<li><code>Last-Modified</code> 和 <code>Etag</code> 是可以同时设置的，服务器会优先校验 <code>Etag</code>，如果 <code>Etag</code> 相等就会继续比对 <code>Last-Modified</code>，最后才会决定是否返回 <code>304</code>。</li>
-<li><code>Etag / If-None-Match</code> 优先级高于 <code>Last-Modified / If-Modified-Since</code>，同时存在则只有 <code>Etag / If-None-Match</code> 生效。</li>
-</ul>
-</li>
-</ol>
-<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><ol>
-<li>强制缓存优先于协商缓存进行，若强制缓存（Expires和Cache-Control）生效则直接使用缓存，若不生效则进行协商缓存（Last-Modified / If-Modified-Since和Etag / If-None-Match），</li>
-<li>协商缓存由服务器决定是否使用缓存，若协商缓存失效，那么代表该请求的缓存失效，重新获取请求结果，再存入浏览器缓存中；生效则返回304，继续使用缓存</li>
-<li>总结的主要过程如下：<br><img src="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UA6eZ3dqoKdgIhPENicUjaXXict6LuQDYsGNHFrddiayooqibHN50ZUCbYog/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" class="lazyload" data-srcset="https://mmbiz.qpic.cn/mmbiz_png/meG6Vo0Mevgq38cXiaLvaxNIiatrA806UA6eZ3dqoKdgIhPENicUjaXXict6LuQDYsGNHFrddiayooqibHN50ZUCbYog/640?wx_fmt=jpeg&tp=webp&wxfrom=5&wx_lazy=1&wx_co=1" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></li>
-<li>即，当浏览器再次访问一个已经访问过的资源时，它会这样做：<ul>
-<li>看看是否命中强缓存，如果命中，就直接使用缓存了；</li>
-<li>如果没有命中强缓存，就发请求到服务器检查是否命中协商缓存；</li>
-<li>如果命中协商缓存，服务器会返回 <code>304</code> 告诉浏览器使用本地缓存；</li>
-<li>否则，返回最新的资源。</li>
-</ul>
-</li>
-</ol>
-<hr>
-<h2 id="用户对缓存的影响"><a href="#用户对缓存的影响" class="headerlink" title="用户对缓存的影响"></a>用户对缓存的影响</h2><p>若是问到用户进行一些操作的时候，对缓存是有什么影响的，答案如下：</p>
-<table>
-<thead>
-<tr>
-<th align="center"><strong>用户操作</strong></th>
-<th align="center"><strong>Expires/Cache-Control</strong></th>
-<th align="center"><strong>Last-Modified/Etag</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="center">地址栏回车</td>
-<td align="center">√</td>
-<td align="center">√</td>
-</tr>
-<tr>
-<td align="center">页面链接跳转</td>
-<td align="center">√</td>
-<td align="center">√</td>
-</tr>
-<tr>
-<td align="center">新开窗口</td>
-<td align="center">√</td>
-<td align="center">√</td>
-</tr>
-<tr>
-<td align="center">前进回退</td>
-<td align="center">√</td>
-<td align="center">√</td>
-</tr>
-<tr>
-<td align="center">F5 刷新</td>
-<td align="center">×</td>
-<td align="center">√</td>
-</tr>
-<tr>
-<td align="center">Ctrl+F5 强制刷新</td>
-<td align="center">×</td>
-<td align="center">×</td>
-</tr>
-</tbody></table>
-<hr>
-<h2 id="不同刷新的请求执行过程"><a href="#不同刷新的请求执行过程" class="headerlink" title="不同刷新的请求执行过程"></a>不同刷新的请求执行过程</h2><ol>
-<li>URL（最快）：浏览器地址栏中写入URL，回车，浏览器发现缓存中有这个文件了，不用继续请求了，直接去缓存拿。</li>
-<li>F5：告诉浏览器去服务器看看这个文件是否有过期了。于是浏览器就发送一个请求带上 <code>If-Modify-since</code>。</li>
-<li>Ctrl+F5：让浏览器先把缓存中的文件删了，然后再去服务器请求个完整的资源文件下来，于是客户端就完成了强行更新的操作。</li>
-</ol>
-
-  
-  
-    
-    <div class='footer'>
       
-      
-      
-        <div class='copyright'>
-          <blockquote>
-            
-              
-                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
-
-              
-            
-              
-                <p>本文永久链接是：<a href=http://ozziely.com/6bbe4ee13dda/>http://ozziely.com/6bbe4ee13dda/</a></p>
-              
-            
-          </blockquote>
+        <div>
+          <a class='readmore' href='/279bab449d3d/'>
+            Read More
+          </a>
         </div>
       
-      
     </div>
   
-  
-    
 
-
-  <div class='article-meta' id="bottom">
-    <div class='new-meta-box'>
-      
-        
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-19T09:58:01+08:00">
-  <a class='notlink'>
-    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Mar 19, 2021</p>
-  </a>
 </div>
 
+          </div>
         
       
         
-          
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%8E%A2%E7%B4%A2%E7%AC%94%E8%AE%B0/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>探索笔记</p></a></div>
-
-
-        
-      
-        
-          
-  <div class="new-meta-item share -mob-share-list">
-  <div class="-mob-share-list share-body">
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/bfb7f7b98435/">
+        计算机操作系统（一）：认识操作系统
+      </a>
+    </h2>
+  
+  <div class='md'>
     
       
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
-          
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ozziely.com/6bbe4ee13dda/&title=细解浏览器缓存 - Ozzie | Nicholas&summary="
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
-          
-        </a>
-      
-    
-      
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
-          
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://ozziely.com/6bbe4ee13dda/&title=细解浏览器缓存 - Ozzie | Nicholas&summary="
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
-          
-        </a>
-      
-    
-      
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
-          
-          target="_blank" href="http://service.weibo.com/share/share.php?url=http://ozziely.com/6bbe4ee13dda/&title=细解浏览器缓存 - Ozzie | Nicholas&summary="
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
-          
-        </a>
-      
-    
-      
-    
+        操作系统简介
+现代计算机系统由一个或多个处理器、主存、打印机、键盘、鼠标、显示器、网络接口以及各种输入/输出设备构成。
+在硬件的基础上，计算机安装了一层软件，这些软件能够通过响应用户输入的指令达到控制硬件的效果，从而满足用户的需求，这种软件被称之为 “操作系统”，
+我们一般常见的操作系统主要有：Windows、Linux、FreeBSD 或 OS X，这种带有图形界面的操作系统，被统称为 “...
       
     
   </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time>2021-03-20</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/">学校课程</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">计算机操作系统</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/bfb7f7b98435/'>
+            Read More
+          </a>
+        </div>
+      
+    </div>
+  
+
 </div>
 
-
-
+          </div>
         
       
-    </div>
-  </div>
-
-
-  
-  
-
-  
-    <div class="prev-next">
-      
-      
-        <a class='next' href='/13c3110fab14/'>
-          <p class='title'>Next.js入门笔记<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>前言
-初识 Next.js，请查看它的官网介绍：
-Next.js 官网
-Next.js 中文网
-
-
-好吧，官网的话总是那么拗口，毫不避讳地说，我的能力还完全不能对某某框架指评，若对此感兴趣，请读...</p>
-        </a>
-      
-    </div>
-  
-</article>
-
-
-  
-
-  <article class="post white-box reveal shadow" id="comments">
-    <p ct><i class='fas fa-comments'></i> 评论</p>
     
-    <div id="valine_container" class="valine_thread">
-  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
-</div>
-
-  </article>
-
+  </section>
+  
+    
+  
 
 
-
-
-
+	
 </div>
 <aside class='l_side'>
   
@@ -1014,28 +675,131 @@ Next.js 中文网
     
     
 
+<section class="widget blogger shadow desktop mobile">
+  <div class='content'>
+    
+      
+        <a class='avatar flat-box circle' href='/about/'>
+          <img no-lazy src='https://avatars.githubusercontent.com/u/49378661?s=460&u=48820ed6b04ef7690959e325cd670dcd67efa5a5&v=4'/>
+        </a>
+      
+    
+    
+      <div class='text'>
+        
+        
+          <p>集中一点，登峰造极</p>
 
+        
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="/"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="mailto:me@xxx.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://github.com/OzzieNicholas"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="/"
+              class="social fas fa-headphones-alt flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
 
-  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+  
+
+  
+    
+    
+  
+
+  <section class="widget category shadow desktop">
     
   <header>
     
-      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+      <a href='/source/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
     
   </header>
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#HTTP-%E6%8A%A5%E6%96%87"><span class="toc-text">HTTP 报文</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-text">缓存的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E8%BF%87%E7%A8%8B%E5%88%86%E6%9E%90"><span class="toc-text">缓存过程分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E7%9A%84%E8%A7%84%E5%88%99"><span class="toc-text">缓存的规则</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BC%93%E5%AD%98%E7%9A%84%E5%88%86%E7%B1%BB"><span class="toc-text">缓存的分类</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%BC%BA%E7%BC%93%E5%AD%98"><span class="toc-text">强缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%8F%E5%95%86%E7%BC%93%E5%AD%98"><span class="toc-text">协商缓存</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-text">总结</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E5%AF%B9%E7%BC%93%E5%AD%98%E7%9A%84%E5%BD%B1%E5%93%8D"><span class="toc-text">用户对缓存的影响</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%B8%8D%E5%90%8C%E5%88%B7%E6%96%B0%E7%9A%84%E8%AF%B7%E6%B1%82%E6%89%A7%E8%A1%8C%E8%BF%87%E7%A8%8B"><span class="toc-text">不同刷新的请求执行过程</span></a></li></ol>
+      <ul class="entry navigation">
+        
+          <li><a class="flat-box"
+            title="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/"
+            id="categoriesE5ADA6E6A0A1E8AFBEE7A88B"
+            ><div class='name'>学校课程</div><div class='badge'>(2)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"
+            id="categoriesE5ADA6E6A0A1E8AFBEE7A88BE8AEA1E7AE97E69CBAE6938DE4BD9CE7B3BBE7BB9F"
+            ><div class='name'>计算机操作系统</div><div class='badge'>(2)</div></a></li>
+        
+      </ul>
     </div>
   </section>
 
 
   
 
+  
+    
+    
+  
+
+  <section class="widget tagcloud shadow desktop mobile">
+    
+  <header>
+    
+      <a href='/source/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 14px; color: #999">计算机操作系统</a>
+    </div>
+  </section>
+
+
+  
+
+  
+
 
 </aside>
-
 
 
 		  
@@ -1044,8 +808,8 @@ Next.js 中文网
 
 <script>
   window.pdata={}
-  pdata.ispage=true;
-  pdata.postTitle="细解浏览器缓存";
+  pdata.ispage=false;
+  pdata.postTitle="";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要

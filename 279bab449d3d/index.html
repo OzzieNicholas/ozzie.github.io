@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -24,7 +22,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>Category: 探索笔记 - Ozzie | Nicholas</title>
+  <title>计算机操作系统（二）：进程的初步认识 - Ozzie | Nicholas</title>
+  
+    <meta name="keywords" content="计算机操作系统">
   
 
   
@@ -469,7 +469,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="half" class='cover-wrapper  dock' style="display: ;">
+        <div id="half" class='cover-wrapper post dock' style="display: ;">
           
             <div id='cover-backstretch'></div>
           
@@ -546,79 +546,324 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="body-wrapper" id="pjax-container">
           
 
-
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
+
+
+  
+  <div class="article-meta" id="top">
     
-      
-  <section class="post-list">
     
-      
+    
+      <h1 class="title">
+        计算机操作系统（二）：进程的初步认识
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://avatars.githubusercontent.com/u/49378661?s=460&u=48820ed6b04ef7690959e325cd670dcd67efa5a5&v=4">
+    <p>Ozzie</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/">学校课程</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">计算机操作系统</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Mar 20, 2021</p>
+  </a>
+</div>
+
+          
         
           
         
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/6bbe4ee13dda/">
-        细解浏览器缓存
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        前言
-在开发中，我们总会提到 “合理设置缓存”，缓存机制非常普遍，有客户端缓存、服务器缓存、代理服务器缓存等等，在 HTTP 中，具有缓存功能的是浏览器缓存。 HTTP 缓存是作为web 性能优化的重要手段。
-
-HTML5 引入了应用程序缓存，在没有网络的情况下也能进行访问，同时，还引入了 storage 本地存储，这些都属于应用缓存，本文主要是和浏览器缓存相关的，也可以说是 HTTP 缓存...
-      
+      </div>
     
   </div>
+
+
   
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2020-08-02</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E6%8E%A2%E7%B4%A2%E7%AC%94%E8%AE%B0/">探索笔记</a>
-        
-      </div>
+  
+  <h2 id="进程与线程的知识体系图"><a href="#进程与线程的知识体系图" class="headerlink" title="进程与线程的知识体系图"></a>进程与线程的知识体系图</h2><p><img src="https://user-images.githubusercontent.com/49378661/98496888-9de1a800-227d-11eb-94a0-065bdaacb230.png" class="lazyload" data-srcset="https://user-images.githubusercontent.com/49378661/98496888-9de1a800-227d-11eb-94a0-065bdaacb230.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20201109084704273"></p>
+<blockquote>
+<p>在之后的文章中会陆续讲到，这里我们只说线程的知识</p>
+</blockquote>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>操作系统中最核心的概念就是进程，进程是对正在运行中的程序的一个抽象。操作系统的其他所有内<br>容都是围绕着进程展开的。进程是操作系统提供的最古老也是最重要的概念之一。即使可以使用的<br>CPU只有一一个，它们也支持（伪） 并发操作。它们会将一 一个单独的CPU抽象为多个虚拟机的CPU。<br>可以说，没有进程的抽象，现代操作系统将不复存在。</p>
+<p><img src="https://user-images.githubusercontent.com/49378661/98496964-ccf81980-227d-11eb-88ef-edb7fa1385a1.png" class="lazyload" data-srcset="https://user-images.githubusercontent.com/49378661/98496964-ccf81980-227d-11eb-88ef-edb7fa1385a1.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20201109085235569"></p>
+<p>在许多多道程序系统中， CPU会在进程间快速切换，使每个程说序运行几十或者几百毫秒。然而，严格<br>意义来说，在某一个瞬间，CPU只能运行一个进程，然而我们如果把时间定位为1秒内的话，它可能<br>运行多个进程。这样就会让我们产生并行的错觉。有时候人们说的伪并行（pseudoparallelism)<br>其实就是这种情况，以此来区分多处理器系统（该系统由两个或多个CPU来共享同一个物理内存）</p>
+<blockquote>
+<p>再解释一下伪并行：伪并行是指单核或多核处理器同时执行多个进程，从而使程序更快。<br>通过以非常有限的时间间隔在程序之间快速切换CPU，因此会产生并行感。</p>
+<p>缺点是CPU时间可能分配给下一个进程，也可能不分配给下一个进程。</p>
+</blockquote>
+<p>因为CPU执行速度很快，进程间的换进换出也非常迅速，因此我们很难对多个并行进程进行跟踪，所<br>以，在经过多年的努力后，操作系统的设计者开发了用于描述并行的一种概念模型（顺序进程），使得<br>并行更加容易理解和分析。下面我们就来探讨一下进程模型</p>
+<h2 id="进程模型"><a href="#进程模型" class="headerlink" title="进程模型"></a>进程模型</h2><p>在进程模型中，所有计算机上运行的软件，通常也包括操作系统，被组织为若干顺序进程，简称为进程（process) 。 一个进程就是一个正在执行的程序的实例，进程也包括程序计数器、寄存器和变量的当前值。从概念上来说，每个进程都有各自的虚拟CPU，但是实际情况是CPU会在各个进程之间进行来回切换。<br><img src="https://user-images.githubusercontent.com/49378661/98497019-ef8a3280-227d-11eb-8db8-78c4fe056fd6.png" class="lazyload" data-srcset="https://user-images.githubusercontent.com/49378661/98497019-ef8a3280-227d-11eb-8db8-78c4fe056fd6.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20201109090338163"></p>
+<p>如上图所示，这是一个具有4个程序的多道处理程序，在进程不断切换的过程中，程序计数器也在不同的变化：<br><img src="https://user-images.githubusercontent.com/49378661/98497035-f6b14080-227d-11eb-966e-974c70391734.png" class="lazyload" data-srcset="https://user-images.githubusercontent.com/49378661/98497035-f6b14080-227d-11eb-966e-974c70391734.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20201109090459710"></p>
+<p>在上图中，这4道程序被抽象为4个拥有各自控制流程（即每个自己的程序计数器）的进程，并且每个程序都独立的运行。当然，实际上只有一个物理程序计数器，每个程序要运行时，其逻辑程序计数器会装载到物理程序计数器中。当程序运行结束后，其物理程序计数器就会是真正的程序计数器，然后再把它放回进程的逻辑计数器中。</p>
+<p>从下图我们可以看到，在观察足够长的一 一段时间后，所有的进程都运行了，但在任何一个给定的瞬间仅有一个进程真正运行：<br><img src="https://user-images.githubusercontent.com/49378661/98497048-fca72180-227d-11eb-8bea-12df8a803c75.png" class="lazyload" data-srcset="https://user-images.githubusercontent.com/49378661/98497048-fca72180-227d-11eb-8bea-12df8a803c75.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20201109091326053"></p>
+<p>因此，当我们说一个CPU只能真正一次运行一个进程的时候，即使有2个核（或CPU)，每一个核<br>也只能一次运行一个线程。</p>
+<p>由于CPU会在各个进程之间来回快速切换，所以每个进程在CPU中的运行时间是无法确定的。并且<br>当同一个进程再次在CPU中运行时，其在CPU内部的运行时间往往也是不固定的。这里的关键思想是认识到一个进程所需的条件，进程是某一类特定活动的总和，它有程序、输入输出以及状态。单个处理器可以被若干进程共享，它使用某种调度算法决定何时停止一个进程的工作，并转而为另外一个进程提供服务。另外需要注意的是，如果一个进程运行 了两遍，则被认为是两个进程。那么我们了解到进程模型后，那么进程是如何创建的呢？</p>
+<h2 id="进程的创建"><a href="#进程的创建" class="headerlink" title="进程的创建"></a>进程的创建</h2><p>操作系统需要一些方式来创建进程。下面是一 些创建进程的方式</p>
+<ul>
+<li>系统初始化（init)</li>
+<li>正在运行的程序执行了创建进程的系统调用（比如fork)</li>
+<li>用户请求创建一个新进程</li>
+<li>初始化一个批处理工作</li>
+</ul>
+<h3 id="系统初始化"><a href="#系统初始化" class="headerlink" title="系统初始化"></a>系统初始化</h3><p>启动操作系统时，通常会创建若干个进程。</p>
+<p>其中有些是前台进程（numerous processes) ，也就是同用户进行交互并替他们完成工作的进程。</p>
+<p>一些运行在后台，并不与特定的用户进行交互，例如，设计一个进程来接收发来的电子邮件，这个进程大部分的时间都在休眠，但是只要邮件到来后这个进程就会被唤醒。</p>
+<p>还可以设计一个进程来接收对该计算机上网页的传入请求，在请求到达的进程唤醒来处理网页的传入请求。</p>
+<p>进程运行在后台用来处理一些活动像是 e-mail, web网页，新闻，打印等等被称为守护进（daemons)。大型系统会有很多守护进程。在UNIX中，ps 程序可以列出正在运行的进程，在Windows中，可以使用任务管理器。</p>
+<h3 id="系统调用创建"><a href="#系统调用创建" class="headerlink" title="系统调用创建"></a>系统调用创建</h3><p>除了在启动阶段创建进程之外，一些新的进程也可以在后面创建。通常，一个正在运行的进程会发出系统调用用来创建一个或多个新进程来帮助其完成工作。例如，如果有大量的数据需要经过网络调取并进行顺序处理，那么创建一个进程读数据，并把数据放到共享缓冲区中，而让第二个进程取走并正确处理会比较容易些。在多处理器中，让每个进程运行在不同的CPU上也可以使工作做的更快。</p>
+<h3 id="用户请求创建"><a href="#用户请求创建" class="headerlink" title="用户请求创建"></a>用户请求创建</h3><p>在许多交互式系统中，输入一个命令或者双击图标就可以启动程序，以上任意一种操作都可以选择开启一个新的进程，在基本的UNIX系统中运行X,新进程将接管启动它的窗口。在Windows中启动进程时，它一般没有窗口，但是它可以创建一个或多个窗口。每个窗口都可以运行进程。通过鼠标或者命令就可以切换窗口并与进程进行交互。</p>
+<h3 id="批处理创建"><a href="#批处理创建" class="headerlink" title="批处理创建"></a>批处理创建</h3><p>最后一种创建进程的情形会在大型机的批处理系统中应用。用户在这种系统中提交批处理作业。</p>
+<p>当操作系统决定它有资源来运行另一个任务时，它将创建一个新进程并从其中的输入队列中运行下一个作业。</p>
+<p>从技术上讲，在所有这些情况下，让现有流程执行流程是通过创建系统调用来创建新流程的。</p>
+<p>该进程可能是正在运行的用户进程，是从键盘或鼠标调用的系统进程或批处理程序。这些就是系统调用创建新进程的过程。</p>
+<p>该系统调用告诉操作系统创建一个新进程， 并直接或间接指示在其中运行哪个程序。</p>
+<p>在UNIX中，仅有一个系统调用来创建一个新的进程，这个系统调用就是fork 。这个调用会创建一<br>个与调用进程相关的副本。在fork后，一个父进程和子进程会有相同的内存映像，相同的环境字符串和<br>相同的打开文件。通常，子进程会执行execve或者一个简单的系统调用来改变内存映像并运行一个<br>新的程序。例如，当一个用户在shell中输出sort命令时，shell 会fork 一个子进程然后子进程去执行sort命令。这两步过程的原因是允许子进程在fork之后但在execve之前操作其文件描述符，以完成标准输入，标准输出和标准错误的重定向。</p>
+<p>而在Windows中，情况正相反，一个简单的Win32功能调用CreateProcess ，会处理流程创建并将正确的程序加载到新的进程中。这个调用会有10个参数，包括了需要执行的程序、输入给程序的命令行参数、各种安全属性、有关打开的文件是否继承控制位、优先级信息、进程所需要创建的窗口规格以<br>及指向一个结构的指针，在该结构中新创建进程的信息被返回给调用者。除了CreateProcess Win 32中大概有100个其他的函数用于处理进程的管理，同步以及相关的事务。</p>
+<p>下面是UNIX操作系统和Windows操作系统系统调用的对比：</p>
+<p><img src="https://user-images.githubusercontent.com/49378661/98497063-03359900-227e-11eb-891b-88667de5f354.png" class="lazyload" data-srcset="https://user-images.githubusercontent.com/49378661/98497063-03359900-227e-11eb-891b-88667de5f354.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20201109093537417"></p>
+<p>在UNIX和Windows中，进程创建之后，父进程和子进程有各自不同的地址空间。如果其中某个进程在其地址空间中修改了一个词，这个修改将对另一个进程不可见。</p>
+<p>在UNIX中，子进程的地址空间是父进程的一个拷贝，但是确是两个不同的地址空间；不可写的内存区域是共享的。某些UNIX实现是正是在两者之间共享，因为它不能被修改。或者，子进程共享父进程的所有内存，但是这种情况下内存通过写时复制（copy- on- write)共享， 这意味着一旦两者之一想要修改部分内存，则这块内存首先被明确的复制，以确保修改发生在私有内存区域。</p>
+<p>再次强调，可写的内存是不能被共享的。 但是，对于一个新创建的进程来说，确实有可能共享创建者的资源，比如可以共享打开的文件。在Windows中，从一开始父进程的地址空间和子进程的地址空间就是不同的。</p>
+<h2 id="进程的终止"><a href="#进程的终止" class="headerlink" title="进程的终止"></a>进程的终止</h2><p>进程在创建之后，它就开始运行并做完成任务。然而，进程早晚会发生终止，但是通常是由于以下情况触发：</p>
+<ul>
+<li>正常退出（自愿的）</li>
+<li>错误退出（自愿的）</li>
+<li>严重错误（非自愿的）</li>
+<li>被其他进程杀死（非自愿的）</li>
+</ul>
+<h3 id="正常退出"><a href="#正常退出" class="headerlink" title="正常退出"></a>正常退出</h3><p>多数进程是由于完成了工作而终止。当编译器完成了所给定程序的编译之后，编译器会执行一个系统调用告诉操作系统它完成了工作。</p>
+<p>这个调用在UNIX中是exit，在Windows中是ExitProcess 。</p>
+<p>面向屏幕中的软件也支持自愿终止操作。字处理软件、Internet 浏览器和类似的程序中总有一个供用户点击的图标或菜单项，用来通知进程删除它锁打开的任何临时文件，然后终止。</p>
+<h3 id="错误退出"><a href="#错误退出" class="headerlink" title="错误退出"></a>错误退出</h3><p>进程发生终止的第二个原因是发现严重错误，例如，如果用户执行如下命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">CC foo.c</span><br></pre></td></tr></table></figure>
+
+<p>为了能够编译foo.c但是该文件不存在，于是编译器就会发出声明并退出。在给出了错误参数时，面向<br>屏幕的交互式进程通常并不会直接退出，因为这从用户的角度来说并不合理，用户需要知道发生了什么并想要进行重试，所以这时候应用程序通常会弹出一个对话框告知用户发生了系统错误，是需要重试还是退出。</p>
+<h3 id="严重错误"><a href="#严重错误" class="headerlink" title="严重错误"></a>严重错误</h3><p>进程终止的第三个原因是由进程引起的错误，通常是由于程序中的错误所导致的。例如，执行了一条非法指令，引用不存在的内存，或者除数是0等。</p>
+<p>在有些系统比如UNIX中，进程可以通知操作系统，它希望自行处理某种类型的错误，在这类错误中，进程会收到信号（中断），而不是在这类错误出现时直接终止进程。</p>
+<h3 id="被其他进程杀死"><a href="#被其他进程杀死" class="headerlink" title="被其他进程杀死"></a>被其他进程杀死</h3><p>第四个终止进程的原因是，某个进程执行系统调用告诉操作系统杀死某个进程。</p>
+<p>在UNIX中，这个系统调用是kill。在Win32中对应的函数是TerminateProcess（注意不是系统调用）。</p>
+<h2 id="进程的层次结构"><a href="#进程的层次结构" class="headerlink" title="进程的层次结构"></a>进程的层次结构</h2><p>在一些系统中，当一个进程创建了其他进程后，父进程和子进程就会以某种方式进行关联。子进程它自己就会创建更多进程，从而形成一个进程层次结构。</p>
+<h3 id="UNIX进程体系"><a href="#UNIX进程体系" class="headerlink" title="UNIX进程体系"></a>UNIX进程体系</h3><p>在UNIX中，进程和它的所有子进程以及子进程的子进程共同组成一个进程组。当用户从键盘中发出一<br>个信号后，该信号被发送给当前与键盘相关的进程组中的所有成员（它们通常是在当前窗口创建的所有<br>活动进程）。</p>
+<p>每个进程可以分别捕获该信号、忽略该信号或采取默认的动作，即被信号kill 掉。</p>
+<p>另一个例子，可以用来说明层次的作用：考虑UNIX 在启动时如何初始化自己。一个称为init的特殊进程出现在启动映像中。当init进程开始运行时，它会读取一个文件，文件会告诉它有多少个终端。然后为每个终端创建一个新进程。 这些进程等待用户登录。如果登录成功，该登录进程就执行一个shell 来等待接收用户输入指令，这些命令可能会启动更多的进程，以此类推。因此，整个操作系统中所有的进程都隶属于一个单个以init为根的进程树：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">init─┬─NetworkManager（5427)</span><br><span class="line">        ├─NetworkManagerD（5441)</span><br><span class="line">        ├─acpid（5210)</span><br><span class="line">        ├─apache2（6966)─┬─apache2（2890)</span><br><span class="line">        │               ├─apache2（2893)</span><br><span class="line">        │               ├─apache2（7163)</span><br><span class="line">        │               ├─apache2（7165)</span><br><span class="line">        │               ├─apache2（7166)</span><br><span class="line">        │               ├─apache2（7167)</span><br><span class="line">        │               └─apache2（7168)</span><br><span class="line">        ├─atd（6369)</span><br><span class="line">        ├─avahi-daemon（5658)───avahi-daemon（5659)</span><br><span class="line">        ├─bonobo-activati（7816)───&#123;bonobo-activati&#125;（7817)</span><br></pre></td></tr></table></figure>
+
+<h3 id="Windows进程体系"><a href="#Windows进程体系" class="headerlink" title="Windows进程体系"></a>Windows进程体系</h3><p>相反，Windows中没有进程层次的概念，Windows 中所有进程都是平等的，唯一类似于层次结构的是<br>在创建进程的时候，父进程得到一个特别的令牌（称为句柄），该询柄可以用来控制子进程。</p>
+<p>然而，这个令牌可能也会移交给别的操作系统，这样就不存在层次结构了。而在UNIX中，进程不能剥夺其子进程的进程权。（这样看来， 还是Windows比较渣）。</p>
+<h2 id="进程状态"><a href="#进程状态" class="headerlink" title="进程状态"></a>进程状态</h2><p>尽管每个进程是一个独立的实体，有其自己的程序计数器和内部状态，但是，进程之间仍然需要相互帮<br>助。例如，一个进程的结果可以作为另一个进程的输入，在shell命令中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat chapter1 chapter2 chapter3 | grep tree</span><br></pre></td></tr></table></figure>
+
+<p>第一个进程是cat ，将三个文件级联并输出。</p>
+<p>第二个进程是grep ，它从输入中选择具有包含关键字tree的内容。</p>
+<p>根据这两个进程的相对速度（这取决于两个程序的相对复杂度和各自所分配到的CPU时间片），可能会发生下面这种情况：grep 准备就绪开始运行，但是输入进程还没有完成，于是必须阻塞grep进程，直到输入完毕。<br>当一个进程开始运行时，它可能会经历下面这几种状态（下图为进程状态切换图）：</p>
+<p><img src="https://user-images.githubusercontent.com/49378661/98497118-22342b00-227e-11eb-9074-9c30e007c0b4.png" class="lazyload" data-srcset="https://user-images.githubusercontent.com/49378661/98497118-22342b00-227e-11eb-9074-9c30e007c0b4.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20201109105506449"></p>
+<p>图中会涉及三种状态：</p>
+<ol>
+<li>运行态，运行态指的就是进程实际占用CPU时间片运行时</li>
+<li>就绪态，就绪态指的是可运行，但因为其他进程正在运行而处于就绪状态</li>
+<li>阻塞态，除非某种外部事件发生，否则进程不能运行</li>
+</ol>
+<p>逻辑上来说，运行态和就绪态是很相似的。这两种情况下都表示进程可运行，但是第二种情况没有获<br>得CPU时间分片。</p>
+<p>第三种状态与前两种状态不同的原因是这个进程不能运行，CPU空闲时也不能运行。</p>
+<p>三种状态会涉及四种状态间的切换，在操作系统发现进程不能继续执行时会发生状态1的轮转，在某些<br>系统中进程执行系统调用，例如pause ，来获取一个阻塞的状态。在其他系统中包括UNIX，当进程从管道或特殊文件（例如终端） 中读取没有可用的输入时，该进程会被自动终止。</p>
+<p>转换2和转换3都是由进程调度程序（操作系统的一部分）引起的，进程本身不知道调度程序的存在。</p>
+<p>转换2的出现说明进程调度器认定当前进程已经运行了足够长的时间，是时候让其他进程运行CPU时间片了。当所有其他进程都运行过后，这时候该是让第一个进程重新获得CPU时间片的时候了，就会发生转换3。</p>
+<p>程序调度指的是，决定哪个进程优先被运行和运行多久，这是很重要的一点。已经设计出许多算<br>法来尝试平衡系统整体效率与各个流程之间的竞争需求。</p>
+<p>当进程等待的一个外部事件发生时（如从外部输入一些数据后），则发生转换4。如果此时没有其他进<br>程在运行，则立刻触发转换3,该进程便开始运行，否则该进程会处于就绪阶段，等待CPU空闲后再<br>轮到它运行。</p>
+<p>从上面的观点引入了下面的模型：</p>
+<p><img src="https://user-images.githubusercontent.com/49378661/98497133-2a8c6600-227e-11eb-9120-af97d8e2bc51.png" class="lazyload" data-srcset="https://user-images.githubusercontent.com/49378661/98497133-2a8c6600-227e-11eb-9120-af97d8e2bc51.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20201109110000239"></p>
+<p>基于进程的操作系统中最底层的是中断和调度处理，在该层之上是顺序进程。</p>
+<p>操作系统最底层的就是调度程序，在它上面有许多进程。所有关于中断处理、启动进程和停止进程的具体细节都隐藏在调度程序中。</p>
+<p>事实上，调度程序只是一段非常小的程序。</p>
+<h2 id="进程的实现"><a href="#进程的实现" class="headerlink" title="进程的实现"></a>进程的实现</h2><p>操作系统为了执行进程间的切换，会维护着一张表格，这张表就是进程表（process table)。每个进程占用一个进程表项。该表项包含了进程状态的重要信息，包括程序计数器、堆栈指针、内存分配状<br>况、所打开文件的状态、账号和调度信息，以及其他在进程由运行态转换到就绪态或阻塞态时所必须保存的信息，从而保证该进程随后能再次启动，就像从未被中断过一样。</p>
+<p>下面展示了一个典型系统中的关键字段</p>
+<p><img src="https://user-images.githubusercontent.com/49378661/98497144-2fe9b080-227e-11eb-8b9a-2710bd808168.png" class="lazyload" data-srcset="https://user-images.githubusercontent.com/49378661/98497144-2fe9b080-227e-11eb-8b9a-2710bd808168.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="image-20201109110430257"></p>
+<p>典型的进程表表项中的一些字段</p>
+<p>第一列内容与进程管理有关，第二列内容与存储管理 有关，第三列内容与文件管理有关。</p>
+<p>存储管理的text segment、data segment、stack segment更多了解见下面这篇文章：</p>
+<p><a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/s?__biz=MzU2NDg0OTgyMA==&mid=2247484788&idx=1&sn=8a17224cabe09d3bd564dfdf22e2ff5d&chksm=fc45f887cb3271914f0e688a3cce4d7e3ce9077cdde199648e72aa92ad08fba2047b4483b7e8&token=504034995&lang=zh_CN%23rd">程序员需要了解的硬核知识之汇编语言（全）</a></p>
+<p>现在我们应该对进程表有个大致的了解了，就可以在对单个CPU.上如何运行多个顺序进程的错觉做更<br>多的解释。</p>
+<p>与每一/0类相关联的是一个称作中断向量（interrupt vector) 的位置（靠近内存底部的固定区域）。它包含中断服务程序的入口地址。</p>
+<p>假设当一个磁盘中断发生时，用户进程3正在运行，则中断硬件将程序计数器、程序状态字、有时还有一个或多个寄存器压入堆栈，计算机随即跳转到中断向量所指示的地址。这就是硬件所做的事情。</p>
+<p>然后软件就随即接管一切剩余的工作。</p>
+<p>当中断结束后，操作系统会调用一个C程序来处理中断剩下的工作。在完成剩下的工作后，会使某些进<br>程就绪，接着调用调度程序，决定随后运行哪个进程。</p>
+<p>然后将控制权转移给一 一段汇编语言代码，为当前的进程装入寄存器值以及内存映射并启动该进程运行，下面显示了中断处理和调度的过程：</p>
+<ol>
+<li>硬件压入堆栈程序计数器等</li>
+<li>硬件从中断向量装 入新的程序计数器</li>
+<li>汇编语言过程保存寄存器的值</li>
+<li>汇编语言过程设置新的堆栈</li>
+<li>C中断服务器运行（典型的读和缓存写入）</li>
+<li>调度器决定下面哪个程序先运行</li>
+<li>C过程返回至汇编代码</li>
+<li>汇编语言过程开始运行新的当前进程</li>
+</ol>
+<p>一个进程在执行过程中可能被中断数千次，但关键每次中断后，被中断的进程都返回到与中断发生前完全相同的状态。</p>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/6bbe4ee13dda/'>
-            Read More
-          </a>
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=http://ozziely.com/279bab449d3d/>http://ozziely.com/279bab449d3d/</a></p>
+              
+            
+          </blockquote>
         </div>
+      
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-20T09:03:05+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Mar 20, 2021</p>
+  </a>
 </div>
 
-          </div>
         
       
-    
-  </section>
+        
+          
   
-    
-  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>计算机操作系统</p></a></div>
 
 
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
     
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ozziely.com/279bab449d3d/&title=计算机操作系统（二）：进程的初步认识 - Ozzie | Nicholas&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://ozziely.com/279bab449d3d/&title=计算机操作系统（二）：进程的初步认识 - Ozzie | Nicholas&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://ozziely.com/279bab449d3d/&title=计算机操作系统（二）：进程的初步认识 - Ozzie | Nicholas&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
   
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/bfb7f7b98435/'>
+          <p class='title'>计算机操作系统（一）：认识操作系统<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>操作系统简介
+现代计算机系统由一个或多个处理器、主存、打印机、键盘、鼠标、显示器、网络接口以及各种输入/输出设备构成。
+在硬件的基础上，计算机安装了一层软件，这些软件能够通过响应用户输入的指令达...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -626,131 +871,28 @@ HTML5 引入了应用程序缓存，在没有网络的情况下也能进行访�
     
     
 
-<section class="widget blogger shadow desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box circle' href='/about/'>
-          <img no-lazy src='https://avatars.githubusercontent.com/u/49378661?s=460&u=48820ed6b04ef7690959e325cd670dcd67efa5a5&v=4'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-          <p>集中一点，登峰造极</p>
 
-        
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:me@xxx.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/OzzieNicholas"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
-
-  
-    
-    
-  
-
-  <section class="widget category shadow desktop">
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/source/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/React/" href="/categories/React/"
-            id="categoriesReact"
-            ><div class='name'>React</div><div class='badge'>(1)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%8E%A2%E7%B4%A2%E7%AC%94%E8%AE%B0/" href="/categories/%E6%8E%A2%E7%B4%A2%E7%AC%94%E8%AE%B0/"
-            id="categoriesE68EA2E7B4A2E7AC94E8AEB0"
-            ><div class='name'>探索笔记</div><div class='badge'>(1)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E4%B8%8E%E7%BA%BF%E7%A8%8B%E7%9A%84%E7%9F%A5%E8%AF%86%E4%BD%93%E7%B3%BB%E5%9B%BE"><span class="toc-text">进程与线程的知识体系图</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E6%A8%A1%E5%9E%8B"><span class="toc-text">进程模型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%88%9B%E5%BB%BA"><span class="toc-text">进程的创建</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E5%88%9D%E5%A7%8B%E5%8C%96"><span class="toc-text">系统初始化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%B3%BB%E7%BB%9F%E8%B0%83%E7%94%A8%E5%88%9B%E5%BB%BA"><span class="toc-text">系统调用创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E8%AF%B7%E6%B1%82%E5%88%9B%E5%BB%BA"><span class="toc-text">用户请求创建</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%89%B9%E5%A4%84%E7%90%86%E5%88%9B%E5%BB%BA"><span class="toc-text">批处理创建</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E7%BB%88%E6%AD%A2"><span class="toc-text">进程的终止</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%AD%A3%E5%B8%B8%E9%80%80%E5%87%BA"><span class="toc-text">正常退出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%94%99%E8%AF%AF%E9%80%80%E5%87%BA"><span class="toc-text">错误退出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%A5%E9%87%8D%E9%94%99%E8%AF%AF"><span class="toc-text">严重错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%A2%AB%E5%85%B6%E4%BB%96%E8%BF%9B%E7%A8%8B%E6%9D%80%E6%AD%BB"><span class="toc-text">被其他进程杀死</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84"><span class="toc-text">进程的层次结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#UNIX%E8%BF%9B%E7%A8%8B%E4%BD%93%E7%B3%BB"><span class="toc-text">UNIX进程体系</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows%E8%BF%9B%E7%A8%8B%E4%BD%93%E7%B3%BB"><span class="toc-text">Windows进程体系</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%8A%B6%E6%80%81"><span class="toc-text">进程状态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%9B%E7%A8%8B%E7%9A%84%E5%AE%9E%E7%8E%B0"><span class="toc-text">进程的实现</span></a></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop mobile">
-    
-  <header>
-    
-      <a href='/source/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/React/" style="font-size: 14px; color: #999">React</a> <a href="/tags/%E6%8E%A2%E7%B4%A2%E7%AC%94%E8%AE%B0/" style="font-size: 14px; color: #999">探索笔记</a>
-    </div>
-  </section>
-
-
-  
 
   
 
 
 </aside>
+
 
 
 		  
@@ -759,8 +901,8 @@ HTML5 引入了应用程序缓存，在没有网络的情况下也能进行访�
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="计算机操作系统（二）：进程的初步认识";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
