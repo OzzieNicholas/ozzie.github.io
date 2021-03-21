@@ -5,10 +5,6 @@
   <!-- SEO相关 -->
   
     
-      
-        <meta name="robots" content="noindex,follow">
-      
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -26,7 +22,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>Ozzie | Nicholas</title>
+  <title>JavaScript（七）：正则的扩展 - Ozzie | Nicholas</title>
+  
+    <meta name="keywords" content="JavaScript">
   
 
   
@@ -471,7 +469,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="half" class='cover-wrapper  dock' style="display: ;">
+        <div id="half" class='cover-wrapper post dock' style="display: ;">
           
             <div id='cover-backstretch'></div>
           
@@ -549,182 +547,652 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
           
 
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
-  <section class="post-list">
+
+
+  
+  <div class="article-meta" id="top">
     
     
-      
+    
+      <h1 class="title">
+        JavaScript（七）：正则的扩展
+      </h1>
+      <div class='new-meta-box'>
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/29326ada3e53/">
-        计算机操作系统（三）：处理机调度
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        处理机调度的层次和调度算法的目标处理机调度的层次
-高级调度：
-作业调度或长程调度，也称为接纳调度。
-主要任务是按一定的原则对外存上处于后备状态的作业进行选择，给选中的作业分配内存、输入/输出设备等必要的资源，并建立相应的进程，放入就绪队列，以使该作业的进程获得竞争处理机的权利。
-高级调度的时间尺度通常是分钟、小时或天。
-在每次作业调度时，须决定：
-接纳多少个作业：取决于多道程序度，即允许多少...
-      
-    
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://avatars.githubusercontent.com/u/49378661?s=460&u=48820ed6b04ef7690959e325cd670dcd67efa5a5&v=4">
+    <p>Ozzie</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/">JavaScript</a>
+    </a>
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
+
+
+          
         
-        <time>2021-03-20</time>
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Mar 20, 2021</p>
+  </a>
+</div>
+
+          
         
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/">学校课程</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">计算机操作系统</a>
+          
         
       </div>
+    
+  </div>
+
+
+  
+  
+  <h2 id="RegExp-构造函数"><a href="#RegExp-构造函数" class="headerlink" title="RegExp 构造函数"></a>RegExp 构造函数</h2><ol>
+<li><p>在ES5中，RegExp构造函数的参数有两种情况：</p>
+<ul>
+<li><p>第一种情况：参数是字符串，这时第二个参数表示正则表达式的修饰符。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> regexp = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">&#x27;xyz&#x27;</span>, <span class="string">&#x27;i&#x27;</span>);</span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line"><span class="keyword">var</span> regexp = <span class="regexp">/xyz/i</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第二种情况：参数是正则表示式，这时会返回一个原有正则表达式的拷贝。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> regexp = <span class="keyword">new</span> Regexp(<span class="regexp">/xyz/i</span>);</span><br><span class="line"><span class="comment">// 等价于</span></span><br><span class="line"><span class="keyword">var</span> regexp = <span class="regexp">/xyz/i</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>但是，ES5不允许此时使用第二个参数，添加修饰符，否则会报错。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> regexp = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="regexp">/xyz/i</span>, <span class="string">&#x27;i&#x27;</span>);</span><br><span class="line"><span class="comment">// Uncaught TypeError: Cannot supply flags when constructing one RegExp from another</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>ES6改变了这种行为。如果RegExp构造函数第一个参数是一个正则对象，那么可以使用第二个参数指定修饰符。而且，返回的正则表达式会忽略原有的正则表达式的修饰符，只使用新指定的修饰符。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> regexp = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="regexp">/xyz/ig</span>, <span class="string">&#x27;i&#x27;</span>);</span><br><span class="line"><span class="built_in">console</span>.log(regexp); <span class="comment">// /xyz/i</span></span><br><span class="line"><span class="built_in">console</span>.log(regexp.flags); <span class="comment">// i</span></span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>source</code> 属性：返回正则表达式的正文。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> regexp = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="regexp">/xyz/ig</span>);</span><br><span class="line"><span class="built_in">console</span>.log(regexp.source); <span class="comment">// xyz</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>flags</code> 属性：ES6为正则表达式新增了<code>flags</code>属性，会返回正则表达式的修饰符。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> regexp = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="regexp">/xyz/ig</span>);</span><br><span class="line"><span class="built_in">console</span>.log(regexp.flags); <span class="comment">// gi</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>RegExp.escape()</code>：</p>
+<ul>
+<li><p>字符串必须转义，才能作为正则模式。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">escapeRegExp</span>(<span class="params">str</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> str.replace(<span class="regexp">/[\-\[\]\/\&#123;\&#125;\(\)\*\+\?\.\\\^\$\|]/g</span>, <span class="string">&#x27;\\$&amp;&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">let</span> str = <span class="string">&#x27;/path/to/resource.html?search=query&#x27;</span>;</span><br><span class="line"><span class="built_in">console</span>.log(escapeRegExp(str));</span><br><span class="line"><span class="built_in">console</span>.log(str);</span><br><span class="line"><span class="comment">// \/path\/to\/resource\.html\?search=query</span></span><br><span class="line"><span class="comment">// /path/to/resource.html?search=query</span></span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>上面代码中，<code>str</code>是一个正常字符串，必须使用反斜杠对其中的特殊字符转义，才能用来作为一个正则匹配的模式。</li>
+</ul>
+</li>
+<li><p>有提议将这个需求标准化，作为RegExp对象的静态方法<a target="_blank" rel="noopener" href="https://github.com/benjamingr/RexExp.escape">RegExp.escape()</a>，放入ES7。但是 TC39 认为，这个方法有安全风险，又不愿这个方法变得过于复杂，没有同意将其列入ES7，但这不失为一个真实的需求。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">RegExp</span>.escape(<span class="string">&#x27;The Quick Brown Fox&#x27;</span>);</span><br><span class="line"><span class="comment">// &quot;The Quick Brown Fox&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">RegExp</span>.escape(<span class="string">&#x27;Buy it. use it. break it. fix it.&#x27;</span>);</span><br><span class="line"><span class="comment">// &quot;Buy it\. use it\. break it\. fix it\.&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">RegExp</span>.escape(<span class="string">&#x27;(*.*)&#x27;</span>);</span><br><span class="line"><span class="comment">// &quot;\(\*\.\*\)&quot;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>字符串转义以后，可以使用RegExp构造函数生成正则模式。</p>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h2><p>正则表达式是用于匹配字符串中字符组合的模式。在 JavaScript中，正则表达式也是对象。这些模式被用于 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/RegExp"><code>RegExp</code></a> 的 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec"><code>exec</code></a> 和 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test"><code>test</code></a> 方法, 以及 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/String"><code>String</code></a> 的 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/match"><code>match</code></a>、<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll"><code>matchAll</code></a>、<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/replace"><code>replace</code></a>、<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/search"><code>search</code></a> 和 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/split"><code>split</code></a> 方法。</p>
+<h2 id="创建一个正则表达式"><a href="#创建一个正则表达式" class="headerlink" title="创建一个正则表达式"></a>创建一个正则表达式</h2><p>你可以使用以下两种方法构建一个正则表达式：</p>
+<ul>
+<li><p>方法一：使用一个正则表达式字面量，其由包含在斜杠之间的模式组成，如下所示：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> re = <span class="regexp">/ab+c/</span>;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>脚本加载后，正则表达式字面量就会被编译。当正则表达式保持不变时，使用此方法可获得更好的性能，也就是说，正则表达式字面量适用于该正则表达式不变的情况。</li>
+</ul>
+</li>
+<li><p>方法二：调用<code>RegExp</code>对象的构造函数，如下所示：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> re = <span class="keyword">new</span> <span class="built_in">RegExp</span>(<span class="string">&quot;ab+c&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在脚本运行过程中，用构造函数创建的正则表达式会被编译。如果正则表达式将会改变，或者它将会从用户输入等来源中动态地产生，就需要使用构造函数来创建正则表达式，也就是说，RegExp 构造函数更适用于该正则表达式会变的情况。</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h2 id="编写一个正则表达式的模式"><a href="#编写一个正则表达式的模式" class="headerlink" title="编写一个正则表达式的模式"></a>编写一个正则表达式的模式</h2><ol>
+<li><p>一个正则表达式模式是由简单的字符所构成的，比如 <code>/abc/</code>；或者是简单和特殊字符的组合，比如 <code>/ab*c/</code> 或 <code>/Chapter (\d+)\.\d*/</code>。</p>
+</li>
+<li><p>最后的例子中用到了括号，它在正则表达式中常用作记忆设备。即这部分所匹配的字符将会被记住以备后续使用，例如<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-cn/docs/Web/JavaScript/Guide/Regular_Expressions#%E4%BD%BF%E7%94%A8%E6%8B%AC%E5%8F%B7%E7%9A%84%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D">使用括号的子字符串匹配</a>。</p>
+</li>
+</ol>
+<h3 id="使用简单模式"><a href="#使用简单模式" class="headerlink" title="使用简单模式"></a>使用简单模式</h3><ol>
+<li><p>简单模式是由你想直接找到的字符构成。</p>
+</li>
+<li><p>比如，<code>/abc/</code> 这个模式就能且仅能匹配 “abc” 字符按照顺序同时出现的情况，例如 “xxxabcxx”。</p>
+</li>
+</ol>
+<h3 id="使用特殊字符"><a href="#使用特殊字符" class="headerlink" title="使用特殊字符"></a>使用特殊字符</h3><ol>
+<li><p>当你需要匹配一个不确定的字符串时，可以在模式中使用特殊字符。</p>
+</li>
+<li><p>比如，你可以使用 <code>/ab*c/</code> 去匹配一个单独的 “a” 后面跟了零个或者多个 “b”，同时后面跟着 “c” 的字符串。<code>*</code> 的意思是前一项出现零次或者多次。在字符串 “cbbabbbbcdebc” 中，<code>/ab*c/</code> 模式匹配到的子字符串是 “abbbbc”。</p>
+</li>
+<li><p>正则表达式中的特殊字符及其描述如下：</p>
+<ul>
+<li><p><code>\</code>：</p>
+<ul>
+<li>在非特殊字符之前的反斜杠表示下一个字符是特殊字符，不能按照字面理解；但如果前面加了 <code>\</code>，它将不再匹配任何字符，而是表示一个字符边界。<ul>
+<li>所以，如果你想将字符串传递给 RegExp 构造函数，不要忘记在字符串字面量中反斜杠是转义字符。如果你只想表达一个 <code>\</code>，那就请写成 <code>\\</code>，所以，<code>/[a-z]\s/i</code> 等价于 <code>new RegExp(&#39;[a-z]\\s&#39;, &#39;i&#39;)</code>，即匹配到的是：在 a-z 范围内的任意字符并且后面紧跟着空白字符的表达式，这个常用作搜索字符。</li>
+<li>若你真的想在 RegExp 构造函数中包含反斜杠的表达式，你需要在字符串级别和正则表达式级别都对它进行转义。例如：<code>/[a-z]:\\/i</code> 等价于 <code>new RegExp(&#39;[a-z]:\\\\&#39;, &#39;i&#39;)</code>，即匹配类似 <code>c:\</code> 的字符串。</li>
+</ul>
+</li>
+<li>在特殊字符之前的反斜杠表示下一个字符不是特殊字符，应该按照字面理解，意思就是字面意思。</li>
+</ul>
+</li>
+<li><p><code>^</code>：</p>
+<ul>
+<li> 匹配输入的开始。如果多行标志被设置为 true，那么也匹配换行符后紧跟的位置。</li>
+<li>例如，<code>/^A/</code> 并不会匹配 “an A” 中的 ‘A’，但是会匹配 “An E” 中的 ‘A’。</li>
+<li>当 ‘<code>^</code>‘ 作为第一个字符出现在一个字符集合模式时，它将会有不同的含义。</li>
+</ul>
+</li>
+<li><p><code>$</code>：</p>
+<ul>
+<li>匹配输入的结束。如果多行标志被设置为 true，那么也匹配换行符前的位置。</li>
+<li>例如，<code>/t$/</code> 并不会匹配 “eater” 中的 ‘t’，但是会匹配 “eat” 中的 ‘t’。</li>
+</ul>
+</li>
+<li><p><code>*</code>：</p>
+<ul>
+<li>匹配前一个表达式 0 次或多次。等价于 <code>&#123;0,&#125;</code>。</li>
+<li>例如，<code>/bo*/</code> 会匹配 “A ghost boooooed” 中的 ‘booooo’ 和 “A bird warbled” 中的 ‘b’，但是在 “A goat grunted” 中不会匹配任何内容。</li>
+</ul>
+</li>
+<li><p><code>+</code>：</p>
+<ul>
+<li> 匹配前面一个表达式 1 次或者多次。等价于 <code>&#123;1,&#125;</code>。</li>
+<li>例如，<code>/a+/</code> 会匹配 “candy” 中的 ‘a’ 和 “caaaaaaandy” 中所有的 ‘a’，但是在 “cndy” 中不会匹配任何内容。</li>
+</ul>
+</li>
+<li><p><code>?</code>：</p>
+<ul>
+<li>匹配前面一个表达式 0 次或者 1 次。等价于 <code>&#123;0,1&#125;</code>。</li>
+<li>例如，<code>/e?le?/</code> 匹配 “angel” 中的 ‘el’、”angle” 中的 ‘le’ 以及 “oslo’ 中的 ‘l’。</li>
+<li>如果紧跟在任何量词 *、 +、? 或 {} 的后面，将会使量词变为非贪婪（匹配尽量少的字符），和缺省使用的贪婪模式（匹配尽可能多的字符）正好相反。例如，对 “123abc” 使用 <code>/\d+/</code> 将会匹配 “123”，而使用 <code>/\d+?/</code> 则只会匹配到 “1”。</li>
+<li>还用于先行断言中，如本表的 <code>x(?=y)</code> 和 <code>x(?!y)</code> 条目所述。</li>
+</ul>
+</li>
+<li><p><code>.</code>：</p>
+<ul>
+<li>（小数点）默认匹配除换行符之外的任何单个字符。</li>
+<li>例如，<code>/.n/</code> 将会匹配 “nay, an apple is on the tree” 中的 ‘an’ 和 ‘on’，但是不会匹配 ‘nay’。</li>
+<li>如果 <code>s</code> (“dotAll”) 标志位被设为 true，它也会匹配换行符。</li>
+</ul>
+</li>
+<li><p><code>(x)</code>：</p>
+<ul>
+<li>像下面的例子展示的那样，它会匹配 ‘x’ 并且记住匹配项。其中括号被称为捕获括号。</li>
+<li>模式 <code>/(foo) (bar) \1 \2/</code> 中的 ‘<code>(foo)</code>‘ 和 ‘<code>(bar)</code>‘ 匹配并记住字符串 “foo bar foo bar” 中前两个单词。模式中的 <code>\1</code> 和 <code>\2</code> 表示第一个和第二个被捕获括号匹配的子字符串，即 <code>foo</code> 和 <code>bar</code>，匹配了原字符串中的后两个单词。注意 <code>\1</code>、<code>\2</code>、…、<code>\n</code> 是用在正则表达式的匹配环节，详情可以参阅后文的 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Regular_Expressions$edit#special-backreference">\n</a> 条目。而在正则表达式的替换环节，则要使用像 <code>$1</code>、<code>$2</code>、…、<code>$n</code> 这样的语法，例如，<code>&#39;bar foo&#39;.replace(/(...) (...)/, &#39;$2 $1&#39;)</code>。<code>$&amp;</code> 表示整个用于匹配的原字符串。</li>
+</ul>
+</li>
+<li><p><code>(?:x)</code>：</p>
+<ul>
+<li> 匹配 ‘x’ 但是不记住匹配项。这种括号叫作<em>非捕获括号</em>，使得你能够定义与正则表达式运算符一起使用的子表达式。看看这个例子 <code>/(?:foo)&#123;1,2&#125;/</code>。如果表达式是 <code>/foo&#123;1,2&#125;/</code>，<code>&#123;1,2&#125;</code> 将只应用于 ‘foo’ 的最后一个字符 ‘o’。如果使用非捕获括号，则 <code>&#123;1,2&#125;</code> 会应用于整个 ‘foo’ 单词。</li>
+</ul>
+</li>
+<li><p><code>x(?=y)</code>：</p>
+<ul>
+<li>匹配’x’仅仅当’x’后面跟着’y’.这种叫做先行断言。</li>
+<li>例如，/Jack(?=Sprat)/会匹配到’Jack’仅当它后面跟着’Sprat’。/Jack(?=Sprat|Frost)/匹配‘Jack’仅当它后面跟着’Sprat’或者是‘Frost’。但是‘Sprat’和‘Frost’都不是匹配结果的一部分。</li>
+</ul>
+</li>
+<li><p><code>(?&lt;=y)x</code>：</p>
+<ul>
+<li>匹配’x’仅当’x’前面是’y’.这种叫做后行断言。</li>
+<li>例如，/(?&lt;=Jack)Sprat/会匹配到’ Sprat ‘仅仅当它前面是’ Jack ‘。/(?&lt;=Jack|Tom)Sprat/匹配‘ Sprat ’仅仅当它前面是’Jack’或者是‘Tom’。但是‘Jack’和‘Tom’都不是匹配结果的一部分。</li>
+</ul>
+</li>
+<li><p><code>x(?|y)</code>：</p>
+<ul>
+<li>仅仅当’x’后面不跟着’y’时匹配’x’，这被称为正向否定查找。</li>
+<li>例如，仅仅当这个数字后面没有跟小数点的时候，/\d+(?!.)/ 匹配一个数字。正则表达式/\d+(?!.)/.exec(“3.141”)匹配‘141’而不是‘3.141’。</li>
+</ul>
+</li>
+<li><p><code>(?&lt;!y)x</code>：</p>
+<ul>
+<li>仅仅当’x’前面不是’y’时匹配’x’，这被称为反向否定查找。</li>
+<li>例如, 仅仅当这个数字前面没有负号的时候，<code>/(?&lt;!-)\d+/</code> 匹配一个数字。<ul>
+<li><code>/(?&lt;!-)\d+/.exec(&#39;3&#39;)</code> 匹配到 “3”</li>
+<li><code>/(?&lt;!-)\d+/.exec(&#39;-3&#39;)</code> 因为这个数字前有负号，所以没有匹配到</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p><code>x|y</code>：</p>
+<ul>
+<li>匹配‘x’或者‘y’。</li>
+<li>例如，<code>/green|red/</code> 匹配 “green apple ”中的 ‘green’ 和 “red apple” 中的 ‘red’。</li>
+</ul>
+</li>
+<li><p><code>&#123;n&#125;</code>：</p>
+<ul>
+<li>n 是一个正整数，匹配了前面一个字符刚好出现了 n 次。</li>
+<li>比如，<code>/a&#123;2&#125;/</code> 不会匹配 “candy” 中的 ‘a’，但是会匹配 “caandy” 中所有的 a，以及 “caaandy” 中的前两个’a’。</li>
+</ul>
+</li>
+<li><p><code>&#123;n,&#125;</code>：</p>
+<ul>
+<li> n是一个正整数，匹配前一个字符至少出现了n次。</li>
+<li>例如，<code>/a&#123;2,&#125;/</code> 匹配 “aa”, “aaaa” 和 “aaaaa” 但是不匹配 “a”。</li>
+</ul>
+</li>
+<li><p><code>&#123;n,m&#125;</code>：</p>
+<ul>
+<li>n 和 m 都是整数。匹配前面的字符至少n次，最多m次。如果 n 或者 m 的值是0， 这个值被忽略。</li>
+<li>例如，<code>/a&#123;1, 3&#125;/</code> 并不匹配“cndy”中的任意字符，匹配“candy”中的a，匹配“caandy”中的前两个a，也匹配“caaaaaaandy”中的前三个a。注意，当匹配”caaaaaaandy“时，匹配的值是“aaa”，即使原始的字符串中有更多的a。</li>
+</ul>
+</li>
+<li><p><code>[xyz]</code>：</p>
+<ul>
+<li>一个字符集合。匹配方括号中的任意字符，包括<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Grammar_and_types">转义序列</a>。你可以使用破折号（-）来指定一个字符范围。对于点（.）和星号（*）这样的特殊符号在一个字符集中没有特殊的意义。他们不必进行转义，不过转义也是起作用的。</li>
+<li>例如，[abcd] 和[a-d]是一样的。他们都匹配”brisket”中的‘b’,也都匹配“city”中的‘c’。/[a-z.]+/ 和/[\w.]+/与字符串“test.i.ng”匹配。</li>
+</ul>
+</li>
+<li><p><code>[*xyz]</code>：</p>
+<ul>
+<li>一个反向字符集。也就是说， 它匹配任何没有包含在方括号中的字符。你可以使用破折号（-）来指定一个字符范围。任何普通字符在这里都是起作用的。</li>
+<li>例如，<code>[^abc]</code> 和 <code>[^a-c]</code> 是一样的，他们匹配”brisket”中的‘r’，也匹配“chop”中的‘h’。</li>
+</ul>
+</li>
+<li><p><code>[\b]</code>：</p>
+<ul>
+<li>匹配一个退格(U+0008)。</li>
+<li>注意，记得不要和 <code>\b</code> 混淆了。</li>
+</ul>
+</li>
+<li><p><code>\b</code>：</p>
+<ul>
+<li><p>匹配一个词的边界。一个词的边界就是一个词不被另外一个“字”字符跟随的位置或者前面跟其他“字”字符的位置，例如在字母和空格之间。注意，匹配中不包括匹配的字边界。换句话说，一个匹配的词的边界的内容的长度是0。（不要和 <code>[\b]</code> 混淆了）</p>
+</li>
+<li><p>使用”moon”举例：</p>
+<ul>
+<li>/\bm/匹配“moon”中的‘m’；</li>
+<li>/oo\b/并不匹配”moon”中的’oo’，因为’oo’被一个“字”字符’n’紧跟着。</li>
+<li>/oon\b/匹配”moon”中的’oon’，因为’oon’是这个字符串的结束部分。这样他没有被一个“字”字符紧跟着。</li>
+<li>/\w\b\w/将不能匹配任何字符串，因为在一个单词中间的字符永远也不可能同时满足没有“字”字符跟随和有“字”字符跟随两种情况。</li>
+</ul>
+</li>
+<li><p>注意：</p>
+<blockquote>
+<p>JavaScript的正则表达式引擎将特定的字符集定义为“字”字符。</p>
+<p>不在该集合中的任何字符都被认为是一个断词。</p>
+<p>这组字符相当有限：它只包括大写和小写的罗马字母，十进制数字和下划线字符。不幸的是，重要的字符，例如“é”或“ü”，被视为断词。</p>
+</blockquote>
+</li>
+</ul>
+</li>
+<li><p><code>\B</code>：</p>
+<ul>
+<li>匹配一个非单词边界。匹配如下几种情况：<ul>
+<li>字符串第一个字符为非“字”字符</li>
+<li>字符串最后一个字符为非“字”字符</li>
+<li>两个单词字符之间</li>
+<li>两个非单词字符之间</li>
+<li>空字符串</li>
+</ul>
+</li>
+<li>例如，<code>/\B../</code> 匹配”noonday”中的’oo’, 而 <code>/y\B../</code> 匹配”possibly yesterday”中的’yes‘</li>
+</ul>
+</li>
+<li><p><code>\cX</code>：</p>
+<ul>
+<li>当X是处于A到Z之间的字符的时候，匹配字符串中的一个控制符。</li>
+<li>例如，<code>/\cM/</code> 匹配字符串中的 control-M (U+000D)。</li>
+</ul>
+</li>
+<li><p><code>\d</code>：</p>
+<ul>
+<li>匹配一个数字，等价于 <code>[0-9]</code>。</li>
+<li>例如， <code>/\d/</code> 或者 <code>/[0-9]/</code> 匹配”B2 is the suite number.”中的’2’。</li>
+</ul>
+</li>
+<li><p><code>\D</code>：</p>
+<ul>
+<li>匹配一个非数字字符，等价于<code>[^0-9]</code>。</li>
+<li>例如， <code>/\D/</code> 或者 <code>/[^0-9]/</code> 匹配”B2 is the suite number.”中的’B’ 。</li>
+</ul>
+</li>
+<li><p><code>\f</code>：</p>
+<ul>
+<li>匹配一个换页符 (U+000C)。</li>
+</ul>
+</li>
+<li><p><code>\n</code>：</p>
+<ul>
+<li>匹配一个换行符 (U+000A)。</li>
+</ul>
+</li>
+<li><p><code>\r</code>：</p>
+<ul>
+<li> 匹配一个回车符 (U+000D)。</li>
+</ul>
+</li>
+<li><p><code>\s</code>：</p>
+<ul>
+<li><p>匹配一个空白字符，包括空格、制表符、换页符和换行符。</p>
+</li>
+<li><p>等价于：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[ \f\n\r\t\v\u00a0\u1680\u180e\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>例如, <code>/\s\w*/</code> 匹配”foo bar.”中的’ bar’。</p>
+</li>
+</ul>
+</li>
+<li><p><code>\S</code>：</p>
+<ul>
+<li><p>匹配一个非空白字符。</p>
+</li>
+<li><p>等价于：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[^ \f\n\r\t\v\u00a0\u1680\u180e\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>例如，<code>/\S\w*/</code> 匹配”foo bar.”中的’foo’。</p>
+</li>
+</ul>
+</li>
+<li><p><code>\t</code>：</p>
+<ul>
+<li>匹配一个水平制表符 (U+0009)。</li>
+</ul>
+</li>
+<li><p><code>\v</code>：</p>
+<ul>
+<li>匹配一个垂直制表符 (U+000B)。</li>
+</ul>
+</li>
+<li><p><code>\w</code>：</p>
+<ul>
+<li><p>匹配一个单字字符（字母、数字或者下划线）。</p>
+</li>
+<li><p>等价于：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[A-Za-z0-9_]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>例如, <code>/\w/</code> 匹配 “apple,” 中的 ‘a’，”$5.28,”中的 ‘5’ 和 “3D.” 中的 ‘3’。</p>
+</li>
+</ul>
+</li>
+<li><p><code>\W</code>：</p>
+<ul>
+<li><p>匹配一个非单字字符。</p>
+</li>
+<li><p>等价于：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[^A-Za-z0-9_]</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>例如, <code>/\W/</code> 或者 <code>/[^A-Za-z0-9_]/</code> 匹配 “50%.” 中的 ‘%’。</p>
+</li>
+</ul>
+</li>
+<li><p><code>\n</code>：</p>
+<ul>
+<li>在正则表达式中，它返回最后的第n个子捕获匹配的子字符串(捕获的数目以左括号计数)。</li>
+<li>比如 <code>/apple(,)\sorange\1/</code> 匹配”apple, orange, cherry, peach.”中的’apple, orange,’ 。</li>
+</ul>
+</li>
+<li><p><code>\0</code>：</p>
+<ul>
+<li>匹配 NULL（U+0000）字符， 不要在这后面跟其它小数，因为 <code>\0&lt;digits&gt;</code> 是一个八进制转义序列。</li>
+</ul>
+</li>
+<li><p><code>\xhh</code>：</p>
+<ul>
+<li> 匹配一个两位十六进制数（\x00-\xFF）表示的字符。</li>
+</ul>
+</li>
+<li><p><code>\uhhh</code>：</p>
+<ul>
+<li>匹配一个四位十六进制数表示的 UTF-16 代码单元。</li>
+</ul>
+</li>
+<li><p><code>u&#123;hhhh&#125;</code> 或者 <code>\u&#123;hhhhh&#125;</code>：</p>
+<ul>
+<li>（仅当设置了u标志时）匹配一个十六进制数表示的 Unicode 字符。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h2 id="转义"><a href="#转义" class="headerlink" title="转义"></a>转义</h2><ol>
+<li><p>如果你需要使用任何特殊字符的字面值（例如，搜索字符’*’）</p>
+<ul>
+<li>你必须通过在它前面放一个反斜杠来转义它。 例如，要搜索’a’后跟 <code>*</code> 后跟’b’，你应该使用 <code>/a\*b/-</code> 反斜杠“转义”字符’*’，使其成为文字而非特殊符号。</li>
+</ul>
+</li>
+<li><p>类似地，如果您正在编写正则表达式文字并且需要匹配斜杠（’/‘），那么需要转义它（否则，斜杠是正则终止符）。 例如，要搜索字符串“/ example /”后跟一个或多个字母字符，您需要使用<code>/\/example\/[a-z]+/i</code>——每个斜杠之前使用反斜杠使它们成为普通字符。</p>
+</li>
+<li><p>要匹配文本符号反斜杠，您需要转义反斜杠。 例如，要匹配字符串“C:\”，其中“C”可以是任何字母，您将使用<code>/[A-Z]:\\/</code> —— 第一个反斜杠转义后面的那个反斜杠，因此表达式搜索单个普通字符反斜杠。</p>
+</li>
+<li><p>如果将RegExp构造函数与字符串文字一起使用，请记住反斜杠是字符串文字中的转义，因此要在正则表达式中使用它，您需要在字符串文字级别转义它。 <code>/a\*b/</code> 和<code>new RegExp(&quot;a\\*b&quot;)</code>创建的表达式是相同的，搜索“a”后跟文字“*”后跟“b”。</p>
+</li>
+<li><p>将用户输入转义为正则表达式中的一个字面字符串，可以通过简单的替换来实现：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">escapeRegExp</span>(<span class="params">string</span>) </span>&#123;</span><br><span class="line">  <span class="keyword">return</span> string.replace(<span class="regexp">/[.*+?^$&#123;&#125;()|[\]\\]/g</span>, <span class="string">&quot;\\$&amp;&quot;</span>);</span><br><span class="line">  <span class="comment">// $&amp; 表示整个被匹配的字符串</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>正则表达式后的”g”是一个表示全局搜索选项或标记，将在整个字符串查找并返回所有匹配结果。</li>
+</ul>
+</li>
+</ol>
+<h2 id="使用插入语"><a href="#使用插入语" class="headerlink" title="使用插入语"></a>使用插入语</h2><ol>
+<li>任何正则表达式的插入语都会使这部分匹配的副字符串被记忆。一旦被记忆，这个副字符串就可以被调用于其它用途。</li>
+<li>比如， <code>/Chapter (\d+)\.\d*/</code> 解释了额外转义的和特殊的字符，并说明了这部分pattern应该被记忆。它精确地匹配后面跟着一个以上数字字符的字符 ‘Chapter ‘ (<code>\d</code> 意为任何数字字符，<code>+ 意为1次以上</code>)，跟着一个小数点（在这个字符中本身也是一个特殊字符；小数点前的 \ 意味着这个pattern必须寻找字面字符 ‘.’)，跟着任何数字字符0次以上。 (<code>\d</code> 意为数字字符， <code>*</code> 意为0次以上)。另外，插入语也用来记忆第一个匹配的数字字符。</li>
+<li>此模式可以匹配字符串”Open Chapter 4.3, paragraph 6”，并且’4’将会被记住。此模式并不能匹配”Chapter 3 and 4”，因为在这个字符串中’3’的后面没有点号’.’。</li>
+<li>括号中的”?:”，这种模式匹配的子字符串将不会被记住。比如，(?:\d+)匹配一次或多次数字字符，但是不能记住匹配的字符。</li>
+</ol>
+<h2 id="使用正则表达式"><a href="#使用正则表达式" class="headerlink" title="使用正则表达式"></a>使用正则表达式</h2><blockquote>
+<p>正则表达式可以被用于 <code>RegExp</code> 的 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/JavaScript/Reference/Global_Objects/RegExp/exec"><code>exec</code></a> 和 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/JavaScript/Reference/Global_Objects/RegExp/test"><code>test</code></a> 方法以及 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/JavaScript/Reference/Global_Objects/String"><code>String</code></a> 的 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/JavaScript/Reference/Global_Objects/String/match"><code>match</code></a>、<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/JavaScript/Reference/Global_Objects/String/replace"><code>replace</code></a>、<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/JavaScript/Reference/Global_Objects/String/search"><code>search</code></a> 和 <a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/JavaScript/Reference/Global_Objects/String/split"><code>split</code></a> 方法，如下：</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="center">方法</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp/exec"><code>exec</code></a></td>
+<td align="center">一个在字符串中执行查找匹配的RegExp方法，<br />它返回一个数组（未匹配到则返回 null）。</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/RegExp/test"><code>test</code></a></td>
+<td align="center">一个在字符串中测试是否匹配的RegExp方法，它返回 true 或 false。</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/match"><code>match</code></a></td>
+<td align="center">一个在字符串中执行查找匹配的String方法，<br />它返回一个数组，在未匹配到时会返回 null。</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/matchAll"><code>matchAll</code></a></td>
+<td align="center">一个在字符串中执行查找所有匹配的String方法，它返回一个迭代器（iterator）。</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/search"><code>search</code></a></td>
+<td align="center">一个在字符串中测试匹配的String方法，<br />它返回匹配到的位置索引，或者在失败时返回-1。</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/replace"><code>replace</code></a></td>
+<td align="center">一个在字符串中执行查找匹配的String方法，<br />并且使用替换字符串替换掉匹配到的子字符串。</td>
+</tr>
+<tr>
+<td align="center"><a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/split"><code>split</code></a></td>
+<td align="center">一个使用正则表达式或者一个固定字符串分隔一个字符串，<br />并将分隔后的子字符串存储到数组中的 <code>String</code> 方法。</td>
+</tr>
+</tbody></table>
+<p>在接下来的例子中，脚本将使用exec方法在一个字符串中查找一个匹配。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> myRe = <span class="regexp">/d(b+)d/g</span>;</span><br><span class="line"><span class="keyword">var</span> myArray = myRe.exec(<span class="string">&quot;cdbbdbsbz&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>总结如下：</p>
+<ul>
+<li>当你想要知道在一个字符串中的一个匹配是否被找到，你可以使用 test 或 search 方法；</li>
+<li>想得到更多的信息（但是比较慢）则可以使用 exec 或 match 方法。</li>
+<li>如果你使用exec 或 match 方法并且匹配成功了，那么这些方法将返回一个数组并且更新相关的正则表达式对象的属性和预定义的正则表达式对象。</li>
+<li>如果匹配失败，那么 exec 方法返回 null（也就是false）。</li>
+</ul>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/29326ada3e53/'>
-            Read More
-          </a>
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=http://ozziely.com/6a62e21367ac/>http://ozziely.com/6a62e21367ac/</a></p>
+              
+            
+          </blockquote>
         </div>
+      
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-21T22:05:25+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Mar 21, 2021</p>
+  </a>
 </div>
 
-          </div>
         
       
         
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
+          
   
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/279bab449d3d/">
-        计算机操作系统（二）：进程的初步认识
-      </a>
-    </h2>
-  
-  <div class='md'>
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/JavaScript/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>JavaScript</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
     
       
-        进程与线程的知识体系图
-
-在之后的文章中会陆续讲到，这里我们只说线程的知识
-
-前言操作系统中最核心的概念就是进程，进程是对正在运行中的程序的一个抽象。操作系统的其他所有内容都是围绕着进程展开的。进程是操作系统提供的最古老也是最重要的概念之一。即使可以使用的CPU只有一一个，它们也支持（伪） 并发操作。它们会将一 一个单独的CPU抽象为多个虚拟机的CPU。可以说，没有进程的抽象，现代操作系统将...
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://ozziely.com/6a62e21367ac/&title=JavaScript（七）：正则的扩展 - Ozzie | Nicholas&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://ozziely.com/6a62e21367ac/&title=JavaScript（七）：正则的扩展 - Ozzie | Nicholas&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://ozziely.com/6a62e21367ac/&title=JavaScript（七）：正则的扩展 - Ozzie | Nicholas&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
       
     
   </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-03-20</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/">学校课程</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">计算机操作系统</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/279bab449d3d/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
 </div>
 
-          </div>
+
+
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/bfb7f7b98435/">
-        计算机操作系统（一）：认识操作系统
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        操作系统简介
-现代计算机系统由一个或多个处理器、主存、打印机、键盘、鼠标、显示器、网络接口以及各种输入/输出设备构成。
-在硬件的基础上，计算机安装了一层软件，这些软件能够通过响应用户输入的指令达到控制硬件的效果，从而满足用户的需求，这种软件被称之为 “操作系统”，
-我们一般常见的操作系统主要有：Windows、Linux、FreeBSD 或 OS X，这种带有图形界面的操作系统，被统称为 “...
-      
-    
+    </div>
   </div>
+
+
   
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-03-20</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/">学校课程</a><span class="sep"></span><a class="category-link" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/">计算机操作系统</a>
-        
-      </div>
+  
+
+  
+    <div class="prev-next">
       
-        <div>
-          <a class='readmore' href='/bfb7f7b98435/'>
-            Read More
-          </a>
-        </div>
+        <a class='prev' href='/623f1f08afb9/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>JavaScript（五）：数据类型与字面量</p>
+          <p class='content'>数据类型概述JavaScript 语言的每一个值都属于一种数据类型，最新的 ECMAScript 指出，JavaScript 共有 8种 数据类型，分别是：
+
+七种基本数据类型：
+布尔值（Boo...</p>
+        </a>
+      
+      
+        <a class='next' href='/2ca46689117e/'>
+          <p class='title'>JavaScript（六）：语句与声明<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>
+JavaScript 应用程序是由许多语法正确的语句组成的。单个语句可以跨多行。
+如果每个语句用分号隔开，那么多个语句可以在一行中出现。
+以下内容按类别分类叙述
+
+流程控制语句block
+描述...</p>
+        </a>
       
     </div>
   
+</article>
 
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
 </div>
 
-          </div>
-        
-      
-    
-  </section>
-  
-    
-      <br>
-      <div class="prev-next">
-        
-          <a class="prev" rel="prev" href="/page/9/">
-            <section class="post prev white-box shadow" >
-              <i class="fas fa-chevron-left" aria-hidden="true"></i>&nbsp;Previous&nbsp;
-            </section>
-          </a>
-        
-        <p class="current">
-          10 / 10
-        </p>
-        
-      </div>
-    
-  
+  </article>
+
+
+
+
 
 
 </div>
@@ -734,186 +1202,22 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
 
-<section class="widget blogger shadow desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box circle' href='/about/'>
-          <img no-lazy src='https://avatars.githubusercontent.com/u/49378661?s=460&u=48820ed6b04ef7690959e325cd670dcd67efa5a5&v=4'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-          <p>集中一点，登峰造极</p>
 
-        
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:me@xxx.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/OzzieNicholas"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
-
-  
-    
-    
-  
-
-  <section class="widget category shadow desktop">
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/source/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/ACM/" href="/categories/ACM/"
-            id="categoriesACM"
-            ><div class='name'>ACM</div><div class='badge'>(12)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E5%89%8D%E7%AB%AF/" href="/categories/%E5%89%8D%E7%AB%AF/"
-            id="categoriesE5898DE7ABAF"
-            ><div class='name'>前端</div><div class='badge'>(64)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%89%8D%E7%AB%AF/JavaScript/" href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/"
-            id="categoriesE5898DE7ABAFJavaScript"
-            ><div class='name'>JavaScript</div><div class='badge'>(10)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%89%8D%E7%AB%AF/css/" href="/categories/%E5%89%8D%E7%AB%AF/css/"
-            id="categoriesE5898DE7ABAFcss"
-            ><div class='name'>css</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%89%8D%E7%AB%AF/node/" href="/categories/%E5%89%8D%E7%AB%AF/node/"
-            id="categoriesE5898DE7ABAFnode"
-            ><div class='name'>node</div><div class='badge'>(6)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%89%8D%E7%AB%AF/react/" href="/categories/%E5%89%8D%E7%AB%AF/react/"
-            id="categoriesE5898DE7ABAFreact"
-            ><div class='name'>react</div><div class='badge'>(7)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%89%8D%E7%AB%AF/vue/" href="/categories/%E5%89%8D%E7%AB%AF/vue/"
-            id="categoriesE5898DE7ABAFvue"
-            ><div class='name'>vue</div><div class='badge'>(18)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%89%8D%E7%AB%AF/webpack/" href="/categories/%E5%89%8D%E7%AB%AF/webpack/"
-            id="categoriesE5898DE7ABAFwebpack"
-            ><div class='name'>webpack</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%89%8D%E7%AB%AF/%E5%BC%80%E5%8F%91/" href="/categories/%E5%89%8D%E7%AB%AF/%E5%BC%80%E5%8F%91/"
-            id="categoriesE5898DE7ABAFE5BC80E58F91"
-            ><div class='name'>开发</div><div class='badge'>(15)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%89%8D%E7%AB%AF/%E9%9A%8F%E7%AC%94%E6%BC%AB%E8%B0%88/" href="/categories/%E5%89%8D%E7%AB%AF/%E9%9A%8F%E7%AC%94%E6%BC%AB%E8%B0%88/"
-            id="categoriesE5898DE7ABAFE99A8FE7AC94E6BCABE8B088"
-            ><div class='name'>随笔漫谈</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/"
-            id="categoriesE5ADA6E6A0A1E8AFBEE7A88B"
-            ><div class='name'>学校课程</div><div class='badge'>(16)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93/" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93/"
-            id="categoriesE5ADA6E6A0A1E8AFBEE7A88BE695B0E68DAEE5BA93"
-            ><div class='name'>数据库</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"
-            id="categoriesE5ADA6E6A0A1E8AFBEE7A88BE8AEA1E7AE97E69CBAE6938DE4BD9CE7B3BBE7BB9F"
-            ><div class='name'>计算机操作系统</div><div class='badge'>(8)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"
-            id="categoriesE5ADA6E6A0A1E8AFBEE7A88BE8AEA1E7AE97E69CBAE7BD91E7BB9C"
-            ><div class='name'>计算机网络</div><div class='badge'>(5)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#RegExp-%E6%9E%84%E9%80%A0%E5%87%BD%E6%95%B0"><span class="toc-text">RegExp 构造函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%80%E4%BB%8B"><span class="toc-text">简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AA%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">创建一个正则表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BC%96%E5%86%99%E4%B8%80%E4%B8%AA%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F%E7%9A%84%E6%A8%A1%E5%BC%8F"><span class="toc-text">编写一个正则表达式的模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%AE%80%E5%8D%95%E6%A8%A1%E5%BC%8F"><span class="toc-text">使用简单模式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6"><span class="toc-text">使用特殊字符</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BD%AC%E4%B9%89"><span class="toc-text">转义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%8F%92%E5%85%A5%E8%AF%AD"><span class="toc-text">使用插入语</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">使用正则表达式</span></a></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop mobile">
-    
-  <header>
-    
-      <a href='/source/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/ES6/" style="font-size: 16.22px; color: #8a8a8a">ES6</a> <a href="/tags/Git/" style="font-size: 19.56px; color: #737373">Git</a> <a href="/tags/JavaScript/" style="font-size: 20.67px; color: #6c6c6c">JavaScript</a> <a href="/tags/css/" style="font-size: 15.11px; color: #919191">css</a> <a href="/tags/expres/" style="font-size: 14px; color: #999">expres</a> <a href="/tags/koa/" style="font-size: 16.22px; color: #8a8a8a">koa</a> <a href="/tags/next-js/" style="font-size: 14px; color: #999">next.js</a> <a href="/tags/node/" style="font-size: 15.11px; color: #919191">node</a> <a href="/tags/react%E5%9F%BA%E7%A1%80/" style="font-size: 18.44px; color: #7b7b7b">react基础</a> <a href="/tags/redux/" style="font-size: 14px; color: #999">redux</a> <a href="/tags/vue-cli/" style="font-size: 14px; color: #999">vue-cli</a> <a href="/tags/vue-router/" style="font-size: 17.33px; color: #828282">vue-router</a> <a href="/tags/vuex/" style="font-size: 16.22px; color: #8a8a8a">vuex</a> <a href="/tags/vue%E5%9F%BA%E7%A1%80/" style="font-size: 22.89px; color: #5d5d5d">vue基础</a> <a href="/tags/webpack/" style="font-size: 17.33px; color: #828282">webpack</a> <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" style="font-size: 15.11px; color: #919191">开发工具</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 16.22px; color: #8a8a8a">数据库</a> <a href="/tags/%E6%B0%B4%E9%A2%98/" style="font-size: 24px; color: #555">水题</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 15.11px; color: #919191">浏览器</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 21.78px; color: #646464">计算机操作系统</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 18.44px; color: #7b7b7b">计算机网络</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 20.67px; color: #6c6c6c">踩坑</a>
-    </div>
-  </section>
-
-
-  
 
   
 
@@ -928,8 +1232,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="JavaScript（七）：正则的扩展";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
