@@ -4,6 +4,31 @@
   
     
     <entry>
+      <title>数据结构（一）：绪论</title>
+      <link href="60568f9b024a/"/>
+      <url>60568f9b024a/</url>
+      
+        <content type="html"><![CDATA[<h2 id="什么是数据结构"><a href="#什么是数据结构" class="headerlink" title="什么是数据结构"></a>什么是数据结构</h2><h3 id="数据结构的定义"><a href="#数据结构的定义" class="headerlink" title="数据结构的定义"></a>数据结构的定义</h3><ol><li>寻求数学模型的实质是分析问题，从中提取操作的对象，并找出这些操作对象之间的关系，然后用数学语言加以描述。有些问题的数据模型可以用具体的数学方程等来表示，但是更多的实际问题是无法用数学方程来表示的，这就需要从数据入手来分析并得到解决问题的方法。</li><li>数据是描述客观事物的数和字符的集合。</li><li>数据元素：数据元素是数据的基本单位（例如，某个班的基本信息表中，一个学生就是一个数据元素）。<ul><li>有时，数据元素也称为元素、结点、顶点或者记录等。</li><li>一个数据元素也可以由若干个数据项组成。</li></ul></li><li>数据项：数据项是具有独立含义的数据最小单位，也成为字段或者域（例如，某个班的基本信息表中，每一个数据元素，即每一个学生记录，都由学号、姓名等数据项构成）。</li><li>数据对象：数据对象是指性质相同的数据元素的集合，它是数据的一个子集。<ul><li>在平时的交流中，所提及的数据通常是指数据对象。</li></ul></li><li>数据结构：数据结构是指所有数据元素以及数据元素之间的关系。<ul><li>可以看做是相互之间存在着某种特定关系的数据元素的集合。我们常把数据结构看做是带结构的数据元素的集合。</li><li>数据结构通常包括：<ul><li>数据的逻辑结构：这是由数据元素之间的逻辑关系构成。</li><li>数据的存储结构：这是数据元素及其关系在计算机存储器中的存储表示，也成为数据的物理结构。</li><li>数据的运算：即施加在该数据上的操作。</li></ul></li></ul></li></ol><h3 id="逻辑结构"><a href="#逻辑结构" class="headerlink" title="逻辑结构"></a>逻辑结构</h3><p>数据的逻辑结构是从数据元素的逻辑关系上描述数据的，是指数据元素之间的逻辑关系的整体，通常是从求解问题中得出的。</p><ol><li><p>逻辑结构的表示：逻辑结构有很多中表示方式，常见的有图表和二元组等。</p><ul><li><p>图像表示：采用表格或者图形直接描述数据的逻辑关系。</p><ul><li>每个结点对应着一个数据元素。</li><li>两结点之间带箭头的连线表示它们之间的相邻关系。</li></ul></li><li><p>二元组表示：二元组是一种通用的数据逻辑结构表示方式，一个二元组的表示例如：<code>B = (D, R)</code></p><ul><li><p><code>B = (D, R)</code> 中，D表示数据元素的集合，R 表示 D 上的二元关系的集合，即：–</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">D &#x3D; &#123;d_i | 1≤i≤n,n≥0&#125;</span><br><span class="line"></span><br><span class="line"># d_i 表示 D 中第 i 个数据元素，n 为 D 中数据元素的个数。</span><br><span class="line"></span><br><span class="line"># 若 n&#x3D;0，则 D 是一个空集，表示 B 无结构或者认为具有任意结构</span><br></pre></td></tr></table></figure><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">R &#x3D; &#123;r_j | 1≤j≤m,m≥0&#125;</span><br><span class="line"></span><br><span class="line"># r_j 表示 R 中第 j 个关系，m 为 R 中关系的个数。</span><br><span class="line"></span><br><span class="line"># 若 m&#x3D;0，则 R 是一个空集，表示 D 中的元素间不存在任何逻辑关系，等同于数学中的集合</span><br></pre></td></tr></table></figure></li></ul></li></ul></li></ol>]]></content>
+      
+      
+      <categories>
+          
+          <category> 数据结构 </category>
+          
+      </categories>
+      
+      
+        <tags>
+            
+            <tag> 数据结构基础 </tag>
+            
+        </tags>
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Next.js入门详解教程</title>
       <link href="3e56fbdb64fa/"/>
       <url>3e56fbdb64fa/</url>
