@@ -627,7 +627,9 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 </ul>
 </li>
 </ol>
-<h3 id="逻辑结构"><a href="#逻辑结构" class="headerlink" title="逻辑结构"></a>逻辑结构</h3><p>数据的逻辑结构是从数据元素的逻辑关系上描述数据的，是指数据元素之间的逻辑关系的整体，通常是从求解问题中得出的。</p>
+<h3 id="逻辑结构"><a href="#逻辑结构" class="headerlink" title="逻辑结构"></a>逻辑结构</h3><blockquote>
+<p>数据的逻辑结构是从数据元素的逻辑关系上描述数据的，是指数据元素之间的逻辑关系的整体，通常是从求解问题中得出的。</p>
+</blockquote>
 <ol>
 <li><p>逻辑结构的表示：逻辑结构有很多中表示方式，常见的有图表和二元组等。</p>
 <ul>
@@ -637,16 +639,211 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 <li>两结点之间带箭头的连线表示它们之间的相邻关系。</li>
 </ul>
 </li>
-<li><p>二元组表示：二元组是一种通用的数据逻辑结构表示方式，一个二元组的表示例如：<code>B = (D, R)</code></p>
-<ul>
-<li><p><code>B = (D, R)</code> 中，D表示数据元素的集合，R 表示 D 上的二元关系的集合，即：–</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">D &#x3D; &#123;d_i | 1≤i≤n,n≥0&#125;</span><br><span class="line"></span><br><span class="line"># d_i 表示 D 中第 i 个数据元素，n 为 D 中数据元素的个数。</span><br><span class="line"></span><br><span class="line"># 若 n&#x3D;0，则 D 是一个空集，表示 B 无结构或者认为具有任意结构</span><br></pre></td></tr></table></figure>
+<li><p>二元组表示：二元组是一种通用的数据逻辑结构表示方式，一个二元组的表示例如：<code>B = (D, R)</code>，其中，D 表示数据元素的集合，R 表示 D 上的二元关系的集合，即：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">D &#x3D; &#123;d_i | 1≤i≤n,n≥0&#125;</span><br><span class="line"></span><br><span class="line">d_i 表示 D 中第 i 个数据元素，n 为 D 中数据元素的个数。</span><br><span class="line"></span><br><span class="line">若 n&#x3D;0，则 D 是一个空集，表示 B 无结构或者认为具有任意结构</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">R &#x3D; &#123;r_j | 1≤j≤m,m≥0&#125;</span><br><span class="line"></span><br><span class="line"># r_j 表示 R 中第 j 个关系，m 为 R 中关系的个数。</span><br><span class="line"></span><br><span class="line"># 若 m&#x3D;0，则 R 是一个空集，表示 D 中的元素间不存在任何逻辑关系，等同于数学中的集合</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">R &#x3D; &#123;r_j | 1≤j≤m,m≥0&#125;</span><br><span class="line">  </span><br><span class="line">r_j 表示 R 中第 j 个关系，m 为 R 中关系的个数。</span><br><span class="line">  </span><br><span class="line">若 m&#x3D;0，则 R 是一个空集，表示 D 中的元素间不存在任何逻辑关系，等同于数学中的集合</span><br></pre></td></tr></table></figure>
 
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">R 中的一个关系 r 是序偶的集合，</span><br><span class="line">对于 r 中的任意序偶 &lt;x, y&gt;，表示元素 x 与 y 是相邻的，</span><br><span class="line">x 为 y 的直接前驱元素，简称前驱元素</span><br><span class="line">y 是 x 的直接后继元素，简称后继元素</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">对于对称序偶集合，可表示为 (x, y)∈r，</span><br><span class="line">用图形表示逻辑关系时，对称序偶用不带箭头的连线表示</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
 </li>
+<li><p>逻辑结构的类型</p>
+<ul>
+<li>集合：指数据元素之间除了 “同属于一个集合” 的关系以外，没有其他关系。</li>
+<li>线性结构：是指该结构中的数据元素之间存在一对一的关系。<ul>
+<li>特点：开始元素和终端元素是唯一的，除了开始元素和终端元素外，其余元素有且仅有一个前驱元素和一个后继元素。</li>
+<li>典型的线性结构：线性表。</li>
+</ul>
+</li>
+<li>树形结构：是指该结构中的数据元素之间存在一对多的关系。<ul>
+<li>特点：<ul>
+<li>除了开始元素以外，每个元素有且仅有一个前驱元素。</li>
+<li>除了终端元素以外，每个元素有一个或者多个后继元素。</li>
+</ul>
+</li>
+<li>典型的树形结构：二叉树。</li>
+</ul>
+</li>
+<li>图形结构：是指该结构中的数据元素之间存在多对多的关系。<ul>
+<li>特点：每个元素的前驱元素和后继元素的个数可以是任意的，因此图形结构没有（或者有多个）开始元素和终端元素。</li>
+<li>树形结构与图形结构统称为非线性结构。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="存储结构"><a href="#存储结构" class="headerlink" title="存储结构"></a>存储结构</h3><blockquote>
+<p>数据逻辑结构在计算机存储器中的存储表示成为数据的存储结构（也称为映像），也就是逻辑结构在计算机中的存储实现。</p>
+<p>当把数据对象存储到计算机中时，通常要求既要存每一个数据元素，又要存储数据元素之间的逻辑关系。</p>
+</blockquote>
+<ol>
+<li>顺序存储结构<ul>
+<li>采用一组连续的存储单元存放所有的数据元素。所有的数据元素在存储器中占有一整块存储空间，两个逻辑上相邻的元素在存储器中的存储位置也相邻。</li>
+<li>数据元素之间的逻辑关系由存储单元地址间的关系隐含表示，即顺序存储结构将数据的逻辑结构直接映射到存储结构。</li>
+<li>主要优点：存储效率高。<ul>
+<li>因此可实现对元素的随机存取。</li>
+</ul>
+</li>
+<li>主要缺点：不便于数据修改。</li>
+</ul>
+</li>
+<li>链式存储结构<ul>
+<li>每个逻辑元素用一个内存结点存储，每个结点是单独分配的。</li>
+<li>为了表示元素之间的逻辑关系，给每个结点附加指针域，用来存放相邻结点的存储地址。</li>
+<li>主要优点：便于数据修改。</li>
+<li>主要缺点：存储的空间利用率低，不能对元素随机存储。<ul>
+<li>分配给元素的存储单元有一部分被用来存储结点之间的逻辑关系，所以存储的空间利用率低。</li>
+<li>逻辑上相邻的元素在存储空间不一定相邻，所以不能对元素随机存储。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>索引存储结构<ul>
+<li>在存储数据元素信息的同时还建立附加的索引表。存储所有元素信息的表成为主数据表，其中每个数据元素有一个关键字和对应的存储地址。</li>
+<li>索引表中的每一项称为索引项，索引项一般的形式为 “关键字，地址”，其中，索引表中所有的索引项都是按关键字排序的。</li>
+<li>主要优点：查找效率高。</li>
+<li>主要缺点：需要建立索引表，增加了空间开销。</li>
+</ul>
+</li>
+</ol>
+<h3 id="数据运算"><a href="#数据运算" class="headerlink" title="数据运算"></a>数据运算</h3><blockquote>
+<p>数据运算是指对数据实施的操作。</p>
+</blockquote>
+<ol>
+<li>每种数据结构都有一组相应的运算，最常用的运算有检索、插入、删除、更新、排序等。</li>
+<li>对于一种数据结构，其逻辑结构是唯一的，但可能对应着多种存储结构，并且，在不同的存储结构中，同一运算的实现过程可能不同。</li>
+</ol>
+<h3 id="数据类型和抽象数据类型"><a href="#数据类型和抽象数据类型" class="headerlink" title="数据类型和抽象数据类型"></a>数据类型和抽象数据类型</h3><ol>
+<li><p>数据类型：</p>
+<ul>
+<li>数据类型是一组性质相同的值的集合和定义在此集合上的一组操作的总称，是某种程序设计语言中已实现的数据结构。</li>
+<li>C/C++ 中常用的数据类型：按照取值的不同，分为原子类型（不可再分的基本类型）和结构类型（可分解的）。<ul>
+<li>基本数据类型（int、bool、float、double、char）</li>
+<li>指针类型</li>
+<li>数组类型</li>
+<li>结构体类型</li>
+<li>共用体类型</li>
+<li>自定义类型</li>
+</ul>
+</li>
+<li>存储空间的分配：<ul>
+<li>静态存储空间分配：是指在程序编译期间分配固定的存储空间的方式（如数组）。</li>
+<li>动态存储空间分配：是指在程序运行期间动态地分配存储空间的方式（如使用 <code>malloc()/free()</code>）。<ul>
+<li>容易造成内存泄漏。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>抽象数据类型（ADT）：</p>
+<ul>
+<li><p>抽象数据类型指的是用户进行软件系统设计时，从问题的数学模型中抽象出来的逻辑数据结构和逻辑数据结构上的运算，而不考虑计算机的具体存储结构和运算的具体实现算法。</p>
+</li>
+<li><p>抽象数据类型中，数据对象和数据运算的声明与数据对象的表示和数据运算的实现相互分离。</p>
+</li>
+<li><p>一个具体问题的抽象数据类型的定义一般包括：数据对象、数据关系和基本运算。</p>
+</li>
+<li><p>一个抽象数据类型可用三元组（D, S, P）表示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">ADT 抽象数据类型名 &#123;</span><br><span class="line">	数据对象(D): 数据对象的声明</span><br><span class="line">	数据关系(S): 数据关系的声明</span><br><span class="line">	基本运算(P): 基本运算的声明</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>其中，基本运算的声明格式为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">基本运算名(参数表): 运算功能描述</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>基本运算有两种参数：</p>
+<ul>
+<li>值参数：只为运算提供输入值。</li>
+<li>引用参数：以 <code>&amp;</code> 开头，除了可提供的输入值以外，还将返回输出结果。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>例如，一个复数的抽象数据类型 Complex 的定义如下：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">ADT Complex &#123;</span><br><span class="line">	数据对象: D = &#123;e1, e2 | e1, e2 均为实数&#125;	<span class="comment">// 一个复数由 e1, e2 两个实数构成</span></span><br><span class="line">	数据关系: R = &#123;&lt;e1, e2&gt; | e1 是实部, e2 是虚部&#125;	<span class="comment">// e1, e2 在复数中的逻辑关系是 &lt;e1, e2&gt;</span></span><br><span class="line">	基本运算:</span><br><span class="line">		AssignComplex(&amp;z, v1, v2);	<span class="comment">// 构造复数 z, v1 为实部值, v2 为虚部值</span></span><br><span class="line">		DestoryComplex(&amp;z);	<span class="comment">// 销毁复数 z</span></span><br><span class="line">		GetReal(z, &amp;real);	<span class="comment">// 用 real 返回复数 z 的实部值</span></span><br><span class="line">    	GetImag(z, &amp;imag);	<span class="comment">// 用 imag 返回复数 z 的虚部值</span></span><br><span class="line">    	Add(z1, z2, &amp;sum);	<span class="comment">// 用 sum 返回两个复数 z1 和 z2 相加的结果</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>抽象数据类型的两大特征：数据抽象和数据封装</p>
+</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h2 id="算法及其描述"><a href="#算法及其描述" class="headerlink" title="算法及其描述"></a>算法及其描述</h2><h3 id="什么是算法"><a href="#什么是算法" class="headerlink" title="什么是算法"></a>什么是算法</h3><blockquote>
+<p>算法是对特定问题求解步骤的一种描述，它是指令的有限序列。</p>
+</blockquote>
+<ol>
+<li>算法的 5 大特征：<ul>
+<li>有穷性：必须在执行有穷步之后结束，每一步都在有穷时间内完成。</li>
+<li>确定性：对相同的输入必须得到相同的输出，不能有二义性。</li>
+<li>可行性：算法的每一个动作都能被机械地执行。</li>
+<li>有输入：一个算法必须有 0 个或者多个输入。</li>
+<li>有输出：一个算法必须有 1 个或者多个输出。</li>
+</ul>
+</li>
+<li>算法与程序的区别：<ul>
+<li>程序是指使用某种计算机语言对一个算法的具体实现，即具体要怎么做。</li>
+<li>算法侧重于对解决问题的方法描述，即要做什么。</li>
+<li>算法必须满足有穷性，而程序不一定满足有穷性。</li>
+</ul>
+</li>
+<li>算法设计的目标：<ul>
+<li>正确性：正确执行预先规定的功能和性能要求，这也是最基本的最重要的标准。</li>
+<li>可使用性：用户友好性。</li>
+<li>可读性：可读性好。</li>
+<li>健壮性：容错性好。</li>
+<li>高效率与低存储量需求：算法的效率主要是指算法的执行时间，算法存储量指的是算法执行过程中所需要的最大存储空间。效率和存储量都和问题的规模有关。</li>
+</ul>
+</li>
+</ol>
+<h3 id="算法分析"><a href="#算法分析" class="headerlink" title="算法分析"></a>算法分析</h3><blockquote>
+<p>算法分析就是分析算法占用计算机资源的多少。</p>
+</blockquote>
+<ol>
+<li><p>性能分析：</p>
+<ul>
+<li>时间性能分析：分析算法占用 CPU 时间的多少。</li>
+<li>空间性能分析：分析算法占用内存空间的多少。</li>
+</ul>
+</li>
+<li><p>算法时间性能分析：通常有两种衡量算法时间性能的方法，即事后统计法和事前估算法。</p>
+<ul>
+<li>事后统计法：编写算法对应程序，统计其执行时间，主要缺点有两个，一是必须要执行程序，而是存在很多干扰因素（比如计算机的运行速度，该程序对应的语言等）掩盖了算法本质。</li>
+<li>事前估算法：撇开与计算机硬件、软件有关的技术，仅考虑算法本身的效率高低，认定一个特定算法的 “运作工作量” 的大小只依赖于问题的规模（通常用整数 n 表示），即算法的执行时间是问题规模的函数，因此，后面主要采用事前估算法来分析算法的时间性能。</li>
+</ul>
+</li>
+<li><p>算法时间复杂度分析：</p>
+<ul>
+<li><p>计算算法的频度 T(n)</p>
+<ul>
+<li><p>一个算法是由控制结构（顺序、分支、循环）和原操作（指固有数据类型的操作）构成的。</p>
+</li>
+<li><p>例如：求两个 n 阶矩阵 A、B 相加，即 C = A + B 的算法如下，计算其执行时间 T(n)：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> MAX 20</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">matrixadd</span><span class="params">(<span class="keyword">int</span> n, <span class="keyword">int</span> A[MAX][MAX], <span class="keyword">int</span> B[MAX][MAX], <span class="keyword">int</span> C[MAX][MAX])</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> i, j;</span><br><span class="line">    <span class="keyword">for</span>(i=<span class="number">0</span>; i&lt;n; i++) &#123;	<span class="comment">// 执行 n+1 次</span></span><br><span class="line">        <span class="keyword">for</span>(j=<span class="number">0</span>; j&lt;n; j++) &#123;	<span class="comment">// 执行 n(n+1) 次</span></span><br><span class="line">            C[i][j] = A[i][j] + B[i][j];	<span class="comment">// 执行 n^2 次</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>所以：<code>T(n) = (n+1)+n(n+1)+n^2 = 2n^2+2n+1 = O(n^2)</code></p>
+</li>
+</ul>
+</li>
+<li><p>T(n) 用 “O” 表示</p>
+<ul>
+<li>算法的时间复杂度就是用 T(n) 的数量级来表示的，记作 <code>T(n) = O(f(n))</code>，所以，算法时间复杂度也称为渐进时间复杂度。</li>
+</ul>
+</li>
+<li><p>递归算法时间复杂度分析：</p>
+<ul>
+<li>递归算法是指算法中调用自己的成分。</li>
+<li>递归算法分析也成为变长时空分析，非递归算法分析也成为定长时空分析。</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>算法空间复杂度分析：</p>
+<ul>
+<li>一个算法的存储量包括：输入数据所占的空间、程序本身所占的空间和临时变量所占的空间。所以，算法空间复杂度是对一个算法在运行过程中临时占用的存储空间大小的量度。</li>
+<li>形参的空间会在调用该算法的算法中考虑，所以，算法占用的空间只需要考虑临时空间。</li>
 </ul>
 </li>
 </ol>
@@ -684,10 +881,10 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-03-23T13:47:33+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-04-12T18:52:21+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Mar 23, 2021</p>
+    <p>更新于：Apr 12, 2021</p>
   </a>
 </div>
 
@@ -766,8 +963,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <a class='prev' href='/ed985442a002/'>
           <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>WHO：COVID19 Origin Report ‘Roughly Now Finalized’</p>
           <p class='content'>
-HeadlineWHO: COVID-19 Origin Report ‘Roughly Now Finalized’
-
+Headline
+WHO: COVID-19 Origin Report ‘Roughly Now Finalized’
 世卫组织: COVID-19 起源报告“目前大致完成”
 
 
@@ -830,7 +1027,7 @@ Next.js 中文网
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-text">什么是数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">数据结构的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84"><span class="toc-text">逻辑结构</span></a></li></ol></li></ol>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="toc-text">什么是数据结构</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">数据结构的定义</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%80%BB%E8%BE%91%E7%BB%93%E6%9E%84"><span class="toc-text">逻辑结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E5%82%A8%E7%BB%93%E6%9E%84"><span class="toc-text">存储结构</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E8%BF%90%E7%AE%97"><span class="toc-text">数据运算</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E6%8A%BD%E8%B1%A1%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="toc-text">数据类型和抽象数据类型</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%8F%8A%E5%85%B6%E6%8F%8F%E8%BF%B0"><span class="toc-text">算法及其描述</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E7%AE%97%E6%B3%95"><span class="toc-text">什么是算法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%97%E6%B3%95%E5%88%86%E6%9E%90"><span class="toc-text">算法分析</span></a></li></ol></li></ol>
     </div>
   </section>
 
