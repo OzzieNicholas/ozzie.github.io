@@ -563,6 +563,165 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
+      <a href="/9e88e9aa8fda/">
+        向Github提交代码报错：Updates were rejected because a pushed branch tip is behind its remote...
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        问题在向 github 上传代码时，给我报错：
+关键的就是黄色的第一行：Updates were rejected because a pushed branch tip is behind its remote.
+翻译过来就是：由于推送的分支提示位于其远程后面，因此更新被拒绝。
+好吧，看看连接的远程仓库有哪些：
+1$ git remote -v
+
+结果：
+12origin  git@git...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time>2021-03-20</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/%E5%BC%80%E5%8F%91/">开发</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/9e88e9aa8fda/'>
+            Read More
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/24035baedd34/">
+        向Github提交代码报错：Permanently added the RSA host key for IP address...
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        问题在准备向 github 提交代码时，给我报错：
+1Warning: Permanently added the RSA host key for IP address &#39;13.229.188.59&#39; t
+
+谷歌翻译了一下：”警告：永久添加了IP地址“ 13.229.188.59”的RSA主机密钥”
+百度到的一种方法是说这是缺少 SSH 公钥导致的，我用 ssh -T gi...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time>2021-03-20</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/%E5%BC%80%E5%8F%91/">开发</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/24035baedd34/'>
+            Read More
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/6df9b860828c/">
+        向Github提交代码报错：failed to push some refs to....
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        问题在向 github 上传代码时，给我报错：
+
+即那一行：error: failed to push some refs to....
+翻译过来就是：无法将代码推送到该仓库
+
+解决这是本地库与远程库不一致导致的，解决办法就是将远程库同步到本地库，输入：
+1git pull --rebase origin master
+
+之后就可以上传了
+
+说明该指令的意思是将远程库之中的更新合并到本地库中...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time>2021-03-20</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/%E5%BC%80%E5%8F%91/">开发</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/6df9b860828c/'>
+            Read More
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
       <a href="/c37fbf8ee648/">
         巨坑！node-sass 安装的痛
       </a>
@@ -918,174 +1077,6 @@ Webpack 的工作方式是：把你的项目当做一个整体，通过一个给
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/fb2d6a527e7c/">
-        Webpack（一）：初识 Webpack
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        初识Webpack模块打包工具
-模块打包工具的任务：解决模块之间的依赖，使其打包后能运行在浏览器上
-模块打包工具的工作方式（主要分为以下两种）
-将存在依赖关系的模块按照特定的规则合并为单个的 JS 文件，一次全部加载进入页面中
-在页面初始时加载一个入口模块，其他模块异步地进行加载
-
-
-有哪些模块打包工具？
-Webpack
-Parcel
-Rollup
-
-
-为什么选择 Webpack ？
-支持多...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-03-20</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/webpack/">webpack</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/fb2d6a527e7c/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/58b54336770f/">
-        反转字符串
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        题目
-链接：https://leetcode-cn.com/problems/reverse-words-in-a-string-iii/
-题面：
-
-
-个人方法
-分析：由于每个单词反转后的顺序不变，所以我们将该字符串，按照空格分割成独立单词，再反转单词，再拼接
-
-代码：
-12345678910var reverseWords = function(s) &#123;    // 将字符串按空...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-03-20</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/ACM/">ACM</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/58b54336770f/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/5e668cf71402/">
-        数组中重复的数字
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        题面链接https://leetcode-cn.com/problems/shu-zu-zhong-zhong-fu-de-shu-zi-lcof/
-描述
-
-思路（一）
-转化为集合时，会自动去除重复的元素；
-如果集合的长度小于原数组的长度，那么原数组就有重复的元素；
-题目只要求返回任一重复的元素，那么就边转化边比较长度；
-如果将原数组的元素增加到集合中时，集合的长度没有增加，就返回该元素，结...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-03-20</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/ACM/">ACM</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/5e668cf71402/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
     
   </section>
   
@@ -1100,7 +1091,7 @@ Rollup
           </a>
         
         <p class="current">
-          7 / 10
+          7 / 11
         </p>
         
           <a class="next" rel="next" href="/page/8/">
@@ -1211,12 +1202,12 @@ Rollup
           <li><a class="flat-box"
             title="/categories/Accumulation-Of-Reading/" href="/categories/Accumulation-Of-Reading/"
             id="categoriesAccumulation-Of-Reading"
-            ><div class='name'>Accumulation_Of_Reading</div><div class='badge'>(3)</div></a></li>
+            ><div class='name'>Accumulation_Of_Reading</div><div class='badge'>(4)</div></a></li>
         
           <li><a class="flat-box child"
             title="/categories/Accumulation-Of-Reading/New-York-Times/" href="/categories/Accumulation-Of-Reading/New-York-Times/"
             id="categoriesAccumulation-Of-ReadingNew-York-Times"
-            ><div class='name'>New_York_Times</div><div class='badge'>(3)</div></a></li>
+            ><div class='name'>New_York_Times</div><div class='badge'>(4)</div></a></li>
         
           <li><a class="flat-box"
             title="/categories/%E5%89%8D%E7%AB%AF/" href="/categories/%E5%89%8D%E7%AB%AF/"
@@ -1286,7 +1277,7 @@ Rollup
           <li><a class="flat-box"
             title="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"
             id="categoriesE695B0E68DAEE7BB93E69E84"
-            ><div class='name'>数据结构</div><div class='badge'>(1)</div></a></li>
+            ><div class='name'>数据结构</div><div class='badge'>(3)</div></a></li>
         
           <li><a class="flat-box"
             title="/categories/%E8%87%AA%E7%9C%81%E6%80%BB%E7%BB%93/" href="/categories/%E8%87%AA%E7%9C%81%E6%80%BB%E7%BB%93/"
@@ -1315,7 +1306,7 @@ Rollup
 
 
     <div class='content'>
-      <a href="/tags/ES6/" style="font-size: 16.22px; color: #8a8a8a">ES6</a> <a href="/tags/Git/" style="font-size: 19.56px; color: #737373">Git</a> <a href="/tags/JavaScript/" style="font-size: 20.67px; color: #6c6c6c">JavaScript</a> <a href="/tags/New-York-Times/" style="font-size: 16.22px; color: #8a8a8a">New_York_Times</a> <a href="/tags/css/" style="font-size: 15.11px; color: #919191">css</a> <a href="/tags/expres/" style="font-size: 14px; color: #999">expres</a> <a href="/tags/koa/" style="font-size: 16.22px; color: #8a8a8a">koa</a> <a href="/tags/next-js/" style="font-size: 14px; color: #999">next.js</a> <a href="/tags/node/" style="font-size: 15.11px; color: #919191">node</a> <a href="/tags/react%E5%9F%BA%E7%A1%80/" style="font-size: 18.44px; color: #7b7b7b">react基础</a> <a href="/tags/redux/" style="font-size: 14px; color: #999">redux</a> <a href="/tags/vue-cli/" style="font-size: 14px; color: #999">vue-cli</a> <a href="/tags/vue-router/" style="font-size: 17.33px; color: #828282">vue-router</a> <a href="/tags/vuex/" style="font-size: 16.22px; color: #8a8a8a">vuex</a> <a href="/tags/vue%E5%9F%BA%E7%A1%80/" style="font-size: 22.89px; color: #5d5d5d">vue基础</a> <a href="/tags/webpack/" style="font-size: 17.33px; color: #828282">webpack</a> <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" style="font-size: 15.11px; color: #919191">开发工具</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 16.22px; color: #8a8a8a">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/" style="font-size: 14px; color: #999">数据结构基础</a> <a href="/tags/%E6%B0%B4%E9%A2%98/" style="font-size: 24px; color: #555">水题</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 15.11px; color: #919191">浏览器</a> <a href="/tags/%E8%87%AA%E7%9C%81%E6%80%BB%E7%BB%93/" style="font-size: 14px; color: #999">自省总结</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 21.78px; color: #646464">计算机操作系统</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 18.44px; color: #7b7b7b">计算机网络</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 20.67px; color: #6c6c6c">踩坑</a>
+      <a href="/tags/ES6/" style="font-size: 16.22px; color: #8a8a8a">ES6</a> <a href="/tags/Git/" style="font-size: 19.56px; color: #737373">Git</a> <a href="/tags/JavaScript/" style="font-size: 20.67px; color: #6c6c6c">JavaScript</a> <a href="/tags/New-York-Times/" style="font-size: 17.33px; color: #828282">New_York_Times</a> <a href="/tags/css/" style="font-size: 15.11px; color: #919191">css</a> <a href="/tags/expres/" style="font-size: 14px; color: #999">expres</a> <a href="/tags/koa/" style="font-size: 16.22px; color: #8a8a8a">koa</a> <a href="/tags/next-js/" style="font-size: 14px; color: #999">next.js</a> <a href="/tags/node/" style="font-size: 15.11px; color: #919191">node</a> <a href="/tags/react%E5%9F%BA%E7%A1%80/" style="font-size: 18.44px; color: #7b7b7b">react基础</a> <a href="/tags/redux/" style="font-size: 14px; color: #999">redux</a> <a href="/tags/vue-cli/" style="font-size: 14px; color: #999">vue-cli</a> <a href="/tags/vue-router/" style="font-size: 17.33px; color: #828282">vue-router</a> <a href="/tags/vuex/" style="font-size: 16.22px; color: #8a8a8a">vuex</a> <a href="/tags/vue%E5%9F%BA%E7%A1%80/" style="font-size: 22.89px; color: #5d5d5d">vue基础</a> <a href="/tags/webpack/" style="font-size: 17.33px; color: #828282">webpack</a> <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" style="font-size: 15.11px; color: #919191">开发工具</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 16.22px; color: #8a8a8a">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/" style="font-size: 16.22px; color: #8a8a8a">数据结构基础</a> <a href="/tags/%E6%B0%B4%E9%A2%98/" style="font-size: 24px; color: #555">水题</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 15.11px; color: #919191">浏览器</a> <a href="/tags/%E8%87%AA%E7%9C%81%E6%80%BB%E7%BB%93/" style="font-size: 14px; color: #999">自省总结</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 21.78px; color: #646464">计算机操作系统</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 18.44px; color: #7b7b7b">计算机网络</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 20.67px; color: #6c6c6c">踩坑</a>
     </div>
   </section>
 

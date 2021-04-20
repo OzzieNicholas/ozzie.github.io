@@ -562,6 +562,171 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
   
     
     <h2 class="article-title" >
+      <a href="/be60763b1592/">
+        Vuex教程（三）：TodoList案例
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        初始化项目
+需要安装的依赖包：vuex、axios、ant-design-vue，vuex 我们已经有了，需要安装另外两个：
+1npm install axios ant-design-vue --save-dev
+
+我们承接之前创建过的项目，删除 /src/components 文件夹，清空 /src/App.vue 以及 /src/store/index.js 中的代码
+
+
+
+项目的基本...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time>2021-03-20</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/vue/">vue</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/be60763b1592/'>
+            Read More
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/75f824da8763/">
+        Vuex教程（二）：几大核心概念
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        核心概念概述vuex 的核心概念如下：
+
+State
+Mutation
+Action
+Getter
+
+
+State认识statestate 提供唯一的公共数据源，所有共享的数据都要放在 store 的 state 中进行存储
+创建 state123456// 创建 store 数据源，提供唯一的公共数据const store = new Vuex.Store(&#123;  // 创建一个新...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time>2021-03-20</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/vue/">vue</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/75f824da8763/'>
+            Read More
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/c6eabb17a429/">
+        Vuex教程（一）：初次感受Vuex
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        vuex 概述回顾组件传值
+父组件向子组件传值：一般用 v-bind 属性绑定实现
+子组件向父组件传值：一般同 v-on 事件绑定实现
+兄弟组件间共享数据：一般用 EventBus 实现
+
+引入 vuex
+什么是 vuex：它是实现组件全局状态（数据）管理的一种机制，可以很方便地实现组件之间数据的共享
+
+不使用 vuex 对比 使用 vuex：
+
+可见，在不使用 vuex 时，要使用大范围或...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time>2021-03-20</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/vue/">vue</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/c6eabb17a429/'>
+            Read More
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
       <a href="/41065790d3f7/">
         Vue教程（十）：详解生命周期
       </a>
@@ -932,163 +1097,6 @@ Vue.js 允许你自定义过滤器，可被用于一些常见的文本格式化�
           </div>
         
       
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/f7fd555ae7a3/">
-        Vue教程（三）：实例与模板语法
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        Vue 实例构造器
-每个 Vue 应用都是通过用 Vue 函数创建一个新的 Vue 实例开始的：
-123var vm = new Vue(&#123;    //选项&#125;)
-
-当创建一个实例时，需要传入一个选项对象，它可以包含数据、模板、挂载元素、方法、生命周期钩子等选项，全部的选项可以在 API 文档 中查看
-
-一个 Vue 应用由一个 new Vue 创建的 根 vue 实例，以...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-03-20</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/vue/">vue</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/f7fd555ae7a3/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/8a495401b398/">
-        Vue教程（二）：Vue内置指令详解
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        插值表达式
-数据绑定最常见的形式就是“Mustache”语法 (双大括号) 的文本插值，Mustache 标签将会被对应数据对象上属性的值替代。只要绑定的数据对象上属性发生了改变，插值处的内容都会更新。
-
-用过 vue 的盆友都清楚，message 是将数据解析成纯文本的，也就是说，就算message 中含有了 html 标签，它也是只看做纯文本的，不能输出真正的 html。
-
-例如: 
-1...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-03-20</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/vue/">vue</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/8a495401b398/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/5f4f362d2c70/">
-        多角度认识 Vue
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        认识 Vue 与 渐进式
-渐进式代表的含义大概是：主张最少。
-每个框架都会有自己的一些特点，而对使用框架的人会有一定要求，而这种要求就是主张，对于不同的框架来说，主张有强有弱，主张的强弱也会影响在开发中的使用方式。
-比如 Angular，它的两个版本都是强主张的，若要使用它，你必须要做到：
-使用它的模块机制
-使用它的依赖注入
-使用它的特殊形式定义的组件（这点其实每个框架都有）
-从以上三点可以...
-      
-    
-  </div>
-  
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-03-20</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/vue/">vue</a>
-        
-      </div>
-      
-        <div>
-          <a class='readmore' href='/5f4f362d2c70/'>
-            Read More
-          </a>
-        </div>
-      
-    </div>
-  
-
-</div>
-
-          </div>
-        
-      
     
   </section>
   
@@ -1103,7 +1111,7 @@ Vue.js 允许你自定义过滤器，可被用于一些常见的文本格式化�
           </a>
         
         <p class="current">
-          3 / 10
+          3 / 11
         </p>
         
           <a class="next" rel="next" href="/archives/2021/page/4/">
@@ -1215,12 +1223,12 @@ Vue.js 允许你自定义过滤器，可被用于一些常见的文本格式化�
           <li><a class="flat-box"
             title="/categories/Accumulation-Of-Reading/" href="/categories/Accumulation-Of-Reading/"
             id="categoriesAccumulation-Of-Reading"
-            ><div class='name'>Accumulation_Of_Reading</div><div class='badge'>(3)</div></a></li>
+            ><div class='name'>Accumulation_Of_Reading</div><div class='badge'>(4)</div></a></li>
         
           <li><a class="flat-box child"
             title="/categories/Accumulation-Of-Reading/New-York-Times/" href="/categories/Accumulation-Of-Reading/New-York-Times/"
             id="categoriesAccumulation-Of-ReadingNew-York-Times"
-            ><div class='name'>New_York_Times</div><div class='badge'>(3)</div></a></li>
+            ><div class='name'>New_York_Times</div><div class='badge'>(4)</div></a></li>
         
           <li><a class="flat-box"
             title="/categories/%E5%89%8D%E7%AB%AF/" href="/categories/%E5%89%8D%E7%AB%AF/"
@@ -1290,7 +1298,7 @@ Vue.js 允许你自定义过滤器，可被用于一些常见的文本格式化�
           <li><a class="flat-box"
             title="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"
             id="categoriesE695B0E68DAEE7BB93E69E84"
-            ><div class='name'>数据结构</div><div class='badge'>(1)</div></a></li>
+            ><div class='name'>数据结构</div><div class='badge'>(3)</div></a></li>
         
           <li><a class="flat-box"
             title="/categories/%E8%87%AA%E7%9C%81%E6%80%BB%E7%BB%93/" href="/categories/%E8%87%AA%E7%9C%81%E6%80%BB%E7%BB%93/"
@@ -1319,7 +1327,7 @@ Vue.js 允许你自定义过滤器，可被用于一些常见的文本格式化�
 
 
     <div class='content'>
-      <a href="/tags/ES6/" style="font-size: 16.22px; color: #8a8a8a">ES6</a> <a href="/tags/Git/" style="font-size: 19.56px; color: #737373">Git</a> <a href="/tags/JavaScript/" style="font-size: 20.67px; color: #6c6c6c">JavaScript</a> <a href="/tags/New-York-Times/" style="font-size: 16.22px; color: #8a8a8a">New_York_Times</a> <a href="/tags/css/" style="font-size: 15.11px; color: #919191">css</a> <a href="/tags/expres/" style="font-size: 14px; color: #999">expres</a> <a href="/tags/koa/" style="font-size: 16.22px; color: #8a8a8a">koa</a> <a href="/tags/next-js/" style="font-size: 14px; color: #999">next.js</a> <a href="/tags/node/" style="font-size: 15.11px; color: #919191">node</a> <a href="/tags/react%E5%9F%BA%E7%A1%80/" style="font-size: 18.44px; color: #7b7b7b">react基础</a> <a href="/tags/redux/" style="font-size: 14px; color: #999">redux</a> <a href="/tags/vue-cli/" style="font-size: 14px; color: #999">vue-cli</a> <a href="/tags/vue-router/" style="font-size: 17.33px; color: #828282">vue-router</a> <a href="/tags/vuex/" style="font-size: 16.22px; color: #8a8a8a">vuex</a> <a href="/tags/vue%E5%9F%BA%E7%A1%80/" style="font-size: 22.89px; color: #5d5d5d">vue基础</a> <a href="/tags/webpack/" style="font-size: 17.33px; color: #828282">webpack</a> <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" style="font-size: 15.11px; color: #919191">开发工具</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 16.22px; color: #8a8a8a">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/" style="font-size: 14px; color: #999">数据结构基础</a> <a href="/tags/%E6%B0%B4%E9%A2%98/" style="font-size: 24px; color: #555">水题</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 15.11px; color: #919191">浏览器</a> <a href="/tags/%E8%87%AA%E7%9C%81%E6%80%BB%E7%BB%93/" style="font-size: 14px; color: #999">自省总结</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 21.78px; color: #646464">计算机操作系统</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 18.44px; color: #7b7b7b">计算机网络</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 20.67px; color: #6c6c6c">踩坑</a>
+      <a href="/tags/ES6/" style="font-size: 16.22px; color: #8a8a8a">ES6</a> <a href="/tags/Git/" style="font-size: 19.56px; color: #737373">Git</a> <a href="/tags/JavaScript/" style="font-size: 20.67px; color: #6c6c6c">JavaScript</a> <a href="/tags/New-York-Times/" style="font-size: 17.33px; color: #828282">New_York_Times</a> <a href="/tags/css/" style="font-size: 15.11px; color: #919191">css</a> <a href="/tags/expres/" style="font-size: 14px; color: #999">expres</a> <a href="/tags/koa/" style="font-size: 16.22px; color: #8a8a8a">koa</a> <a href="/tags/next-js/" style="font-size: 14px; color: #999">next.js</a> <a href="/tags/node/" style="font-size: 15.11px; color: #919191">node</a> <a href="/tags/react%E5%9F%BA%E7%A1%80/" style="font-size: 18.44px; color: #7b7b7b">react基础</a> <a href="/tags/redux/" style="font-size: 14px; color: #999">redux</a> <a href="/tags/vue-cli/" style="font-size: 14px; color: #999">vue-cli</a> <a href="/tags/vue-router/" style="font-size: 17.33px; color: #828282">vue-router</a> <a href="/tags/vuex/" style="font-size: 16.22px; color: #8a8a8a">vuex</a> <a href="/tags/vue%E5%9F%BA%E7%A1%80/" style="font-size: 22.89px; color: #5d5d5d">vue基础</a> <a href="/tags/webpack/" style="font-size: 17.33px; color: #828282">webpack</a> <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" style="font-size: 15.11px; color: #919191">开发工具</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 16.22px; color: #8a8a8a">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/" style="font-size: 16.22px; color: #8a8a8a">数据结构基础</a> <a href="/tags/%E6%B0%B4%E9%A2%98/" style="font-size: 24px; color: #555">水题</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 15.11px; color: #919191">浏览器</a> <a href="/tags/%E8%87%AA%E7%9C%81%E6%80%BB%E7%BB%93/" style="font-size: 14px; color: #999">自省总结</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 21.78px; color: #646464">计算机操作系统</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 18.44px; color: #7b7b7b">计算机网络</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 20.67px; color: #6c6c6c">踩坑</a>
     </div>
   </section>
 
