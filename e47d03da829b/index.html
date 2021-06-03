@@ -1,0 +1,1998 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
+
+  <!-- 页面元数据 -->
+  
+  <title>pyecharts 笔记 - Ozzie | Nicholas</title>
+  
+    <meta name="keywords" content="开发工具">
+  
+
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://avatars.githubusercontent.com/u/49378661?s=460&u=48820ed6b04ef7690959e325cd670dcd67efa5a5&v=4">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+</head>
+
+  <body>
+    
+
+<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://avatars.githubusercontent.com/u/49378661?s=460&u=48820ed6b04ef7690959e325cd670dcd67efa5a5&v=4'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>更多
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://volantis.js.org/v4/getting-started/
+                  
+                  
+                  
+                    id="https:volantisjsorgv4getting-started"
+                  >
+                  主题文档
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <hr>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/volantis-x/hexo-theme-volantis/
+                  
+                  
+                  
+                    id="https:githubcomvolantis-xhexo-theme-volantis"
+                  >
+                  主题源码
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>更多
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://volantis.js.org/v4/getting-started/
+                  
+                  
+                  
+                    id="https:volantisjsorgv4getting-started"
+                  >
+                  主题文档
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <hr>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/volantis-x/hexo-theme-volantis/
+                  
+                  
+                  
+                    id="https:githubcomvolantis-xhexo-theme-volantis"
+                  >
+                  主题源码
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+        <div id="half" class='cover-wrapper post dock' style="display: ;">
+          
+            <div id='cover-backstretch'></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">Ozzie | Nicholas</p>
+    
+    
+      <p class="subtitle">If not now, when?   If not me, who?</p>
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/"
+              
+              
+              id="home">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f5c3.svg'><p>首页</p>
+            </a>
+          
+            <a href="/categories/"
+              
+              
+              id="categories">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f516.svg'><p>分类</p>
+            </a>
+          
+            <a href="/tags/"
+              
+              
+              id="tags">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f396.svg'><p>标签</p>
+            </a>
+          
+            <a href="/archives/"
+              
+              
+              id="archives">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f389.svg'><p>归档</p>
+            </a>
+          
+            <a href="/friends/"
+              
+              
+              id="friends">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f4f0.svg'><p>友链</p>
+            </a>
+          
+            <a href="/about/"
+              
+              
+              id="about">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f9ec.svg'><p>关于</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        pyecharts 笔记
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://avatars.githubusercontent.com/u/49378661?s=460&u=48820ed6b04ef7690959e325cd670dcd67efa5a5&v=4">
+    <p>Ozzie</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="sep"></span><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/%E5%BC%80%E5%8F%91/">开发</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Mar 20, 2021</p>
+  </a>
+</div>
+
+          
+        
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <h2 id="前述"><a href="#前述" class="headerlink" title="前述"></a>前述</h2><ol>
+<li>pyecharts 是一款将 python 与 echarts 结合的强大的数据可视化工具。</li>
+<li>之前做一些可视化项目时，用到了百度开源的一个可视化 JS 库 —— Echarts，这里就需要说一下了，可视化类型非常多，其中，使用 echart 时，可以通过从官网上获得源码文件之后再放到项目文件中，也可以通过 npm 获取（获取的命令是 <code>npm install echarts --save</code>），但是大多数都是用 js 完成的 web 开发，比如，<a target="_blank" rel="noopener" href="https://echarts.apache.org/zh/tutorial.html">https://echarts.apache.org/zh/tutorial.html</a> 这上面的所有案例，都是通过 js 获取，然后在 html 文件里面引入或者在 js 文件中引入，再配置，最后渲染结果。</li>
+<li>而这次的项目是基于 python 开发的，也就是没法在 python 项目中进行上述操作，那么很可能要用到 python 自己的可视化库，实际上，python 有很多很多可视化库，我粗略地看了一下，都有十多种，比如 <code>matplotlib</code>、<code>Seaborn</code>、<code>HoloViews</code>、<code>Altair</code>、<code>PyQtGraph</code>，这些可视化库只是对应的用法以及应用场景有些差别，其他的差别不是很大。关于不同的库以及不同的应用场景，这里得好好说一下。<ul>
+<li>python 是很强大的，不仅仅可以做工程上的项目开发，比如 Django 可以做网站，最主要的功能还是进行数据分析方面，比如大数据应用、人工智能、深度学习、机器学习等，这些都基本上基于 python 的，除了少部分罕见的是基于自己开发的封装性的语言。</li>
+<li>那么，如此广的应用场景，也就有许多不同的需求，而 python 官方在最开始是没有为这些需求来提供库的，所以，之后就有了越来越多的开源项目，来开发不同的库，甚至，有些公司，为了安全性考虑，有些公用库或者说公用框架中难免有些 bug，特别是安全性的 bug，比如，npm 这个已经是世界上最大的依赖集成地了，也有非常强大的团队在开发维护，但是都经常在 github 的 issue 上报出一些某个依赖包的漏洞，许多公司出于安全性的考虑，都会开发出自己的专用库甚至是专用框架，有些是开源出来的，有些是仅限内部使用的，所以有时候也会看到，比如 Google 团队，Microsoft 团队 会开源一些项目，他们最开始都是为了填补某一项的空白，往往是功能或性能上的空白。</li>
+<li>说回来，我们大致介绍一下 python 的可视化库的一些区别：<ul>
+<li>matplotlib：通过 matplotlib 你可以很轻松地画一些或简单或复杂地图形，几行代码即可生成线图、直方图、功率谱、条形图、错误图、散点图等等，对于一些简单的绘图，特别是与IPython结合使用时，pyplot模块提供了一个matlab接口。你可以通过面向对象的接口或通过一些 matlab 的函数来更改控制行样式、字体属性、轴属性等。<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTgwMjE5MDAwMjA5MTAw" class="lazyload" data-srcset="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTgwMjE5MDAwMjA5MTAw" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="这里写图片描述"></li>
+<li>seaborn：seaborn 是基于 matplotlib 产生的一个模块，专攻于统计可视化，可以和pandas进行无缝链接，使初学者更容易上手。相对于 matplotlib，seaborn 语法更简洁，两者关系类似于numpy 和 pandas之间的关系。<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTgwMjE5MDAxMDA5Mzcx" class="lazyload" data-srcset="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTgwMjE5MDAxMDA5Mzcx" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="这里写图片描述"></li>
+<li>HoloViews：HoloViews是一个开源的Python库，可以用非常少的代码行中完成数据分析和可视化，除了默认的matplotlib后端外，还添加了一个Bokeh后端。Bokeh提供了一个强大的平台，通过结合Bokeh提供的交互式小部件，可以使用HTML5 canvas和WebGL快速生成交互性和高维可视化，非常适合于数据的交互式探索。<br><img src="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTgwMjE5MDAxMzUyOTYx" class="lazyload" data-srcset="https://imgconvert.csdnimg.cn/aHR0cDovL2ltZy5ibG9nLmNzZG4ubmV0LzIwMTgwMjE5MDAxMzUyOTYx" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="这里写图片描述"></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>假如，我之前做过基于 echarts 的项目，现在又想在 python 中使用 echarts，该怎么办呢？Google后，找到一个国人开发的一个Echarts与Python结合的轮子：pyecharts，下面就来简述下pyecharts一些使用细则。</li>
+</ol>
+<h2 id="安装-pyecharts"><a href="#安装-pyecharts" class="headerlink" title="安装 pyecharts"></a>安装 pyecharts</h2><ol>
+<li><p>通常用的都是 Win 环境，首先打开命令行(win+R),输入：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install pyecharts</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>由于墙的原因，下载时会出现断线和速度过慢的问题导致下载失败，所以建议通过清华镜像来进行下载：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -i https://pypi.tuna.tsinghua.edu.cn/simple pyecharts</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/15801507-d14b9601211903f0?imageMogr2/auto-orient/strip%7CimageView2/2/w/982/format/webp" class="lazyload" data-srcset="https://upload-images.jianshu.io/upload_images/15801507-d14b9601211903f0?imageMogr2/auto-orient/strip%7CimageView2/2/w/982/format/webp" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+<ul>
+<li>出现上方的信息，即代表下载成功，我们可以来进行下一步的实验了！</li>
+</ul>
+</li>
+<li><p>使用之前我们要强调一点：就是 python2.x 和 python3.x 的编码问题，在 python3.x 中你可以把它看做默认是 unicode 编码，但在 python2.x 中并不是默认的，原因就在它的 bytes 对象定义的混乱，而 pycharts 是使用 unicode 编码来处理字符串和文件的，所以如果你是使用的是 python2.x，那么请务必在上方插入此代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> future <span class="keyword">import</span> unicode_literals</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>现在我们来开始正式使用 pyecharts，这里我们直接使用官方的数据。</p>
+</li>
+</ol>
+<h2 id="使用-pyecharts"><a href="#使用-pyecharts" class="headerlink" title="使用 pyecharts"></a>使用 pyecharts</h2><h3 id="柱状图-——-Bar"><a href="#柱状图-——-Bar" class="headerlink" title="柱状图 —— Bar"></a>柱状图 —— Bar</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入柱状图-Bar</span></span><br><span class="line"><span class="keyword">from</span> pyecharts <span class="keyword">import</span> Bar</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置行名</span></span><br><span class="line">columns = [<span class="string">&quot;Jan&quot;</span>, <span class="string">&quot;Feb&quot;</span>, <span class="string">&quot;Mar&quot;</span>, <span class="string">&quot;Apr&quot;</span>, <span class="string">&quot;May&quot;</span>, <span class="string">&quot;Jun&quot;</span>, <span class="string">&quot;Jul&quot;</span>, <span class="string">&quot;Aug&quot;</span>, <span class="string">&quot;Sep&quot;</span>, <span class="string">&quot;Oct&quot;</span>, <span class="string">&quot;Nov&quot;</span>, <span class="string">&quot;Dec&quot;</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置数据</span></span><br><span class="line">data1 = [<span class="number">2.0</span>, <span class="number">4.9</span>, <span class="number">7.0</span>, <span class="number">23.2</span>, <span class="number">25.6</span>, <span class="number">76.7</span>, <span class="number">135.6</span>, <span class="number">162.2</span>, <span class="number">32.6</span>, <span class="number">20.0</span>, <span class="number">6.4</span>, <span class="number">3.3</span>]</span><br><span class="line">data2 = [<span class="number">2.6</span>, <span class="number">5.9</span>, <span class="number">9.0</span>, <span class="number">26.4</span>, <span class="number">28.7</span>, <span class="number">70.7</span>, <span class="number">175.6</span>, <span class="number">182.2</span>, <span class="number">48.7</span>, <span class="number">18.8</span>, <span class="number">6.0</span>, <span class="number">2.3</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置柱状图的主标题与副标题</span></span><br><span class="line">bar = Bar(<span class="string">&quot;柱状图&quot;</span>, <span class="string">&quot;一年的降水量与蒸发量&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 添加柱状图的数据及配置项</span></span><br><span class="line">bar.add(<span class="string">&quot;降水量&quot;</span>, columns, data1, mark_line=[<span class="string">&quot;average&quot;</span>], mark_point=[<span class="string">&quot;max&quot;</span>, <span class="string">&quot;min&quot;</span>])</span><br><span class="line">bar.add(<span class="string">&quot;蒸发量&quot;</span>, columns, data2, mark_line=[<span class="string">&quot;average&quot;</span>], mark_point=[<span class="string">&quot;max&quot;</span>, <span class="string">&quot;min&quot;</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 生成本地文件（默认为.html文件）</span></span><br><span class="line">bar.render()</span><br></pre></td></tr></table></figure>
+
+<p>运行结果如下：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/15801507-e298040e6905fc6f?imageMogr2/auto-orient/strip%7CimageView2/2/w/1078/format/webp" class="lazyload" data-srcset="https://upload-images.jianshu.io/upload_images/15801507-e298040e6905fc6f?imageMogr2/auto-orient/strip%7CimageView2/2/w/1078/format/webp" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+<p>简单的几行代码就可以将数据进行非常好看的可视化，而且还是动态的，在这里还是要安利一下jupyter，pyecharts 在 v0.1.9.2 版本开始，在 jupyter 上直接调用实例（例如上方直接调用bar）就可以将图表直接表示出来，非常方便。</p>
+<p>目前 pyecharts 上的图表大概支持到二十多种，接下来，我们再用上方的数据来生成几个数据挖掘常用的图表示例：</p>
+<h3 id="饼图-——-Pie"><a href="#饼图-——-Pie" class="headerlink" title="饼图 —— Pie"></a>饼图 —— Pie</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入饼图Pie</span></span><br><span class="line"><span class="keyword">from</span> pyecharts <span class="keyword">import</span> Pie</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置主标题与副标题，标题设置居中，设置宽度为900</span></span><br><span class="line">pie = Pie(<span class="string">&quot;饼状图&quot;</span>, <span class="string">&quot;一年的降水量与蒸发量&quot;</span>,title_pos=<span class="string">&#x27;center&#x27;</span>,width=<span class="number">900</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加入数据，设置坐标位置为【25，50】，上方的colums选项取消显示</span></span><br><span class="line">pie.add(<span class="string">&quot;降水量&quot;</span>, columns, data1 ,center=[<span class="number">25</span>,<span class="number">50</span>],is_legend_show=<span class="literal">False</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加入数据，设置坐标位置为【75，50】，上方的colums选项取消显示，显示label标签</span></span><br><span class="line">pie.add(<span class="string">&quot;蒸发量&quot;</span>, columns, data2 ,center=[<span class="number">75</span>,<span class="number">50</span>],is_legend_show=<span class="literal">False</span>,is_label_show=<span class="literal">True</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 保存图表</span></span><br><span class="line">pie.render()</span><br></pre></td></tr></table></figure>
+
+<p>生成结果如下：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/15801507-d64f70ee3d29753d?imageMogr2/auto-orient/strip%7CimageView2/2/w/1080/format/webp" class="lazyload" data-srcset="https://upload-images.jianshu.io/upload_images/15801507-d64f70ee3d29753d?imageMogr2/auto-orient/strip%7CimageView2/2/w/1080/format/webp" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+<h3 id="箱体图-——-Boxplot"><a href="#箱体图-——-Boxplot" class="headerlink" title="箱体图 —— Boxplot"></a>箱体图 —— Boxplot</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入箱型图Boxplot</span></span><br><span class="line"><span class="keyword">from</span> pyecharts <span class="keyword">import</span> Boxplot </span><br><span class="line">boxplot = Boxplot(<span class="string">&quot;箱形图&quot;</span>, <span class="string">&quot;一年的降水量与蒸发量&quot;</span>)</span><br><span class="line">x_axis = [<span class="string">&#x27;降水量&#x27;</span>,<span class="string">&#x27;蒸发量&#x27;</span>]</span><br><span class="line">y_axis = [data1,data2]</span><br><span class="line"></span><br><span class="line"><span class="comment"># prepare_data方法可以将数据转为嵌套的 [min, Q1, median (or Q2), Q3, max]</span></span><br><span class="line">yaxis = boxplot.prepare_data(y_axis)       </span><br><span class="line">boxplot.add(<span class="string">&quot;天气统计&quot;</span>, x_axis, _yaxis)</span><br><span class="line">boxplot.render()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/15801507-c88cc48d5cbb90cd?imageMogr2/auto-orient/strip%7CimageView2/2/w/983/format/webp" class="lazyload" data-srcset="https://upload-images.jianshu.io/upload_images/15801507-c88cc48d5cbb90cd?imageMogr2/auto-orient/strip%7CimageView2/2/w/983/format/webp" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+<h3 id="折线图-——-Line"><a href="#折线图-——-Line" class="headerlink" title="折线图 —— Line"></a>折线图 —— Line</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyecharts <span class="keyword">import</span> Line</span><br><span class="line">line = Line(<span class="string">&quot;折线图&quot;</span>,<span class="string">&quot;一年的降水量与蒸发量&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># is_label_show是设置上方数据是否显示</span></span><br><span class="line">line.add(<span class="string">&quot;降水量&quot;</span>, columns, data1, is_label_show=<span class="literal">True</span>)</span><br><span class="line">line.add(<span class="string">&quot;蒸发量&quot;</span>, columns, data2, is_label_show=<span class="literal">True</span>)</span><br><span class="line">line.render()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/15801507-766930320677f813?imageMogr2/auto-orient/strip%7CimageView2/2/w/912/format/webp" class="lazyload" data-srcset="https://upload-images.jianshu.io/upload_images/15801507-766930320677f813?imageMogr2/auto-orient/strip%7CimageView2/2/w/912/format/webp" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+<h3 id="雷达图-——-Rader"><a href="#雷达图-——-Rader" class="headerlink" title="雷达图 —— Rader"></a>雷达图 —— Rader</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyecharts <span class="keyword">import</span> Radar</span><br><span class="line">radar = Radar(<span class="string">&quot;雷达图&quot;</span>, <span class="string">&quot;一年的降水量与蒸发量&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 由于雷达图传入的数据得为多维数据，所以这里需要做一下处理</span></span><br><span class="line">radar_data1 = [[<span class="number">2.0</span>, <span class="number">4.9</span>, <span class="number">7.0</span>, <span class="number">23.2</span>, <span class="number">25.6</span>, <span class="number">76.7</span>, <span class="number">135.6</span>, <span class="number">162.2</span>, <span class="number">32.6</span>, <span class="number">20.0</span>, <span class="number">6.4</span>, <span class="number">3.3</span>]]</span><br><span class="line">radar_data2 = [[<span class="number">2.6</span>, <span class="number">5.9</span>, <span class="number">9.0</span>, <span class="number">26.4</span>, <span class="number">28.7</span>, <span class="number">70.7</span>, <span class="number">175.6</span>, <span class="number">182.2</span>, <span class="number">48.7</span>, <span class="number">18.8</span>, <span class="number">6.0</span>, <span class="number">2.3</span>]]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置column的最大值，为了雷达图更为直观，这里的月份最大值设置有所不同</span></span><br><span class="line">schema = [ </span><br><span class="line">    (<span class="string">&quot;Jan&quot;</span>, <span class="number">5</span>), (<span class="string">&quot;Feb&quot;</span>,<span class="number">10</span>), (<span class="string">&quot;Mar&quot;</span>, <span class="number">10</span>),</span><br><span class="line">    (<span class="string">&quot;Apr&quot;</span>, <span class="number">50</span>), (<span class="string">&quot;May&quot;</span>, <span class="number">50</span>), (<span class="string">&quot;Jun&quot;</span>, <span class="number">200</span>),</span><br><span class="line">    (<span class="string">&quot;Jul&quot;</span>, <span class="number">200</span>), (<span class="string">&quot;Aug&quot;</span>, <span class="number">200</span>), (<span class="string">&quot;Sep&quot;</span>, <span class="number">50</span>),</span><br><span class="line">    (<span class="string">&quot;Oct&quot;</span>, <span class="number">50</span>), (<span class="string">&quot;Nov&quot;</span>, <span class="number">10</span>), (<span class="string">&quot;Dec&quot;</span>, <span class="number">5</span>)</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line"><span class="comment"># 传入坐标</span></span><br><span class="line">radar.config(schema)</span><br><span class="line">radar.add(<span class="string">&quot;降水量&quot;</span>,radar_data1)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 一般默认为同一种颜色，这里为了便于区分，需要设置item的颜色</span></span><br><span class="line">radar.add(<span class="string">&quot;蒸发量&quot;</span>,radar_data2,item_color=<span class="string">&quot;#1C86EE&quot;</span>)</span><br><span class="line">radar.render()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/15801507-dd120627d6080499?imageMogr2/auto-orient/strip%7CimageView2/2/w/895/format/webp" class="lazyload" data-srcset="https://upload-images.jianshu.io/upload_images/15801507-dd120627d6080499?imageMogr2/auto-orient/strip%7CimageView2/2/w/895/format/webp" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+<h3 id="散点图-——-scatter"><a href="#散点图-——-scatter" class="headerlink" title="散点图 —— scatter"></a>散点图 —— scatter</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyecharts <span class="keyword">import</span> Scatter</span><br><span class="line">scatter = Scatter(<span class="string">&quot;散点图&quot;</span>, <span class="string">&quot;一年的降水量与蒸发量&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># xais_name是设置横坐标名称，这里由于显示问题，还需要将y轴名称与y轴的距离进行设置</span></span><br><span class="line">scatter.add(<span class="string">&quot;降水量与蒸发量的散点分布&quot;</span>, data1,data2,xaxis_name=<span class="string">&quot;降水量&quot;</span>, yaxis_name=<span class="string">&quot;蒸发量&quot;</span>, yaxis_name_gap=<span class="number">40</span>)</span><br><span class="line">scatter.render()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/15801507-525bb7669b9734cb?imageMogr2/auto-orient/strip%7CimageView2/2/w/927/format/webp" class="lazyload" data-srcset="https://upload-images.jianshu.io/upload_images/15801507-525bb7669b9734cb?imageMogr2/auto-orient/strip%7CimageView2/2/w/927/format/webp" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+<h3 id="图表布局-——-Grid"><a href="#图表布局-——-Grid" class="headerlink" title="图表布局 —— Grid"></a>图表布局 —— Grid</h3><p>由于标题与图表是属于两个不同的控件，所以这里必须对下方的图表Line进行标题位置设置，否则会出现标题重叠的bug。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyecharts <span class="keyword">import</span> Grid</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置折线图标题位置</span></span><br><span class="line">line = Line(<span class="string">&quot;折线图&quot;</span>,<span class="string">&quot;一年的降水量与蒸发量&quot;</span>,title_top=<span class="string">&quot;45%&quot;</span>)</span><br><span class="line">line.add(<span class="string">&quot;降水量&quot;</span>, columns, data1, is_label_show=<span class="literal">True</span>)</span><br><span class="line">line.add(<span class="string">&quot;蒸发量&quot;</span>, columns, data2, is_label_show=<span class="literal">True</span>)</span><br><span class="line">grid = Grid()</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置两个图表的相对位置</span></span><br><span class="line">grid.add(bar, grid_bottom=<span class="string">&quot;60%&quot;</span>)</span><br><span class="line">grid.add(line, grid_top=<span class="string">&quot;60%&quot;</span>)</span><br><span class="line">grid.render()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/15801507-119f39ade0aa4c4e?imageMogr2/auto-orient/strip%7CimageView2/2/w/951/format/webp" class="lazyload" data-srcset="https://upload-images.jianshu.io/upload_images/15801507-119f39ade0aa4c4e?imageMogr2/auto-orient/strip%7CimageView2/2/w/951/format/webp" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+<h3 id="柱状图-折线图合并"><a href="#柱状图-折线图合并" class="headerlink" title="柱状图-折线图合并"></a>柱状图-折线图合并</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pyecharts <span class="keyword">import</span> Overlap</span><br><span class="line">overlap = Overlap()</span><br><span class="line">bar = Bar(<span class="string">&quot;柱状图-折线图合并&quot;</span>, <span class="string">&quot;一年的降水量与蒸发量&quot;</span>)</span><br><span class="line">bar.add(<span class="string">&quot;降水量&quot;</span>, columns, data1, mark_point=[<span class="string">&quot;max&quot;</span>, <span class="string">&quot;min&quot;</span>])</span><br><span class="line">bar.add(<span class="string">&quot;蒸发量&quot;</span>, columns, data2, mark_point=[<span class="string">&quot;max&quot;</span>, <span class="string">&quot;min&quot;</span>])</span><br><span class="line">overlap.add(bar)</span><br><span class="line">overlap.add(line)</span><br><span class="line">overlap.render()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://upload-images.jianshu.io/upload_images/15801507-e6e5af8fe76be811?imageMogr2/auto-orient/strip%7CimageView2/2/w/916/format/webp" class="lazyload" data-srcset="https://upload-images.jianshu.io/upload_images/15801507-e6e5af8fe76be811?imageMogr2/auto-orient/strip%7CimageView2/2/w/916/format/webp" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+<h2 id="踩坑预警"><a href="#踩坑预警" class="headerlink" title="踩坑预警"></a>踩坑预警</h2><p>pyecharts 是一个十分强大的python绘图库，但是使用过程中或多或少遇到一些问题，在使用 pyecharts 导入 options 包时，如果遇到了无法导入的问题，那么原因多半是 pyecharts 版本不匹配，比如，你使用的是 pyecharts0.1.9.4 的版本，然而 options 包是在 pyecharts1.x 以上的版本才有的。通过查看官方文档发现，pyecharts v0.5.X 和 v1 版本之间是不兼容的。下图是官方文档给版本简介。<br><img src="https://img-blog.csdnimg.cn/20201024150255535.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk4MjQyMg==,size_16,color_FFFFFF,t_70#pic_center" class="lazyload" data-srcset="https://img-blog.csdnimg.cn/20201024150255535.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3dlaXhpbl80Mzk4MjQyMg==,size_16,color_FFFFFF,t_70#pic_center" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="在这里插入图片描述"></p>
+<p>所以如果你安装了旧的版本，又想使用 options 包，只能卸载当前版本，重新安装 V1 以上的版本。</p>
+<h2 id="使用总结"><a href="#使用总结" class="headerlink" title="使用总结"></a>使用总结</h2><p>关于 pyecharts，还有很多可视化的用法，这里不一一列举，可以去官网上面查看，因为是国人开发的，所以直接有中文文档：<a target="_blank" rel="noopener" href="https://pyecharts.org/#/zh-cn/intro">https://pyecharts.org/#/zh-cn/intro</a></p>
+<p>大致的使用步骤就是：</p>
+<ul>
+<li>导入相关图表包。</li>
+<li>进行图表的基础设置，创建图表对象。</li>
+<li>利用 <code>add()</code> 方法进行数据输入与图表设置（可以使用 <code>print_echarts_options()</code> 来输出所有可配置项）。</li>
+<li>利用 <code>render()</code> 方法来进行图表保存。</li>
+</ul>
+<p>相关的样式对照，可以查看：<a target="_blank" rel="noopener" href="https://gallery.pyecharts.org/#/Line/README">https://gallery.pyecharts.org/#/Line/README</a></p>
+<h2 id="项目补充"><a href="#项目补充" class="headerlink" title="项目补充"></a>项目补充</h2><ol>
+<li><p>导入包：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入 柱状图、折线图、地图、词云图</span></span><br><span class="line"><span class="keyword">from</span> pyecharts.charts <span class="keyword">import</span> Bar, Line, Map, WordCloud</span><br><span class="line"></span><br><span class="line"><span class="comment"># 从 pyecharts 的组件中，导入表格</span></span><br><span class="line"><span class="keyword">from</span> pyecharts.components <span class="keyword">import</span> Table</span><br><span class="line"></span><br><span class="line"><span class="comment"># 踩坑预警：版本问题</span></span><br><span class="line"><span class="keyword">from</span> pyecharts <span class="keyword">import</span> options <span class="keyword">as</span> opts</span><br><span class="line"></span><br><span class="line"><span class="comment"># Component 是用于配置通用配置项，比如主标题样式、副标题样式</span></span><br><span class="line"><span class="keyword">from</span> pyecharts.options <span class="keyword">import</span> ComponentTitleOpts</span><br><span class="line"></span><br><span class="line"><span class="comment"># collections 这个模块实现了特定目标的容器，比如一些集合</span></span><br><span class="line"><span class="keyword">from</span> collections <span class="keyword">import</span> Counter</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>绘图：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 国内趋势分析</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_china_trend</span>():</span></span><br><span class="line">    china_day_list_df.loc[:, <span class="string">&#x27;timedate&#x27;</span>] = china_day_list_df[<span class="string">&#x27;year&#x27;</span>] + <span class="string">&#x27;/&#x27;</span> + china_day_list_df[<span class="string">&#x27;date&#x27;</span>]</span><br><span class="line">    china_day_list_df[<span class="string">&#x27;timedate&#x27;</span>] = china_day_list_df[<span class="string">&#x27;timedate&#x27;</span>].<span class="built_in">map</span>(<span class="keyword">lambda</span> x: x.replace(<span class="string">&#x27;.&#x27;</span>, <span class="string">&#x27;/&#x27;</span>))</span><br><span class="line">    china_day_list_df[<span class="string">&#x27;timedate&#x27;</span>] = pd.to_datetime(china_day_list_df[<span class="string">&#x27;timedate&#x27;</span>])</span><br><span class="line">    china_day_list_df.set_index(china_day_list_df[<span class="string">&#x27;timedate&#x27;</span>], inplace=<span class="literal">True</span>)</span><br><span class="line">    x_data = china_day_list_df.index.tolist()</span><br><span class="line">    line1 = (</span><br><span class="line">        Line()</span><br><span class="line">        	<span class="comment"># 折线图上，所有的折线的横坐标是统一的，不同的是纵坐标</span></span><br><span class="line">        	<span class="comment"># .add_xaxis 是配置横坐标的，一张折线图只有一个</span></span><br><span class="line">        	<span class="comment"># .add_yaxis 是配置纵坐标的，有多少个折线就有多少个这种函数</span></span><br><span class="line">            .add_xaxis(xaxis_data=x_data)</span><br><span class="line">            .add_yaxis(</span><br><span class="line">                <span class="comment"># 系列名称，用于 tooltip 的显示，legend 的图例筛选。</span></span><br><span class="line">                series_name=<span class="string">&quot;国内累计确诊&quot;</span>,</span><br><span class="line">                <span class="comment"># 数据堆叠，同个类目轴上系列配置相同的　stack　值可以堆叠放置。</span></span><br><span class="line">                stack=<span class="string">&quot;总量&quot;</span>,</span><br><span class="line">                areastyle_opts=<span class="string">&quot;&quot;</span>,</span><br><span class="line">                y_axis=china_day_list_df[<span class="string">&#x27;confirm&#x27;</span>].values.tolist(),</span><br><span class="line">                label_opts=opts.LabelOpts(is_show=<span class="literal">False</span>),</span><br><span class="line">        	)</span><br><span class="line">        	<span class="comment"># 其中一条名为 “国内死亡病例” 的折线</span></span><br><span class="line">            .add_yaxis(</span><br><span class="line">                series_name=<span class="string">&quot;国内死亡病例&quot;</span>,</span><br><span class="line">                stack=<span class="string">&quot;总量&quot;</span>,</span><br><span class="line">                areastyle_opts=<span class="string">&quot;&quot;</span>,</span><br><span class="line">                y_axis=china_day_list_df[<span class="string">&#x27;dead&#x27;</span>].values.tolist(),</span><br><span class="line">                <span class="comment"># 标签配置项</span></span><br><span class="line">                label_opts=opts.LabelOpts(is_show=<span class="literal">False</span>),</span><br><span class="line">        	)</span><br><span class="line">            .add_yaxis(</span><br><span class="line">                series_name=<span class="string">&quot;国内治愈病例&quot;</span>,</span><br><span class="line">                stack=<span class="string">&quot;总量&quot;</span>,</span><br><span class="line">                areastyle_opts=<span class="string">&quot;&quot;</span>,</span><br><span class="line">                y_axis=china_day_list_df[<span class="string">&#x27;heal&#x27;</span>].values.tolist(),</span><br><span class="line">                label_opts=opts.LabelOpts(is_show=<span class="literal">False</span>),</span><br><span class="line">            )</span><br><span class="line">            .add_yaxis(</span><br><span class="line">                series_name=<span class="string">&quot;境外输入病例&quot;</span>,</span><br><span class="line">                stack=<span class="string">&quot;总量&quot;</span>,</span><br><span class="line">                areastyle_opts=<span class="string">&quot;&quot;</span>,</span><br><span class="line">                y_axis=china_day_list_df[<span class="string">&#x27;importedCase&#x27;</span>].values.tolist(),</span><br><span class="line">                label_opts=opts.LabelOpts(is_show=<span class="literal">False</span>),</span><br><span class="line">            )</span><br><span class="line">            .add_yaxis(</span><br><span class="line">                series_name=<span class="string">&quot;本地新增病例&quot;</span>,</span><br><span class="line">                stack=<span class="string">&quot;总量&quot;</span>,</span><br><span class="line">                areastyle_opts=<span class="string">&quot;&quot;</span>,</span><br><span class="line">                y_axis=china_day_list_df[<span class="string">&#x27;localConfirm&#x27;</span>].values.tolist(),</span><br><span class="line">                label_opts=opts.LabelOpts(is_show=<span class="literal">False</span>),</span><br><span class="line">            )</span><br><span class="line">            .add_yaxis(</span><br><span class="line">                series_name=<span class="string">&quot;无症状感染者&quot;</span>,</span><br><span class="line">                stack=<span class="string">&quot;总量&quot;</span>,</span><br><span class="line">                areastyle_opts=<span class="string">&quot;yellow&quot;</span>,</span><br><span class="line">                y_axis=china_day_list_df[<span class="string">&#x27;noInfect&#x27;</span>].values.tolist(),</span><br><span class="line">                label_opts=opts.LabelOpts(is_show=<span class="literal">False</span>),</span><br><span class="line">            )</span><br><span class="line">            .add_yaxis(</span><br><span class="line">                series_name=<span class="string">&quot;现有确诊病例&quot;</span>,</span><br><span class="line">                stack=<span class="string">&quot;总量&quot;</span>,</span><br><span class="line">                areastyle_opts=<span class="string">&quot;red&quot;</span>,</span><br><span class="line">                y_axis=china_day_list_df[<span class="string">&#x27;now_confirm&#x27;</span>].values.tolist(),</span><br><span class="line">                label_opts=opts.LabelOpts(is_show=<span class="literal">False</span>),</span><br><span class="line">            )</span><br><span class="line">            .set_global_opts(</span><br><span class="line">                title_opts=opts.TitleOpts(title=<span class="string">&quot;&quot;</span>),</span><br><span class="line">                tooltip_opts=opts.TooltipOpts(trigger=<span class="string">&quot;axis&quot;</span>),</span><br><span class="line">                yaxis_opts=opts.AxisOpts(</span><br><span class="line">                    type_=<span class="string">&quot;value&quot;</span>,</span><br><span class="line">                    axistick_opts=opts.AxisTickOpts(is_show=<span class="literal">True</span>),</span><br><span class="line">                    splitline_opts=opts.SplitLineOpts(is_show=<span class="literal">True</span>),</span><br><span class="line">                ),</span><br><span class="line">                xaxis_opts=opts.AxisOpts(type_=<span class="string">&quot;category&quot;</span>, boundary_gap=<span class="literal">False</span>),</span><br><span class="line">                legend_opts=opts.LegendOpts(pos_right=<span class="string">&#x27;top&#x27;</span>),</span><br><span class="line">                datazoom_opts=opts.DataZoomOpts(range_start=<span class="number">40</span>, range_end=<span class="number">80</span>)</span><br><span class="line">            )</span><br><span class="line">    	)</span><br><span class="line">    <span class="keyword">return</span> line1</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get_contient_compare_bar</span>() -&gt; Bar:</span></span><br><span class="line">       df = world_data_list_df.groupby(<span class="string">&#x27;continent&#x27;</span>).agg(</span><br><span class="line">           &#123;<span class="string">&quot;confirm&quot;</span>: <span class="string">&quot;sum&quot;</span>,</span><br><span class="line">            <span class="string">&quot;dead&quot;</span>: <span class="string">&quot;sum&quot;</span>,</span><br><span class="line">            <span class="string">&quot;heal&quot;</span>: <span class="string">&quot;sum&quot;</span>&#125;</span><br><span class="line">       )</span><br><span class="line">       bar = (</span><br><span class="line">           Bar()</span><br><span class="line">               .add_xaxis(df.index.tolist())</span><br><span class="line">               .add_yaxis(<span class="string">&quot;确诊&quot;</span>, df[<span class="string">&#x27;confirm&#x27;</span>].to_list())</span><br><span class="line">               .add_yaxis(<span class="string">&quot;死亡&quot;</span>, df[<span class="string">&#x27;dead&#x27;</span>].to_list())</span><br><span class="line">               .add_yaxis(<span class="string">&quot;治愈&quot;</span>, df[<span class="string">&#x27;heal&#x27;</span>].to_list())</span><br><span class="line">                <span class="comment"># set_global_opts 是列表配置项</span></span><br><span class="line">                <span class="comment"># def set_global_opts(</span></span><br><span class="line">                    <span class="comment"># 标题配置项，参考 `ComponentTitleOpts`</span></span><br><span class="line">                <span class="comment"># title_opts: Union[ComponentTitleOpts, dict, None] = None</span></span><br><span class="line">                <span class="comment"># )</span></span><br><span class="line">               .set_global_opts(title_opts=opts.TitleOpts(title=<span class="string">&quot;&quot;</span>),</span><br><span class="line">                                legend_opts=opts.LegendOpts(pos_right=<span class="string">&#x27;top&#x27;</span>),</span><br><span class="line">                                datazoom_opts=opts.DataZoomOpts(range_start=<span class="number">40</span>, range_end=<span class="number">80</span>),</span><br><span class="line">               )</span><br><span class="line">       )</span><br><span class="line">   <span class="keyword">return</span> bar</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+
+  
+  
+    
+    <div class='footer'>
+      
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://ozzienicholas.gitee.io/e47d03da829b/>https://ozzienicholas.gitee.io/e47d03da829b/</a></p>
+              
+            
+          </blockquote>
+        </div>
+      
+      
+    </div>
+  
+  
+    
+
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-04-28T09:41:23+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Apr 28, 2021</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>开发工具</p></a></div>
+
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://ozzienicholas.gitee.io/e47d03da829b/&title=pyecharts 笔记 - Ozzie | Nicholas&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://ozzienicholas.gitee.io/e47d03da829b/&title=pyecharts 笔记 - Ozzie | Nicholas&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://ozzienicholas.gitee.io/e47d03da829b/&title=pyecharts 笔记 - Ozzie | Nicholas&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
+  
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/74c04119a77b/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>CSS-Demo：精美的输入框</p>
+          <p class='content'></p>
+        </a>
+      
+      
+        <a class='next' href='/0c170b8a39ed/'>
+          <p class='title'>CSS-盒模型<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>
+对一个文档进行布局的时候，浏览器的渲染引擎会根据CSS基础框盒模型将所有元素表示为一个个矩形盒，CSS决定这些盒子的大小、位置以及属性。
+
+可以认为，HTML 的每个标签都是一个方块，这个方块...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%BF%B0"><span class="toc-text">前述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AE%89%E8%A3%85-pyecharts"><span class="toc-text">安装 pyecharts</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8-pyecharts"><span class="toc-text">使用 pyecharts</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%B1%E7%8A%B6%E5%9B%BE-%E2%80%94%E2%80%94-Bar"><span class="toc-text">柱状图 —— Bar</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%A5%BC%E5%9B%BE-%E2%80%94%E2%80%94-Pie"><span class="toc-text">饼图 —— Pie</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%AE%B1%E4%BD%93%E5%9B%BE-%E2%80%94%E2%80%94-Boxplot"><span class="toc-text">箱体图 —— Boxplot</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%98%E7%BA%BF%E5%9B%BE-%E2%80%94%E2%80%94-Line"><span class="toc-text">折线图 —— Line</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%9B%B7%E8%BE%BE%E5%9B%BE-%E2%80%94%E2%80%94-Rader"><span class="toc-text">雷达图 —— Rader</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%A3%E7%82%B9%E5%9B%BE-%E2%80%94%E2%80%94-scatter"><span class="toc-text">散点图 —— scatter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E8%A1%A8%E5%B8%83%E5%B1%80-%E2%80%94%E2%80%94-Grid"><span class="toc-text">图表布局 —— Grid</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%B1%E7%8A%B6%E5%9B%BE-%E6%8A%98%E7%BA%BF%E5%9B%BE%E5%90%88%E5%B9%B6"><span class="toc-text">柱状图-折线图合并</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%B8%A9%E5%9D%91%E9%A2%84%E8%AD%A6"><span class="toc-text">踩坑预警</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8%E6%80%BB%E7%BB%93"><span class="toc-text">使用总结</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E9%A1%B9%E7%9B%AE%E8%A1%A5%E5%85%85"><span class="toc-text">项目补充</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=true;
+  pdata.postTitle="pyecharts 笔记";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.remove("show");
+  
+  
+    // cover
+    var cover_wrapper=document.querySelector('.cover-wrapper');
+    
+    cover_wrapper.id="half";
+    cover_wrapper.style.display="";
+    
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+      
+    
+      
+        <div><p>Blog content follows the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+      
+    
+      
+        Use
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        as theme
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2019~2022 OzzieNicholas All Rights Reserved 蜀ICP备19036020号</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+        var imgs=["https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/001.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/002.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/003.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/004.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/005.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/006.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/012.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/016.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/019.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/025.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/034.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/035.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/038.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/039.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/042.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/046.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/051.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/052.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/054.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/056.jpg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+	  function Pjax_backstretch(){
+        
+          $('#cover-backstretch').backstretch(
+            imgs,
+          {
+            duration: "10000",
+            fade: "1500"
+          });
+        
+	  }
+	  loadScript("https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js",Pjax_backstretch)
+    </script>
+  
+
+
+
+  
+  
+
+  <div id="rightmenu-wrapper">
+    <ul class="list-v rightmenu" id="rightmenu-content">
+      <li class='option'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-text' onclick="document.execCommand('copy')"><i class='fa fa-copy fa-fw'></i>Copy Text</a>
+        <hr id='hr-text'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-href'><i class='fa fa-link fa-fw'></i>Copy Link</a>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-open-href'><i class='fa fa-external-link-square-alt fa-fw'></i>Open Link in New Tab</a>
+        <hr id='hr-href'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-src'><i class='fa fa-image fa-fw'></i>Copy Image Link</a>
+        <hr id='hr-src'>
+      </li>
+      
+        <li class='navigation'>
+          <a class='nav icon-only fix-cursor-default' onclick='history.back()'><i class='fa fa-arrow-left fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' onclick='history.forward()'><i class='fa fa-arrow-right fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' onclick='window.location.reload()'><i class='fa fa-redo fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' href='/'><i class='fa fa-home fa-fw'></i></a>
+        </li>
+      
+      <hr>
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default toggle-mode-btn' 
+        
+        
+        
+        >
+        <i class='fas fa-moon fa-fw'></i> 天满纤月
+      </a>
+    </li>
+  
+        
+      
+        
+          <hr>
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default ' href=https://volantis.js.org/faqs/
+        
+        
+        
+        
+          id="https:volantisjsorgfaqs"
+        >
+        <i class='fa fa-question fa-fw'></i> 常夜孤月
+      </a>
+    </li>
+  
+        
+      
+        
+          <hr>
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default ' 
+        
+        
+        
+          onclick="document.execCommand('print')"
+        
+        >
+        <i class='fa fa-print fa-fw'></i> 厄镜月映
+      </a>
+    </li>
+  
+        
+      
+    </ul>
+  </div>
+
+  <script>
+    window.document.oncontextmenu = function (event) {
+      if (event.ctrlKey) return true;
+      if (/Android|webOS|BlackBerry/i.test(navigator.userAgent)) return true;
+      return popMenu(event);
+    };
+    document.addEventListener("click", function (event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      mymenu.style.display = "none";
+    });
+    function popMenu(event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      var menuContent = document.getElementById('rightmenu-content');
+      var screenWidth = document.documentElement.clientWidth || document.body.clientWidth;
+      var screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      mymenu.style.left = event.clientX + "px"; // 获取鼠标位置
+      mymenu.style.top = event.clientY + "px";
+      mymenu.style.display = 'block';
+      if (event.clientX * 2 > screenWidth) {
+        menuContent.classList.add('left');
+      } else {
+        menuContent.classList.remove('left');
+      }
+      if (event.clientY * 2 > screenHeight) {
+        menuContent.classList.add('top');
+      } else {
+        menuContent.classList.remove('top');
+      }
+
+      let hrText = document.getElementById('hr-text');
+      let hrSrc = document.getElementById('hr-src');
+      let hrHref = document.getElementById('hr-href');
+
+      // 选中图片
+      let copySrc = document.getElementById('menu-copy-src');
+      if (copySrc != undefined) {
+        if (event.target.currentSrc) {
+          copySrc.style.display = 'block';
+          copySrc.addEventListener("click", function (e) {
+            copyString(event.target.currentSrc);
+          },{once: true});
+          hrSrc.style.display = 'block';
+        } else {
+          copySrc.style.display = 'none';
+          hrSrc.style.display = 'none';
+        }
+      }
+
+      // 选中按钮
+      // 判断是不是按钮
+      let href = '';
+      if (event.path) {
+        for (i = 0; i < event.path.length; i++) {
+          if (event.path[i].href != undefined && event.path[i].href.length > 0) {
+            href = event.path[i].href;
+          }
+        }
+      }
+
+      let copyText = document.getElementById('menu-copy-text');
+      copyText.style.display = 'none';
+      hrText.style.display = 'none';
+      if (href.length == 0) {
+        // 选中文本
+        if (window.getSelection().toString()) {
+          if ('' == 'true') {
+            copyText.style.display = 'block';
+            hrText.style.display = 'block';
+          }
+        }
+      }
+
+      // 在新标签页打开
+      let openHref = document.getElementById('menu-open-href');
+      if (openHref != undefined) {
+        if (href.length > 0) {
+          openHref.style.display = 'block';
+          openHref.addEventListener("click", function (e) {
+            window.open(href);
+          },{once: true});
+          hrHref.style.display = 'block';
+        } else {
+          openHref.style.display = 'none';
+          hrHref.style.display = 'none';
+        }
+      }
+      // 复制链接
+      let copyHref = document.getElementById('menu-copy-href');
+      if (copyHref != undefined) {
+        if (href.length > 0) {
+          copyHref.style.display = 'block';
+          copyHref.addEventListener("click", function (e) {
+            copyString(href);
+          },{once: true});
+        } else {
+          copyHref.style.display = 'none';
+        }
+      }
+      // 有音乐播放器 see: layout/_third-party/aplayer/script.ejs
+      
+      return false; // 该行代码确保系统自带的右键菜单不会被调出
+    }
+    function hideMenu() {
+      document.getElementById('rightmenu-wrapper').style.display = 'none';
+    }
+    function copyString(str) {
+      const input = document.createElement('input');
+      input.setAttribute('readonly', 'readonly');
+      document.body.appendChild(input);
+      input.setAttribute('value', str);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+    }
+    document.execCommand('click');
+  </script>
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('/js/issues.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+<script src="/js/valine.js"></script>
+
+
+<script>
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    var valine = new Valine();
+    valine.init(Object.assign({"path":null,"placeholder":"快来评论吧~","appId":null,"appKey":null,"meta":["nick","mail","link"],"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false}, {
+      el: '#valine_container',
+      path: path,
+      placeholder: pagePlaceholder,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps,
+    }))
+  }
+  $(function () {
+    pjax_valine();
+  });
+  volantis.pjax.push(pjax_valine);
+</script>
+
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2.6.4/js/search.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://ozzienicholas.gitee.io' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://ozzienicholas.gitee.io' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://ozzienicholas.gitee.io' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+  <script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+ 
+	   
+	    
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+		// 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+		volantis.pjax.method.complete.start();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+ 
+	  
+    </div>
+  </body>
+</html>

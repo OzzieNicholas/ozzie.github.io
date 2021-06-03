@@ -5,6 +5,8 @@
   <!-- SEO相关 -->
   
     
+      <meta name="robots" content="noindex,follow">
+    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -22,9 +24,7 @@
 
   <!-- 页面元数据 -->
   
-  <title>自省总结（开始） - Ozzie | Nicholas</title>
-  
-    <meta name="keywords" content="自省总结">
+  <title>Category: Python - Ozzie | Nicholas</title>
   
 
   
@@ -469,7 +469,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="half" class='cover-wrapper post dock' style="display: ;">
+        <div id="half" class='cover-wrapper  dock' style="display: ;">
           
             <div id='cover-backstretch'></div>
           
@@ -546,241 +546,297 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="body-wrapper" id="pjax-container">
           
 
+
 <div class='l_main'>
-  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
-
-
-  
-  <div class="article-meta" id="top">
     
+      
+  <section class="post-list">
     
-    
-      <h1 class="title">
-        自省总结（开始）
-      </h1>
-      <div class='new-meta-box'>
+      
         
-          
-            
-<div class='new-meta-item author'>
-  <a class='author' href="/" rel="nofollow">
-    <img no-lazy src="https://avatars.githubusercontent.com/u/49378661?s=460&u=48820ed6b04ef7690959e325cd670dcd67efa5a5&v=4">
-    <p>Ozzie</p>
-  </a>
-</div>
-
           
         
           
-            
-  <div class='new-meta-item category'>
-    <a class='notlink'>
-      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <a class="category-link" href="/categories/%E8%87%AA%E7%9C%81%E6%80%BB%E7%BB%93/">自省总结</a>
-    </a>
+        
+          
+        
+          
+        
+          
+        
+      
+    
+    
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/3c959dccffd8/">
+        Matplotlib（下篇）
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        多图合并显示Subplot 多合一显示均匀图中图
+首先使用import导入matplotlib.pyplot模块, 并简写成plt。
+
+ 使用plt.figure创建一个图像窗口.使用plt.subplot来创建小图。
+
+plt.subplot(2,2,1)表示将整个图像窗口分为2行2列, 当前位置为1. 
+
+使用plt.plot([0,1],[0,1])在第1个位置创建一个小图。
+
+plt...
+      
+    
   </div>
-
-
-          
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
         
-          
-            <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：Apr 13, 2021</p>
-  </a>
-</div>
-
-          
+        <time>2021-06-04</time>
         
-          
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Python/">Python</a>
         
       </div>
-    
-  </div>
-
-
-  
-  
-  <h2 id="开始吧！Ozzie"><a href="#开始吧！Ozzie" class="headerlink" title="开始吧！Ozzie"></a>开始吧！Ozzie</h2><p>其实之前很早就想过，要不要定期写一些关于自我反省的总结。</p>
-<p>有时候吧，觉得好像没有必要，很容易忘记去总结，也不想面对自己的缺点。</p>
-<p>而且，自己本来就有定期的目标，比如一周完成什么什么，一个月完成什么什么，做完就好啦。</p>
-<p>但许多次，都还是觉得有必要的，这是对我个人的规正，</p>
-<p>如果想知道自己进步没有，进步多少，那么看看自己之前的自省总结，就大致知道了。</p>
-<p>时间溜得真的很快，不经意间，又过了许久 ……</p>
-<p>在那些 “不经意间” 的日子里，更多的是好像没有做什么，时间莫名其妙就过去了，这样，自己很难发生改变。</p>
-<p>之前听说，高三是你最怀念但最不想回去的时光，是的，至少我是。</p>
-<p>想起高三那段时光，真的没有 “不经意间” 这种感觉，而是，每天都是很努力很认真地 “改变自己”，每天都很充实。</p>
-<p>大学时光，真的比高中快多了，我甚至觉得自己才刚进大学。</p>
-<p>为了不在这片刻光阴中看不见自己，我想，应该这样写了。</p>
-<p>记得我大一时，我看到师兄写博客，我很好奇，也自己尝试着，尝试着师兄那样，每天写一篇 ……</p>
-<p>Oh ~ 那实在是太难了，根本做不到，当时觉得，自己本来就没学多少，怎么可能每天一篇呢，</p>
-<p>而且，每天的事情那么多，回到寝室之后，就只想休息了，哪里就什么精力去学习去写笔记 ……</p>
-<p>现在看来，当时更多的是 “懒”，当时是把 “写博客” 当做是一件任务，</p>
-<p>渐渐地，我习惯了写博客笔记，作为我的知识输出，两三天不写，真的会手痒，会觉得自己没有学到什么，会对自己不满 …… </p>
-<p>现在，我就算不知道写什么好，就会想，那就去学新东西啊，读一篇纽约时报，看一些新技术，总比睡觉看电视要好，</p>
-<p>学与不学的区别，真的像 1 与 0 的区别。</p>
-<p>我记得，疫情在家时，为了约束自己，我规定自己必须每天写，我不断更地写了两个多月 ……</p>
-<p>那段时间，很快乐，甚至到了晚上，我没有完成一篇博客，都会手痒去写，不然真睡不着觉，觉得一天过得不完整。</p>
-<p>如果白天没有学到什么，那我晚上就会忍不住去网上找资料，去学新知识，然后写一篇博客笔记，作为记录。</p>
-<p>现在回想起来，很开心，很满足，很欣慰，渐渐地，“写博客” 这件事，是我最喜欢做的事情，其次是听歌打球。</p>
-<p>改掉一个坏习惯的最好方法，就是养成另一个好习惯。</p>
-<p>昨晚，做了一个梦，我只记得梦见了我去对对联，</p>
-<p>上联是 “琴瑟琵琶，八大王一般头面”，我对的是 “魑魅魍魉，四小鬼各自肚肠”。</p>
-<p>哈哈，这哪是我能想出来的下联啊，这是我以前看《射雕英雄传》时记下的，不知怎的，昨天莫名其妙梦到了。</p>
-<p>于是，我想起了自己以前也写过笔记，也写过日记 ……，现在我似乎没有在意过自己是否进步与改变，比起高三，我退步了。</p>
-<p>所以，我想，我该规正自己了，留在大学的时间不多了，趁着这最美好的年华，像博客笔记一样，留下自省总结。</p>
-
-  
-  
-    
-    <div class='footer'>
       
-      
-      
-        <div class='copyright'>
-          <blockquote>
-            
-              
-                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
-
-              
-            
-              
-                <p>本文永久链接是：<a href=https://ozzienicholas.gitee.io/90a5ca657cff/>https://ozzienicholas.gitee.io/90a5ca657cff/</a></p>
-              
-            
-          </blockquote>
+        <div>
+          <a class='readmore' href='/3c959dccffd8/'>
+            Read More
+          </a>
         </div>
       
-      
     </div>
   
-  
-    
 
-
-  <div class='article-meta' id="bottom">
-    <div class='new-meta-box'>
-      
-        
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-04-13T20:44:43+08:00">
-  <a class='notlink'>
-    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：Apr 13, 2021</p>
-  </a>
 </div>
 
+          </div>
         
       
         
-          
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
   
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E8%87%AA%E7%9C%81%E6%80%BB%E7%BB%93/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>自省总结</p></a></div>
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/1852e70c31f8/">
+        Matplotlib（上篇）
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        为什么使用 Matplotlib
+Matplotlib 是一个非常强大的 Python 画图工具，可以帮助我们以直观的形式更好地了解数据。通过它，你可以画出线图、散点图、等高线图。
+条形图、柱状图、3D 图形甚至是图形动画等等。下面是一些图例：
 
-
-        
-      
-        
-          
-  <div class="new-meta-item share -mob-share-list">
-  <div class="-mob-share-list share-body">
-    
-      
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
-          
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://ozzienicholas.gitee.io/90a5ca657cff/&title=自省总结（开始） - Ozzie | Nicholas&summary="
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
-          
-        </a>
-      
-    
-      
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
-          
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://ozzienicholas.gitee.io/90a5ca657cff/&title=自省总结（开始） - Ozzie | Nicholas&summary="
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
-          
-        </a>
-      
-    
-      
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
-          
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://ozzienicholas.gitee.io/90a5ca657cff/&title=自省总结（开始） - Ozzie | Nicholas&summary="
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
-          
-        </a>
-      
-    
-      
-    
+Matplotlib 安装在不同环境下，Matplotlib的安装方式各不相同。在Kesci平台使用Matplotlib的小伙伴们可以免去安装的过...
       
     
   </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time>2021-06-04</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Python/">Python</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/1852e70c31f8/'>
+            Read More
+          </a>
+        </div>
+      
+    </div>
+  
+
 </div>
 
-
-
+          </div>
         
       
-    </div>
-  </div>
-
-
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
   
   
-
   
-    <div class="prev-next">
-      
-        <a class='prev' href='/28ddff181a3b/'>
-          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>数据结构（二）：线性表</p>
-          <p class='content'>线性表及其逻辑结构线性表的定义线性表的抽象数据类型描述
-线性表的顺序存储结构线性表的顺序存储结构——顺序表顺序表基本运算的实现
-线性表的链式存储结构线性表的链式存储结构——链表单链表双链表循环链表</p>
-        </a>
-      
-      
-        <a class='next' href='/283503771a9b/'>
-          <p class='title'>Biden Begins Long, Uphill Battle to Pass Infrastructure Package<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-          <p class='content'>
-HeadlineBiden Begins Long, Uphill Battle to Pass Infrastructure Package.
-
-拜登为通过基础设施计划展开了漫长而艰难的斗争...</p>
-        </a>
-      
-    </div>
   
-</article>
-
-
-  
-
-  <article class="post white-box reveal shadow" id="comments">
-    <p ct><i class='fas fa-comments'></i> 评论</p>
     
-    <div id="valine_container" class="valine_thread">
-  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+    <h2 class="article-title" >
+      <a href="/653ef868179f/">
+        NumPy（超详细）
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        NumPy 初识NumPy 简介
+NumPy(Numerical Python) 是 Python 语言的一个扩展程序库，支持大量的维度数组与矩阵运算，同时对数组运算提供了大量的数学函数库。
+Numpy 是一个运行速度非常快的数学库，内部解除了CPython的GIL（全局解释器锁），运行效率极好，主要用于数组计算，是大量机器学习框架的基础库，NumPy主要包括如下：
+强大的N维数组对象 nd...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time>2021-06-04</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Python/">Python</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/653ef868179f/'>
+            Read More
+          </a>
+        </div>
+      
+    </div>
+  
+
 </div>
 
-  </article>
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/510c5b795b01/">
+        Python迭代器与生成器
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        前言迭代是Python中常用且非常强大的一个功能，它可以用于访问集合、列表、字符串、字典等数据结构的元素。我们经常使用循环和条件语句，我们也清楚哪些是可以迭代访问，但是具体它们之间有什么有什么异同之处？有哪些特点？什么是迭代器、什么是生成器、什么是可迭代对象？这些问题对于初学者而言却是很少去细致的研究，本文就来详细阐述一下它们之间的关系已经它们的特别之处。
+
+可迭代对象
+在讲解迭代器和生成器...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time>2021-06-04</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Python/">Python</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/510c5b795b01/'>
+            Read More
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+        
+          <div class='post-wrapper'>
+            <div class="post post-v3 white-box reveal shadow">
+  
+  
+  
+  
+    
+    <h2 class="article-title" >
+      <a href="/519bde586d61/">
+        Python文件操作
+      </a>
+    </h2>
+  
+  <div class='md'>
+    
+      
+        Python —— 文件操作
+
+Python File close() 方法：
+
+描述：
+
+Python 文件对象的 close() 方法用于关闭一个已打开的文件
+关闭后的文件不能再进行读写操作，否则会触发 ValueError 错误
+close() 方法允许调用多次
+当 file 对象，被引用到操作另外一个文件时，Python 会自动关闭之前的 file 对象
+当不再需要时，使用 clos...
+      
+    
+  </div>
+  
+    <div class='meta-v3' line_style='solid'>
+      <div>
+        
+        <time>2021-06-04</time>
+        
+          <span class="dot"></span>
+          <a class="category-link" href="/categories/Python/">Python</a>
+        
+      </div>
+      
+        <div>
+          <a class='readmore' href='/519bde586d61/'>
+            Read More
+          </a>
+        </div>
+      
+    </div>
+  
+
+</div>
+
+          </div>
+        
+      
+    
+  </section>
+  
+    
+  
 
 
-
-
-
-
+    
+  
 </div>
 <aside class='l_side'>
   
@@ -788,28 +844,211 @@ HeadlineBiden Begins Long, Uphill Battle to Pass Infrastructure Package.
     
     
 
+<section class="widget blogger shadow desktop mobile">
+  <div class='content'>
+    
+      
+        <a class='avatar flat-box circle' href='/about/'>
+          <img no-lazy src='https://avatars.githubusercontent.com/u/49378661?s=460&u=48820ed6b04ef7690959e325cd670dcd67efa5a5&v=4'/>
+        </a>
+      
+    
+    
+      <div class='text'>
+        
+        
+          <p>集中一点，登峰造极</p>
 
+        
+        
+      </div>
+    
+    
+      <div class="social-wrapper">
+        
+          
+            <a href="/"
+              class="social fas fa-rss flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="mailto:me@xxx.com"
+              class="social fas fa-envelope flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="https://github.com/OzzieNicholas"
+              class="social fab fa-github flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+          
+            <a href="/"
+              class="social fas fa-headphones-alt flat-btn"
+              target="_blank"
+              rel="external nofollow noopener noreferrer">
+              
+            </a>
+          
+        
+      </div>
+    
+  </div>
+</section>
 
-  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+  
+
+  
+    
+    
+  
+
+  <section class="widget category shadow desktop">
     
   <header>
     
-      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+      <a href='/source/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
     
   </header>
 
 
     <div class='content'>
-        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BC%80%E5%A7%8B%E5%90%A7%EF%BC%81Ozzie"><span class="toc-text">开始吧！Ozzie</span></a></li></ol>
+      <ul class="entry navigation">
+        
+          <li><a class="flat-box"
+            title="/categories/ACM/" href="/categories/ACM/"
+            id="categoriesACM"
+            ><div class='name'>ACM</div><div class='badge'>(12)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/Accumulation-Of-Reading/" href="/categories/Accumulation-Of-Reading/"
+            id="categoriesAccumulation-Of-Reading"
+            ><div class='name'>Accumulation_Of_Reading</div><div class='badge'>(5)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/Accumulation-Of-Reading/New-York-Times/" href="/categories/Accumulation-Of-Reading/New-York-Times/"
+            id="categoriesAccumulation-Of-ReadingNew-York-Times"
+            ><div class='name'>New_York_Times</div><div class='badge'>(5)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/Python/" href="/categories/Python/"
+            id="categoriesPython"
+            ><div class='name'>Python</div><div class='badge'>(5)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/%E5%89%8D%E7%AB%AF/" href="/categories/%E5%89%8D%E7%AB%AF/"
+            id="categoriesE5898DE7ABAF"
+            ><div class='name'>前端</div><div class='badge'>(66)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E5%89%8D%E7%AB%AF/JavaScript/" href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/"
+            id="categoriesE5898DE7ABAFJavaScript"
+            ><div class='name'>JavaScript</div><div class='badge'>(10)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E5%89%8D%E7%AB%AF/css/" href="/categories/%E5%89%8D%E7%AB%AF/css/"
+            id="categoriesE5898DE7ABAFcss"
+            ><div class='name'>css</div><div class='badge'>(2)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E5%89%8D%E7%AB%AF/node/" href="/categories/%E5%89%8D%E7%AB%AF/node/"
+            id="categoriesE5898DE7ABAFnode"
+            ><div class='name'>node</div><div class='badge'>(6)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E5%89%8D%E7%AB%AF/react/" href="/categories/%E5%89%8D%E7%AB%AF/react/"
+            id="categoriesE5898DE7ABAFreact"
+            ><div class='name'>react</div><div class='badge'>(7)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E5%89%8D%E7%AB%AF/vue/" href="/categories/%E5%89%8D%E7%AB%AF/vue/"
+            id="categoriesE5898DE7ABAFvue"
+            ><div class='name'>vue</div><div class='badge'>(18)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E5%89%8D%E7%AB%AF/webpack/" href="/categories/%E5%89%8D%E7%AB%AF/webpack/"
+            id="categoriesE5898DE7ABAFwebpack"
+            ><div class='name'>webpack</div><div class='badge'>(4)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E5%89%8D%E7%AB%AF/%E5%BC%80%E5%8F%91/" href="/categories/%E5%89%8D%E7%AB%AF/%E5%BC%80%E5%8F%91/"
+            id="categoriesE5898DE7ABAFE5BC80E58F91"
+            ><div class='name'>开发</div><div class='badge'>(17)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E5%89%8D%E7%AB%AF/%E9%9A%8F%E7%AC%94%E6%BC%AB%E8%B0%88/" href="/categories/%E5%89%8D%E7%AB%AF/%E9%9A%8F%E7%AC%94%E6%BC%AB%E8%B0%88/"
+            id="categoriesE5898DE7ABAFE99A8FE7AC94E6BCABE8B088"
+            ><div class='name'>随笔漫谈</div><div class='badge'>(2)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/"
+            id="categoriesE5ADA6E6A0A1E8AFBEE7A88B"
+            ><div class='name'>学校课程</div><div class='badge'>(16)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93/" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93/"
+            id="categoriesE5ADA6E6A0A1E8AFBEE7A88BE695B0E68DAEE5BA93"
+            ><div class='name'>数据库</div><div class='badge'>(3)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"
+            id="categoriesE5ADA6E6A0A1E8AFBEE7A88BE8AEA1E7AE97E69CBAE6938DE4BD9CE7B3BBE7BB9F"
+            ><div class='name'>计算机操作系统</div><div class='badge'>(8)</div></a></li>
+        
+          <li><a class="flat-box child"
+            title="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"
+            id="categoriesE5ADA6E6A0A1E8AFBEE7A88BE8AEA1E7AE97E69CBAE7BD91E7BB9C"
+            ><div class='name'>计算机网络</div><div class='badge'>(5)</div></a></li>
+        
+          <li><a class="flat-box"
+            title="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"
+            id="categoriesE695B0E68DAEE7BB93E69E84"
+            ><div class='name'>数据结构</div><div class='badge'>(3)</div></a></li>
+        
+      </ul>
     </div>
   </section>
 
 
   
 
+  
+    
+    
+  
+
+  <section class="widget tagcloud shadow desktop mobile">
+    
+  <header>
+    
+      <a href='/source/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
+    
+  </header>
+
+
+    <div class='content'>
+      <a href="/tags/ES6/" style="font-size: 16.5px; color: #888">ES6</a> <a href="/tags/Git/" style="font-size: 20.25px; color: #6f6f6f">Git</a> <a href="/tags/JavaScript/" style="font-size: 20.25px; color: #6f6f6f">JavaScript</a> <a href="/tags/New-York-Times/" style="font-size: 19px; color: #777">New_York_Times</a> <a href="/tags/Python/" style="font-size: 19px; color: #777">Python</a> <a href="/tags/css/" style="font-size: 15.25px; color: #919191">css</a> <a href="/tags/expres/" style="font-size: 14px; color: #999">expres</a> <a href="/tags/koa/" style="font-size: 16.5px; color: #888">koa</a> <a href="/tags/next-js/" style="font-size: 14px; color: #999">next.js</a> <a href="/tags/node/" style="font-size: 15.25px; color: #919191">node</a> <a href="/tags/react%E5%9F%BA%E7%A1%80/" style="font-size: 19px; color: #777">react基础</a> <a href="/tags/redux/" style="font-size: 14px; color: #999">redux</a> <a href="/tags/vue-cli/" style="font-size: 14px; color: #999">vue-cli</a> <a href="/tags/vue-router/" style="font-size: 17.75px; color: #808080">vue-router</a> <a href="/tags/vuex/" style="font-size: 16.5px; color: #888">vuex</a> <a href="/tags/vue%E5%9F%BA%E7%A1%80/" style="font-size: 22.75px; color: #5e5e5e">vue基础</a> <a href="/tags/webpack/" style="font-size: 17.75px; color: #808080">webpack</a> <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" style="font-size: 16.5px; color: #888">开发工具</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 16.5px; color: #888">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/" style="font-size: 16.5px; color: #888">数据结构基础</a> <a href="/tags/%E6%B0%B4%E9%A2%98/" style="font-size: 24px; color: #555">水题</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 15.25px; color: #919191">浏览器</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 21.5px; color: #666">计算机操作系统</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 19px; color: #777">计算机网络</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 20.25px; color: #6f6f6f">踩坑</a>
+    </div>
+  </section>
+
+
+  
+
+  
+
 
 </aside>
-
 
 
 		  
@@ -818,8 +1057,8 @@ HeadlineBiden Begins Long, Uphill Battle to Pass Infrastructure Package.
 
 <script>
   window.pdata={}
-  pdata.ispage=true;
-  pdata.postTitle="自省总结（开始）";
+  pdata.ispage=false;
+  pdata.postTitle="";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要

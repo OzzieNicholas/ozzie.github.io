@@ -1,0 +1,2012 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head hexo-theme='https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta http-equiv='x-dns-prefetch-control' content='on' />
+  <link rel='dns-prefetch' href='https://cdn.jsdelivr.net'>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  
+  <link rel="preload" href="/css/first.css" as="style">
+  
+
+  <!-- 页面元数据 -->
+  
+  <title>Matplotlib（下篇） - Ozzie | Nicholas</title>
+  
+    <meta name="keywords" content="Python">
+  
+
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  
+    <link rel="shortcut icon" type='image/x-icon' href="https://avatars.githubusercontent.com/u/49378661?s=460&u=48820ed6b04ef7690959e325cd670dcd67efa5a5&v=4">
+  
+
+  <!-- import link -->
+  
+
+  
+    
+<link rel="stylesheet" href="/css/first.css">
+
+  
+
+  
+  <link rel="stylesheet" href="/css/style.css" media="print" onload="this.media='all';this.onload=null">
+  <noscript><link rel="stylesheet" href="/css/style.css"></noscript>
+  
+
+  <script id="loadcss"></script>
+
+  
+<script>
+if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMode))
+    document.write(
+	'<style>'+
+		'html{'+
+			'overflow-x: hidden !important;'+
+			'overflow-y: hidden !important;'+
+		'}'+
+		'.kill-ie{'+
+			'text-align:center;'+
+			'height: 100%;'+
+			'margin-top: 15%;'+
+			'margin-bottom: 5500%;'+
+		'}'+
+	'</style>'+
+    '<div class="kill-ie">'+
+        '<h1><b>抱歉，您的浏览器无法访问本站</b></h1>'+
+        '<h3>微软已经于2016年终止了对 Internet Explorer (IE) 10 及更早版本的支持，<br/>'+
+        '继续使用存在极大的安全隐患，请使用当代主流的浏览器进行访问。</h3><br/>'+
+        '<a target="_blank" rel="noopener" href="https://www.microsoft.com/zh-cn/WindowsForBusiness/End-of-IE-support"><strong>了解详情 ></strong></a>'+
+    '</div>');
+</script>
+
+
+<noscript>
+	<style>
+		html{
+			overflow-x: hidden !important;
+			overflow-y: hidden !important;
+		}
+		.kill-noscript{
+			text-align:center;
+			height: 100%;
+			margin-top: 15%;
+			margin-bottom: 5500%;
+		}
+	</style>
+    <div class="kill-noscript">
+        <h1><b>抱歉，您的浏览器无法访问本站</b></h1>
+        <h3>本页面需要浏览器支持（启用）JavaScript</h3><br/>
+        <a target="_blank" rel="noopener" href="https://www.baidu.com/s?wd=启用JavaScript"><strong>了解详情 ></strong></a>
+    </div>
+</noscript>
+
+</head>
+
+  <body>
+    
+
+<header id="l_header" class="l_header auto shadow blur " style='opacity: 0' >
+  <div class='container'>
+  <div id='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h m-phone' id="pjax-header-nav-list">
+        <li><a id="s-comment" class="fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a id="s-toc" class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+            <img no-lazy class='logo' src='https://avatars.githubusercontent.com/u/49378661?s=460&u=48820ed6b04ef7690959e325cd670dcd67efa5a5&v=4'/>
+          
+          
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h m-pc'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>更多
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://volantis.js.org/v4/getting-started/
+                  
+                  
+                  
+                    id="https:volantisjsorgv4getting-started"
+                  >
+                  主题文档
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <hr>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/volantis-x/hexo-theme-volantis/
+                  
+                  
+                  
+                    id="https:githubcomvolantis-xhexo-theme-volantis"
+                  >
+                  主题源码
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h m-phone'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>首页
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" 
+                  
+                  
+                  >
+                  <i class='fas fa-ellipsis-v fa-fw'></i>更多
+                </a>
+                
+                  <ul class="list-v">
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://volantis.js.org/v4/getting-started/
+                  
+                  
+                  
+                    id="https:volantisjsorgv4getting-started"
+                  >
+                  主题文档
+                </a>
+                
+              </li>
+            
+          
+                    
+                      
+            
+              <hr>
+            
+          
+                    
+                      
+            
+              <li>
+                <a class="menuitem flat-box faa-parent animated-hover" href=https://github.com/volantis-x/hexo-theme-volantis/
+                  
+                  
+                  
+                    id="https:githubcomvolantis-xhexo-theme-volantis"
+                  >
+                  主题源码
+                </a>
+                
+              </li>
+            
+          
+                    
+                  </ul>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+    <div id="l_body">
+      <div id="l_cover">
+  
+    
+        <div id="half" class='cover-wrapper matplotlib教程 dock' style="display: ;">
+          
+            <div id='cover-backstretch'></div>
+          
+          <div class='cover-body'>
+  <div class='top'>
+    
+    
+      <p class="title">Ozzie | Nicholas</p>
+    
+    
+      <p class="subtitle">If not now, when?   If not me, who?</p>
+    
+  </div>
+  <div class='bottom'>
+    <div class='menu navigation'>
+      <div class='list-h'>
+        
+          
+            <a href="/"
+              
+              
+              id="home">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f5c3.svg'><p>首页</p>
+            </a>
+          
+            <a href="/categories/"
+              
+              
+              id="categories">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f516.svg'><p>分类</p>
+            </a>
+          
+            <a href="/tags/"
+              
+              
+              id="tags">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f396.svg'><p>标签</p>
+            </a>
+          
+            <a href="/archives/"
+              
+              
+              id="archives">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f389.svg'><p>归档</p>
+            </a>
+          
+            <a href="/friends/"
+              
+              
+              id="friends">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f4f0.svg'><p>友链</p>
+            </a>
+          
+            <a href="/about/"
+              
+              
+              id="about">
+              <img src='https://cdn.jsdelivr.net/gh/twitter/twemoji@13.0/assets/svg/1f9ec.svg'><p>关于</p>
+            </a>
+          
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+          <div id="scroll-down" style="display: none;"><i class="fa fa-chevron-down scroll-down-effects"></i></div>
+        </div>
+    
+  
+  </div>
+
+      <div id="safearea">
+        <div class="body-wrapper" id="pjax-container">
+          
+
+<div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-matplotlib教程" id="matplotlib教程" itemscope itemprop="blogPost">
+  
+
+
+  
+  <div class="article-meta" id="top">
+    
+    
+    
+      <h1 class="title">
+        Matplotlib（下篇）
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://avatars.githubusercontent.com/u/49378661?s=460&u=48820ed6b04ef7690959e325cd670dcd67efa5a5&v=4">
+    <p>Ozzie</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/Python/">Python</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Jun 4, 2021</p>
+  </a>
+</div>
+
+          
+        
+          
+        
+      </div>
+    
+  </div>
+
+
+  
+  
+  <h2 id="多图合并显示"><a href="#多图合并显示" class="headerlink" title="多图合并显示"></a>多图合并显示</h2><h3 id="Subplot-多合一显示"><a href="#Subplot-多合一显示" class="headerlink" title="Subplot 多合一显示"></a>Subplot 多合一显示</h3><h4 id="均匀图中图"><a href="#均匀图中图" class="headerlink" title="均匀图中图"></a>均匀图中图</h4><ol>
+<li><p>首先使用import导入matplotlib.pyplot模块, 并简写成plt。</p>
+</li>
+<li><p> 使用plt.figure创建一个图像窗口.使用plt.subplot来创建小图。</p>
+</li>
+<li><p>plt.subplot(2,2,1)表示将整个图像窗口分为2行2列, 当前位置为1. </p>
+</li>
+<li><p>使用plt.plot([0,1],[0,1])在第1个位置创建一个小图。</p>
+</li>
+<li><p>plt.subplot(2,2,2)表示将整个图像窗口分为2行2列, 当前位置为2。</p>
+</li>
+<li><p>使用plt.plot([0,1],[0,2])在第2个位置创建一个小图。</p>
+</li>
+<li><p>plt.subplot(2,2,3)表示将整个图像窗口分为2行2列,当前位置为3。 </p>
+</li>
+<li><p>plt.subplot(2,2,3)可以简写成plt.subplot(223), matplotlib同样可以识别。</p>
+</li>
+<li><p>使用plt.plot([0,1],[0,3])在第3个位置创建一个小图。</p>
+</li>
+<li><p>plt.subplot(224)表示将整个图像窗口分为2行2列, 当前位置为4。</p>
+</li>
+<li><p>使用plt.plot([0,1],[0,4])在第4个位置创建一个小图。</p>
+</li>
+<li><p>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.figure()</span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">1</span>)</span><br><span class="line">plt.plot([<span class="number">0</span>,<span class="number">1</span>],[<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">2</span>,<span class="number">2</span>,<span class="number">2</span>)</span><br><span class="line">plt.plot([<span class="number">0</span>,<span class="number">1</span>],[<span class="number">0</span>,<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">223</span>)</span><br><span class="line">plt.plot([<span class="number">0</span>,<span class="number">1</span>],[<span class="number">0</span>,<span class="number">3</span>])</span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">224</span>)</span><br><span class="line">plt.plot([<span class="number">0</span>,<span class="number">1</span>],[<span class="number">0</span>,<span class="number">4</span>])</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.kesci.com/rt_upload/CD6735DCC00240739333AED6BC836147/pdysssaygh.png" class="lazyload" data-srcset="https://cdn.kesci.com/rt_upload/CD6735DCC00240739333AED6BC836147/pdysssaygh.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+</li>
+</ol>
+<h4 id="不均匀图中图"><a href="#不均匀图中图" class="headerlink" title="不均匀图中图"></a>不均匀图中图</h4><ol>
+<li><p>如果希望展示的小图的大小不相同, 应该怎么做呢? 以上面的4个小图为例, 如果把第1个小图放到第一行, 而剩下的3个小图都放到第二行。使用plt.subplot(2,1,1)将整个图像窗口分为2行1列, 当前位置为1。使用plt.plot([0,1],[0,1])在第1个位置创建一个小图。使用plt.subplot(2,3,4)将整个图像窗口分为2行3列, 当前位置为4。使用plt.plot([0,1],[0,2])在第4个位置创建一个小图。</p>
+</li>
+<li><p>这里需要解释一下为什么第4个位置放第2个小图。上一步中使用plt.subplot(2,1,1)将整个图像窗口分为2行1列, 第1个小图占用了第1个位置, 也就是整个第1行。这一步中使用plt.subplot(2,3,4)将整个图像窗口分为2行3列, 于是整个图像窗口的第1行就变成了3列, 也就是成了3个位置, 于是第2行的第1个位置是整个图像窗口的第4个位置。</p>
+</li>
+<li><p>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.figure()</span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">plt.plot([<span class="number">0</span>,<span class="number">1</span>],[<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line">plt.plot([<span class="number">0</span>,<span class="number">1</span>],[<span class="number">0</span>,<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.kesci.com/rt_upload/2B1BA57D5C274C7D8DE35E6DD2A3F87B/pdysuj79lr.png" class="lazyload" data-srcset="https://cdn.kesci.com/rt_upload/2B1BA57D5C274C7D8DE35E6DD2A3F87B/pdysuj79lr.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+</li>
+<li><p>接着，使用plt.subplot(235)将整个图像窗口分为2行3列,当前位置为5。使用plt.plot([0,1],[0,3])在第5个位置创建一个小图。同上, 再创建plt.subplot(236)。代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.figure()</span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">2</span>,<span class="number">1</span>,<span class="number">1</span>)</span><br><span class="line">plt.plot([<span class="number">0</span>,<span class="number">1</span>],[<span class="number">0</span>,<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>)</span><br><span class="line">plt.plot([<span class="number">0</span>,<span class="number">1</span>],[<span class="number">0</span>,<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">235</span>)</span><br><span class="line">plt.plot([<span class="number">0</span>,<span class="number">1</span>],[<span class="number">0</span>,<span class="number">3</span>])</span><br><span class="line"></span><br><span class="line">plt.subplot(<span class="number">236</span>)</span><br><span class="line">plt.plot([<span class="number">0</span>,<span class="number">1</span>],[<span class="number">0</span>,<span class="number">4</span>])</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.kesci.com/rt_upload/7EE9B95F464D44AF8D61EF838CF68C77/pdyswbnu7l.png" class="lazyload" data-srcset="https://cdn.kesci.com/rt_upload/7EE9B95F464D44AF8D61EF838CF68C77/pdyswbnu7l.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+</li>
+<li><p>matplotlib 的 subplot 还可以是分格的,这里介绍三种方法同样也能达到 subplot() 函数的效果：subplot2grid、gridspec 和 subplots 。他们相比起普通的 subplot 会更加方便，在判断图的编号时不需要进行很复杂的考虑。</p>
+</li>
+</ol>
+<h3 id="subplot2grid"><a href="#subplot2grid" class="headerlink" title="subplot2grid"></a>subplot2grid</h3><ol>
+<li><p>使用plt.subplot2grid来创建第1个小图, (3,3)表示将整个图像窗口分成3行3列, (0,0)表示从第0行第0列开始作图，colspan=3表示列的跨度为3, rowspan=1表示行的跨度为1。colspan和rowspan缺省, 表示默认跨度为1。</p>
+</li>
+<li><p>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.figure()</span><br><span class="line"></span><br><span class="line">ax1 = plt.subplot2grid((<span class="number">3</span>, <span class="number">3</span>), (<span class="number">0</span>, <span class="number">0</span>), colspan=<span class="number">3</span>)</span><br><span class="line">ax1.plot([<span class="number">1</span>, <span class="number">2</span>], [<span class="number">1</span>, <span class="number">2</span>])    <span class="comment"># 画小图</span></span><br><span class="line">ax1.set_title(<span class="string">&#x27;ax1_title&#x27;</span>)  <span class="comment"># 设置小图的标题</span></span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.kesci.com/rt_upload/CCE64FD42CBA4CB18E4B00651907DF65/pdyt86nagm.png" class="lazyload" data-srcset="https://cdn.kesci.com/rt_upload/CCE64FD42CBA4CB18E4B00651907DF65/pdyt86nagm.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+</li>
+<li><p>使用plt.subplot2grid来创建第2个小图, (3,3)表示将整个图像窗口分成3行3列, (1,0)表示从第1行第0列开始作图，colspan=2表示列的跨度为2. 同上画出 ax3, (1,2)表示从第1行第2列开始作图，rowspan=2表示行的跨度为2. 再画一个 ax4 和 ax5, 使用默认 colspan, rowspan。使用ax4.scatter创建一个散点图, 使用 ax4.setxlabel 和 ax4.setylabel 来对x轴和y轴命名。这样，我们就通过 subplot2grid() 完成了一张不均匀图中图。</p>
+</li>
+<li><p>细心的小伙伴可能可以注意到，在第一章我们设置标题与坐标轴时，使用的是plt.title()这样的语句，针对小图 ax ，我们的设置前都要加上 ‘set’。</p>
+</li>
+<li><p>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line">plt.figure()</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">8</span>, <span class="number">6</span>))</span><br><span class="line">ax1 = plt.subplot2grid((<span class="number">3</span>, <span class="number">3</span>), (<span class="number">0</span>, <span class="number">0</span>), colspan=<span class="number">3</span>)</span><br><span class="line">ax1.plot([<span class="number">1</span>, <span class="number">2</span>], [<span class="number">1</span>, <span class="number">2</span>])    <span class="comment"># 画小图</span></span><br><span class="line">ax1.set_title(<span class="string">&#x27;ax1_title&#x27;</span>)  <span class="comment"># 设置小图的标题</span></span><br><span class="line">ax2 = plt.subplot2grid((<span class="number">3</span>, <span class="number">3</span>), (<span class="number">1</span>, <span class="number">0</span>), colspan=<span class="number">2</span>)</span><br><span class="line">ax3 = plt.subplot2grid((<span class="number">3</span>, <span class="number">3</span>), (<span class="number">1</span>, <span class="number">2</span>), rowspan=<span class="number">2</span>)</span><br><span class="line">ax4 = plt.subplot2grid((<span class="number">3</span>, <span class="number">3</span>), (<span class="number">2</span>, <span class="number">0</span>))</span><br><span class="line">ax5 = plt.subplot2grid((<span class="number">3</span>, <span class="number">3</span>), (<span class="number">2</span>, <span class="number">1</span>))</span><br><span class="line">ax4.scatter([<span class="number">1</span>, <span class="number">2</span>], [<span class="number">2</span>, <span class="number">2</span>])</span><br><span class="line">ax4.set_xlabel(<span class="string">&#x27;ax4_x&#x27;</span>)</span><br><span class="line">ax4.set_ylabel(<span class="string">&#x27;ax4_y&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.kesci.com/rt_upload/D9331101EA514DAC8DD76F7F18DE8A1F/pdytsk63uh.png" class="lazyload" data-srcset="https://cdn.kesci.com/rt_upload/D9331101EA514DAC8DD76F7F18DE8A1F/pdytsk63uh.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+</li>
+</ol>
+<h3 id="gridspec"><a href="#gridspec" class="headerlink" title="gridspec"></a>gridspec</h3><ol>
+<li><p>gridspec 同样能帮助我们画出前文的图，个人觉得 gridspec 的使用是最为方便的，因为它允许我们使用索引的方式指定小图的大小和位置。首先，利用import导入matplotlib.pyplot模块, 并简写成plt. 利用import导入matplotlib.gridspec, 并简写成gridspec.</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> matplotlib.gridspec <span class="keyword">as</span> gridspec</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>使用plt.figure()创建一个图像窗口, 使用gridspec.GridSpec将整个图像窗口分成3行3列.使用plt.subplot来作图, gs[0, :]表示这个图占第0行和所有列, gs[1, :2]表示这个图占第1行和第2列前的所有列, gs[1:, 2]表示这个图占第1行后的所有行和第2列, gs[-1, 0]表示这个图占倒数第1行和第0列, gs[-1, -2]表示这个图占倒数第1行和倒数第2列.</p>
+</li>
+<li><p>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> matplotlib.gridspec <span class="keyword">as</span> gridspec</span><br><span class="line"></span><br><span class="line">plt.figure()</span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">8</span>, <span class="number">8</span>))</span><br><span class="line">gs = gridspec.GridSpec(<span class="number">3</span>, <span class="number">3</span>)</span><br><span class="line"></span><br><span class="line">ax6 = plt.subplot(gs[<span class="number">0</span>, :])</span><br><span class="line">ax7 = plt.subplot(gs[<span class="number">1</span>, :<span class="number">2</span>])</span><br><span class="line">ax8 = plt.subplot(gs[<span class="number">1</span>:, <span class="number">2</span>])</span><br><span class="line">ax9 = plt.subplot(gs[-<span class="number">1</span>, <span class="number">0</span>])</span><br><span class="line">ax10 = plt.subplot(gs[-<span class="number">1</span>, -<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.kesci.com/rt_upload/BD38693CAF8E40438319090BB2612FB9/pe0kw0diow.png" class="lazyload" data-srcset="https://cdn.kesci.com/rt_upload/BD38693CAF8E40438319090BB2612FB9/pe0kw0diow.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+</li>
+</ol>
+<h3 id="subplots"><a href="#subplots" class="headerlink" title="subplots"></a>subplots</h3><ol>
+<li><p>subplots 不同于 subplot, 它允许我们将图像窗口集合在一起表示。</p>
+</li>
+<li><p>首先，使用plt.subplots建立一个2行2列的图像窗口，sharex=True表示共享x轴坐标, sharey=True表示共享y轴坐标. ((ax11, ax12), (ax13, ax14))表示第1行从左至右依次放ax11和ax12, 第2行从左至右依次放ax13和ax14.接着使用ax11.scatter创建一个散点图.</p>
+</li>
+<li><p>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> matplotlib.gridspec <span class="keyword">as</span> gridspec</span><br><span class="line"></span><br><span class="line">f, ((ax11, ax12), (ax13, ax14)) = plt.subplots(<span class="number">2</span>, <span class="number">2</span>, sharex=<span class="literal">True</span>, sharey=<span class="literal">True</span>)</span><br><span class="line">ax11.scatter([<span class="number">1</span>,<span class="number">2</span>], [<span class="number">1</span>,<span class="number">2</span>])</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.kesci.com/rt_upload/C8B29DCDE30E4C4E8D044DE88E733EA6/pe0ldsen3r.png" class="lazyload" data-srcset="https://cdn.kesci.com/rt_upload/C8B29DCDE30E4C4E8D044DE88E733EA6/pe0ldsen3r.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+</li>
+<li><p>plt.tight_layout()表示紧凑显示图像, plt.show()表示显示图像。代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> matplotlib.gridspec <span class="keyword">as</span> gridspec</span><br><span class="line"></span><br><span class="line">f, ((ax11, ax12), (ax13, ax14)) = plt.subplots(<span class="number">2</span>, <span class="number">2</span>, sharex=<span class="literal">True</span>, sharey=<span class="literal">True</span>)</span><br><span class="line">ax11.scatter([<span class="number">1</span>,<span class="number">2</span>], [<span class="number">1</span>,<span class="number">2</span>])</span><br><span class="line">plt.tight_layout()</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.kesci.com/rt_upload/1DA544A5C378468987C49891B8CF5D70/pe0lei9v0d.png" class="lazyload" data-srcset="https://cdn.kesci.com/rt_upload/1DA544A5C378468987C49891B8CF5D70/pe0lei9v0d.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+</li>
+</ol>
+<h3 id="图中图"><a href="#图中图" class="headerlink" title="图中图"></a>图中图</h3><p>接下来我们来介绍 matplotlib 里一个很有意思的功能，叫做图中图(plot in plot)。通过它，我们可以在大图中嵌入小图。</p>
+<h4 id="生成数据"><a href="#生成数据" class="headerlink" title="生成数据"></a>生成数据</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 导入pyplot模块</span></span><br><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建数据</span></span><br><span class="line">x = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]</span><br><span class="line">y = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">6</span>]</span><br></pre></td></tr></table></figure>
+
+<h4 id="绘制大图"><a href="#绘制大图" class="headerlink" title="绘制大图"></a>绘制大图</h4><ol>
+<li><p>首先确定大图左下角的位置以及宽高：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">left, bottom, width, height = <span class="number">0.1</span>, <span class="number">0.1</span>, <span class="number">0.8</span>, <span class="number">0.8</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>注意，4个值都是占整个figure窗口的百分比。在这里，假设figure的大小是10x10，那么大图就被包含在由(1, 1)开始，宽8，高8的坐标系内。在klab上大家可能并不能理解figure的窗口大小，因为我们的图片会直接在代码下方显示，但对于其他平台，会出现弹出图片窗口的情况，这里的 figure 大小指的就是弹出窗口的大小。</p>
+</li>
+<li><p>接着，我们将大图坐标系添加到 figure 中，颜色为 r(red)，取名为 title。代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">x = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]</span><br><span class="line">y = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">6</span>]</span><br><span class="line"></span><br><span class="line">left, bottom, width, height = <span class="number">0.1</span>, <span class="number">0.1</span>, <span class="number">0.8</span>, <span class="number">0.8</span></span><br><span class="line"></span><br><span class="line">fig = plt.figure()</span><br><span class="line"></span><br><span class="line">ax1 = fig.add_axes([left, bottom, width, height])</span><br><span class="line">ax1.plot(x, y, <span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">ax1.set_xlabel(<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">ax1.set_ylabel(<span class="string">&#x27;y&#x27;</span>)</span><br><span class="line">ax1.set_title(<span class="string">&#x27;title&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.kesci.com/rt_upload/79AA231B62E644BD863142E11F6A403A/pe0mdodhrj.png" class="lazyload" data-srcset="https://cdn.kesci.com/rt_upload/79AA231B62E644BD863142E11F6A403A/pe0mdodhrj.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+</li>
+</ol>
+<h4 id="绘制小图"><a href="#绘制小图" class="headerlink" title="绘制小图"></a>绘制小图</h4><ol>
+<li><p>接着，我们来绘制左上角的小图，步骤和绘制大图一样，注意坐标系位置和大小的改变。</p>
+</li>
+<li><p>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">x = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]</span><br><span class="line">y = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">6</span>]</span><br><span class="line"></span><br><span class="line">left, bottom, width, height = <span class="number">0.1</span>, <span class="number">0.1</span>, <span class="number">0.8</span>, <span class="number">0.8</span></span><br><span class="line"></span><br><span class="line">fig = plt.figure()</span><br><span class="line"></span><br><span class="line">ax1 = fig.add_axes([left, bottom, width, height])</span><br><span class="line">ax1.plot(x, y, <span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">ax1.set_xlabel(<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">ax1.set_ylabel(<span class="string">&#x27;y&#x27;</span>)</span><br><span class="line">ax1.set_title(<span class="string">&#x27;title&#x27;</span>)</span><br><span class="line"></span><br><span class="line">left, bottom, width, height = <span class="number">0.2</span>, <span class="number">0.6</span>, <span class="number">0.25</span>, <span class="number">0.25</span></span><br><span class="line">ax2 = fig.add_axes([left, bottom, width, height])</span><br><span class="line">ax2.plot(y, x, <span class="string">&#x27;b&#x27;</span>)</span><br><span class="line">ax2.set_xlabel(<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">ax2.set_ylabel(<span class="string">&#x27;y&#x27;</span>)</span><br><span class="line">ax2.set_title(<span class="string">&#x27;title inside 1&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.kesci.com/rt_upload/083D900AFECF428083512F3A934056A3/pe0mk3twj8.png" class="lazyload" data-srcset="https://cdn.kesci.com/rt_upload/083D900AFECF428083512F3A934056A3/pe0mk3twj8.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+</li>
+<li><p>最后，我们再来绘制右下角的小图。这里我们采用一种更简单方法，即直接往plt里添加新的坐标系：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">x = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]</span><br><span class="line">y = [<span class="number">1</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">2</span>, <span class="number">5</span>, <span class="number">8</span>, <span class="number">6</span>]</span><br><span class="line"></span><br><span class="line">fig = plt.figure()</span><br><span class="line"></span><br><span class="line">left, bottom, width, height = <span class="number">0.1</span>, <span class="number">0.1</span>, <span class="number">0.8</span>, <span class="number">0.8</span></span><br><span class="line">ax1 = fig.add_axes([left, bottom, width, height])</span><br><span class="line">ax1.plot(x, y, <span class="string">&#x27;r&#x27;</span>)</span><br><span class="line">ax1.set_xlabel(<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">ax1.set_ylabel(<span class="string">&#x27;y&#x27;</span>)</span><br><span class="line">ax1.set_title(<span class="string">&#x27;title&#x27;</span>)</span><br><span class="line"></span><br><span class="line">left, bottom, width, height = <span class="number">0.2</span>, <span class="number">0.6</span>, <span class="number">0.25</span>, <span class="number">0.25</span></span><br><span class="line">ax2 = fig.add_axes([left, bottom, width, height])</span><br><span class="line">ax2.plot(y, x, <span class="string">&#x27;b&#x27;</span>)</span><br><span class="line">ax2.set_xlabel(<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">ax2.set_ylabel(<span class="string">&#x27;y&#x27;</span>)</span><br><span class="line">ax2.set_title(<span class="string">&#x27;title inside 1&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.axes([<span class="number">0.6</span>, <span class="number">0.2</span>, <span class="number">0.25</span>, <span class="number">0.25</span>])</span><br><span class="line">plt.plot(y[::-<span class="number">1</span>], x, <span class="string">&#x27;g&#x27;</span>) <span class="comment"># 注意对y进行了逆序处理</span></span><br><span class="line">plt.xlabel(<span class="string">&#x27;x&#x27;</span>)</span><br><span class="line">plt.ylabel(<span class="string">&#x27;y&#x27;</span>)</span><br><span class="line">plt.title(<span class="string">&#x27;title inside 2&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.kesci.com/rt_upload/25FBC9290109457EA05B242785EB1944/pe0mm6ae7d.png" class="lazyload" data-srcset="https://cdn.kesci.com/rt_upload/25FBC9290109457EA05B242785EB1944/pe0mm6ae7d.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+</li>
+</ol>
+<h2 id="次坐标轴"><a href="#次坐标轴" class="headerlink" title="次坐标轴"></a>次坐标轴</h2><p>有时候我们会用到次坐标轴，即在同个图上有第2个y轴存在。这件事同样可以用matplotlib做到。</p>
+<h4 id="数据生成"><a href="#数据生成" class="headerlink" title="数据生成"></a>数据生成</h4><p>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">x = np.arange(<span class="number">0</span>, <span class="number">10</span>, <span class="number">0.1</span>)</span><br><span class="line">y1 = <span class="number">0.05</span> * x**<span class="number">2</span></span><br><span class="line">y2 = -<span class="number">1</span> * y1</span><br></pre></td></tr></table></figure>
+
+<h4 id="设置两个坐标系并画图"><a href="#设置两个坐标系并画图" class="headerlink" title="设置两个坐标系并画图"></a>设置两个坐标系并画图</h4><p>可以看到，y2和y1是互相倒置的。所以，我们先获取figure默认的坐标系 ax1；然后对ax1调用twinx()方法，生成如同镜面效果后的ax2；最后接着进行绘图, 将 y1, y2 分别画在 ax1, ax2 上：</p>
+<p>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">x = np.arange(<span class="number">0</span>, <span class="number">10</span>, <span class="number">0.1</span>)</span><br><span class="line">y1 = <span class="number">0.05</span> * x**<span class="number">2</span></span><br><span class="line">y2 = -<span class="number">1</span> * y1</span><br><span class="line"></span><br><span class="line">fig, ax1 = plt.subplots()</span><br><span class="line">ax2 = ax1.twinx()</span><br><span class="line"></span><br><span class="line">ax1.plot(x, y1, <span class="string">&#x27;g-&#x27;</span>)   <span class="comment"># green, solid line</span></span><br><span class="line">ax1.set_xlabel(<span class="string">&#x27;X data&#x27;</span>)</span><br><span class="line">ax1.set_ylabel(<span class="string">&#x27;Y1 data&#x27;</span>, color=<span class="string">&#x27;g&#x27;</span>)</span><br><span class="line">ax2.plot(x, y2, <span class="string">&#x27;b-&#x27;</span>) <span class="comment"># blue</span></span><br><span class="line">ax2.set_ylabel(<span class="string">&#x27;Y2 data&#x27;</span>, color=<span class="string">&#x27;b&#x27;</span>)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.kesci.com/rt_upload/18F200B721C449E0A13A09DE01A8A290/pe0mwl1x1y.png" class="lazyload" data-srcset="https://cdn.kesci.com/rt_upload/18F200B721C449E0A13A09DE01A8A290/pe0mwl1x1y.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+<h3 id="小练习"><a href="#小练习" class="headerlink" title="小练习"></a>小练习</h3><p>下面，请选择以上任意一种方法，画出3个函数：y = x; y = x^2; y = 0.01*x - 0.01</p>
+<p>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> matplotlib.gridspec <span class="keyword">as</span> gridspec</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">x = np.linspace(-<span class="number">3</span>, <span class="number">3</span>, <span class="number">50</span>)</span><br><span class="line">y1 = x</span><br><span class="line">y2 = x**<span class="number">2</span></span><br><span class="line">y3 = <span class="number">0.01</span>*x - <span class="number">0.01</span></span><br><span class="line"></span><br><span class="line">plt.figure(figsize=(<span class="number">8</span>, <span class="number">8</span>))</span><br><span class="line">gs = gridspec.GridSpec(<span class="number">2</span>, <span class="number">2</span>)</span><br><span class="line"></span><br><span class="line">ax1 = plt.subplot(gs[<span class="number">0</span>, <span class="number">0</span>])</span><br><span class="line">ax2 = plt.subplot(gs[<span class="number">0</span>, <span class="number">1</span>])</span><br><span class="line">ax3 = plt.subplot(gs[<span class="number">1</span>, :])</span><br><span class="line"></span><br><span class="line">ax1.plot(x,y1)</span><br><span class="line">ax2.plot(x,y2)</span><br><span class="line">ax3.plot(x,y3)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.kesci.com/rt_upload/EB8DE59A361A43BDA80ECB99EF52E99F/pe0nbxt8jl.png" class="lazyload" data-srcset="https://cdn.kesci.com/rt_upload/EB8DE59A361A43BDA80ECB99EF52E99F/pe0nbxt8jl.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+<hr>
+<h2 id="3D-作图与动画"><a href="#3D-作图与动画" class="headerlink" title="3D 作图与动画"></a>3D 作图与动画</h2><h3 id="3D-作图"><a href="#3D-作图" class="headerlink" title="3D 作图"></a>3D 作图</h3><ol>
+<li><p>首先在进行 3D Plot 时除了导入 matplotlib ，还要额外添加一个模块，即 Axes 3D 3D 坐标轴显示,并且之后要先定义一个图像窗口，在窗口上添加3D坐标轴，显示成图，代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> mpl_toolkits.mplot3d <span class="keyword">import</span> Axes3D</span><br><span class="line"></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax = Axes3D(fig)</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.kesci.com/rt_upload/900274B2568A4B4FB4FB4C5E7B7BF732/pe0nuhbxkv.png" class="lazyload" data-srcset="https://cdn.kesci.com/rt_upload/900274B2568A4B4FB4FB4C5E7B7BF732/pe0nuhbxkv.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+</li>
+<li><p>接下来给进 X 和 Y 值，并将 X 和 Y 编织成栅格。每一个（X, Y）点对应的高度值我们用下面这个函数来计算：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># X, Y value</span></span><br><span class="line">X = np.arange(-<span class="number">4</span>, <span class="number">4</span>, <span class="number">0.25</span>)</span><br><span class="line">Y = np.arange(-<span class="number">4</span>, <span class="number">4</span>, <span class="number">0.25</span>)</span><br><span class="line">X, Y = np.meshgrid(X, Y)    <span class="comment"># x-y 平面的网格</span></span><br><span class="line">R = np.sqrt(X ** <span class="number">2</span> + Y ** <span class="number">2</span>)</span><br><span class="line"><span class="comment"># height value</span></span><br><span class="line">Z = np.sin(R)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>做出一个三维曲面，并将一个 colormap rainbow 填充颜色，之后将三维图像投影到 XY 平面上做一个等高线图。其中，rstride 和 cstride 分别代表 row 和 column 的跨度。跨度越小，图形上的网格越密集，实际画出的 plot 3D 图像的代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">fig = plt.figure()</span><br><span class="line">ax = Axes3D(fig)</span><br><span class="line">ax.plot_surface(X, Y, Z, rstride=<span class="number">1</span>, cstride=<span class="number">1</span>, cmap=plt.get_cmap(<span class="string">&#x27;rainbow&#x27;</span>))</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>完整的代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> mpl_toolkits.mplot3d <span class="keyword">import</span> Axes3D</span><br><span class="line"></span><br><span class="line">X = np.arange(-<span class="number">4</span>, <span class="number">4</span>, <span class="number">0.25</span>)</span><br><span class="line">Y = np.arange(-<span class="number">4</span>, <span class="number">4</span>, <span class="number">0.25</span>)</span><br><span class="line">X, Y = np.meshgrid(X, Y)    <span class="comment"># x-y 平面的网格</span></span><br><span class="line">R = np.sqrt(X ** <span class="number">2</span> + Y ** <span class="number">2</span>)</span><br><span class="line"><span class="comment"># height value</span></span><br><span class="line">Z = np.sin(R)</span><br><span class="line"></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax = Axes3D(fig)</span><br><span class="line">ax.plot_surface(X, Y, Z, rstride=<span class="number">1</span>, cstride=<span class="number">1</span>, cmap=plt.get_cmap(<span class="string">&#x27;rainbow&#x27;</span>))</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.kesci.com/rt_upload/ACFB232FF8C44C7F8A00E50E18CEBE1E/pe0nwrq3pi.png" class="lazyload" data-srcset="https://cdn.kesci.com/rt_upload/ACFB232FF8C44C7F8A00E50E18CEBE1E/pe0nwrq3pi.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+</li>
+</ol>
+<h3 id="投影"><a href="#投影" class="headerlink" title="投影"></a>投影</h3><ol>
+<li><p>有时候我们在观察3D图形时，可能需要图形映射到平面中来观察。还记得之前学习过的等高线图吗，它可以帮助我们对3D图像进行投影。下面代码为添加 XY 平面的等高线,如果 zdir 选择了x，那么效果将会是对于 XZ 平面的投影，而调整offset可以调整投影出现的位置。</p>
+</li>
+<li><p>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> mpl_toolkits.mplot3d <span class="keyword">import</span> Axes3D</span><br><span class="line"></span><br><span class="line">X = np.arange(-<span class="number">4</span>, <span class="number">4</span>, <span class="number">0.25</span>)</span><br><span class="line">Y = np.arange(-<span class="number">4</span>, <span class="number">4</span>, <span class="number">0.25</span>)</span><br><span class="line">X, Y = np.meshgrid(X, Y)    <span class="comment"># x-y 平面的网格</span></span><br><span class="line">R = np.sqrt(X ** <span class="number">2</span> + Y ** <span class="number">2</span>)</span><br><span class="line"><span class="comment"># height value</span></span><br><span class="line">Z = np.sin(R)</span><br><span class="line"></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax = Axes3D(fig)</span><br><span class="line">ax.plot_surface(X, Y, Z, rstride=<span class="number">1</span>, cstride=<span class="number">1</span>, cmap=plt.get_cmap(<span class="string">&#x27;rainbow&#x27;</span>))</span><br><span class="line">ax.contourf(X, Y, Z, zdir=<span class="string">&#x27;z&#x27;</span>, offset=-<span class="number">1</span>, cmap=plt.get_cmap(<span class="string">&#x27;rainbow&#x27;</span>))</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.kesci.com/rt_upload/BE72F1ADD7DF40C68BFF210AC1209224/pe0o8t9ifj.png" class="lazyload" data-srcset="https://cdn.kesci.com/rt_upload/BE72F1ADD7DF40C68BFF210AC1209224/pe0o8t9ifj.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+</li>
+<li><p>如果 zdir 选择了x，那么效果将会是对于 XZ 平面的投影，效果如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> mpl_toolkits.mplot3d <span class="keyword">import</span> Axes3D</span><br><span class="line"></span><br><span class="line">X = np.arange(-<span class="number">4</span>, <span class="number">4</span>, <span class="number">0.25</span>)</span><br><span class="line">Y = np.arange(-<span class="number">4</span>, <span class="number">4</span>, <span class="number">0.25</span>)</span><br><span class="line">X, Y = np.meshgrid(X, Y)    <span class="comment"># x-y 平面的网格</span></span><br><span class="line">R = np.sqrt(X ** <span class="number">2</span> + Y ** <span class="number">2</span>)</span><br><span class="line"><span class="comment"># height value</span></span><br><span class="line">Z = np.sin(R)</span><br><span class="line"></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax = Axes3D(fig)</span><br><span class="line">ax.plot_surface(X, Y, Z, rstride=<span class="number">1</span>, cstride=<span class="number">1</span>, cmap=plt.get_cmap(<span class="string">&#x27;rainbow&#x27;</span>))</span><br><span class="line">ax.contourf(X, Y, Z, zdir=<span class="string">&#x27;x&#x27;</span>, offset=-<span class="number">4</span>, cmap=plt.get_cmap(<span class="string">&#x27;rainbow&#x27;</span>))</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.kesci.com/rt_upload/635B5A7D387F4452A60FE98597618AD9/pe0ocjv6gf.png" class="lazyload" data-srcset="https://cdn.kesci.com/rt_upload/635B5A7D387F4452A60FE98597618AD9/pe0ocjv6gf.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+</li>
+</ol>
+<h3 id="Animation-动画"><a href="#Animation-动画" class="headerlink" title="Animation 动画"></a>Animation 动画</h3><p>最后，matplotlib还为我们提供了动画的接口。我们将使用其中一种方式 function animation 来为大家讲解，具体可参考 <a target="_blank" rel="noopener" href="https://matplotlib.org/examples/animation/simple_anim.html">matplotlib animation api</a>。下面，我们就开始吧！</p>
+<h4 id="导入动画库并定义方程"><a href="#导入动画库并定义方程" class="headerlink" title="导入动画库并定义方程"></a>导入动画库并定义方程</h4><p>我们的数据是一个0~2π内的正弦曲线：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> animation</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">fig, ax = plt.subplots()</span><br><span class="line"></span><br><span class="line">x = np.arange(<span class="number">0</span>, <span class="number">2</span>*np.pi, <span class="number">0.01</span>)</span><br><span class="line">line, = ax.plot(x, np.sin(x))</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.kesci.com/rt_upload/E4C1AA233AA84A7BB93D673B13456949/pe0oop5i5t.png" class="lazyload" data-srcset="https://cdn.kesci.com/rt_upload/E4C1AA233AA84A7BB93D673B13456949/pe0oop5i5t.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+<h4 id="构造动画函数与帧函数"><a href="#构造动画函数与帧函数" class="headerlink" title="构造动画函数与帧函数"></a>构造动画函数与帧函数</h4><ol>
+<li><p>接着，构造自定义动画函数animate，用来更新每一帧上各个x对应的y坐标值，参数表示第i帧；然后，构造开始帧函数init：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">animate</span>(<span class="params">i</span>):</span></span><br><span class="line">    line.set_ydata(np.sin(x + i/<span class="number">10.0</span>))</span><br><span class="line">    <span class="keyword">return</span> line,</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">init</span>():</span></span><br><span class="line">    line.set_ydata(np.sin(x))</span><br><span class="line">    <span class="keyword">return</span> line,</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>参数设置（接下来，我们调用FuncAnimation函数生成动画）：</p>
+<ul>
+<li>fig 进行动画绘制的figure</li>
+<li>func 自定义动画函数，即传入刚定义的函数animate</li>
+<li>frames 动画长度，一次循环包含的帧数</li>
+<li>init_func 自定义开始帧，即传入刚定义的函数init</li>
+<li>interval 更新频率，以ms计</li>
+<li>lit 选择更新所有点，还是仅更新产生变化的点。应选择True，但mac用户请选择False，否则无法显示动画</li>
+<li>因为平台的不兼容问题，请klab暂时无法进行动画的演示，请大家在自己的电脑上尝试进行动画作图吧~</li>
+</ul>
+</li>
+<li><p>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> animation</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">fig, ax = plt.subplots()</span><br><span class="line"></span><br><span class="line">x = np.arange(<span class="number">0</span>, <span class="number">2</span>*np.pi, <span class="number">0.01</span>)</span><br><span class="line">line, = ax.plot(x, np.sin(x))</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">animate</span>(<span class="params">i</span>):</span></span><br><span class="line">    line.set_ydata(np.sin(x + i/<span class="number">10.0</span>))</span><br><span class="line">    <span class="keyword">return</span> line,</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">init</span>():</span></span><br><span class="line">    line.set_ydata(np.sin(x))</span><br><span class="line">    <span class="keyword">return</span> line,</span><br><span class="line"></span><br><span class="line">ani = animation.FuncAnimation(fig=fig,</span><br><span class="line">                              func=animate,</span><br><span class="line">                              frames=<span class="number">100</span>,</span><br><span class="line">                              init_func=init,</span><br><span class="line">                              interval=<span class="number">20</span>,</span><br><span class="line">                              blit=<span class="literal">True</span>)</span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.kesci.com/rt_upload/F266175EFCDE47AD9452FB651AEFF39F/pe0p60txj9.png" class="lazyload" data-srcset="https://cdn.kesci.com/rt_upload/F266175EFCDE47AD9452FB651AEFF39F/pe0p60txj9.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+</li>
+<li><p>当然，你也可以将动画以mp4格式保存下来，但首先要保证你已经安装了ffmpeg 或者mencoder：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ani.save(<span class="string">&#x27;basic_animation.mp4&#x27;</span>, fps=<span class="number">30</span>, extra_args=[<span class="string">&#x27;-vcodec&#x27;</span>, <span class="string">&#x27;libx264&#x27;</span>])</span><br></pre></td></tr></table></figure>
+
+
+</li>
+</ol>
+<h3 id="用法总结"><a href="#用法总结" class="headerlink" title="用法总结"></a>用法总结</h3><ol>
+<li>创建3D图：ax = Axes3D(fig)</li>
+<li>画出3D图：ax.plot_surface()</li>
+<li>投影：ax.contourf(</li>
+<li>动画：animation.FuncAnimation()</li>
+</ol>
+<h3 id="小练习-1"><a href="#小练习-1" class="headerlink" title="小练习"></a>小练习</h3><p>请我们根据之前所学的3D图画法画出3D数据 z = (x + y)^2， 并利用等高线图对其进行投影。</p>
+<p>代码如下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> matplotlib <span class="keyword">import</span> pyplot <span class="keyword">as</span> plt</span><br><span class="line"><span class="keyword">from</span> mpl_toolkits.mplot3d <span class="keyword">import</span> Axes3D</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">X = np.arange(-<span class="number">4</span>, <span class="number">4</span>, <span class="number">0.25</span>)</span><br><span class="line">Y = np.arange(-<span class="number">4</span>, <span class="number">4</span>, <span class="number">0.25</span>)</span><br><span class="line">X, Y = np.meshgrid(X, Y)</span><br><span class="line">Z = (X + Y)**<span class="number">2</span></span><br><span class="line"></span><br><span class="line">fig = plt.figure()</span><br><span class="line">ax = Axes3D(fig)</span><br><span class="line">ax.plot_surface(X, Y, Z, rstride=<span class="number">1</span>, cstride=<span class="number">1</span>, cmap=plt.get_cmap(<span class="string">&#x27;rainbow&#x27;</span>))</span><br><span class="line">ax.contourf(X, Y, Z, zdir=<span class="string">&#x27;x&#x27;</span>, offset=-<span class="number">4</span>, cmap=plt.get_cmap(<span class="string">&#x27;rainbow&#x27;</span>))</span><br><span class="line"></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://cdn.kesci.com/rt_upload/B6E13C38AC6D45D39F3D829E801B7092/pe0pbi6eda.png" class="lazyload" data-srcset="https://cdn.kesci.com/rt_upload/B6E13C38AC6D45D39F3D829E801B7092/pe0pbi6eda.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=" alt="img"></p>
+
+  
+  
+  
+  
+
+  
+    <div class="prev-next">
+      
+      
+        <a class='next' href='/1852e70c31f8/'>
+          <p class='title'>Matplotlib（上篇）<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>为什么使用 Matplotlib
+Matplotlib 是一个非常强大的 Python 画图工具，可以帮助我们以直观的形式更好地了解数据。通过它，你可以画出线图、散点图、等高线图。
+条形图、柱状...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
+</div>
+<aside class='l_side'>
+  
+  
+    
+    
+
+
+
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%A4%9A%E5%9B%BE%E5%90%88%E5%B9%B6%E6%98%BE%E7%A4%BA"><span class="toc-text">多图合并显示</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Subplot-%E5%A4%9A%E5%90%88%E4%B8%80%E6%98%BE%E7%A4%BA"><span class="toc-text">Subplot 多合一显示</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%9D%87%E5%8C%80%E5%9B%BE%E4%B8%AD%E5%9B%BE"><span class="toc-text">均匀图中图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E5%9D%87%E5%8C%80%E5%9B%BE%E4%B8%AD%E5%9B%BE"><span class="toc-text">不均匀图中图</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#subplot2grid"><span class="toc-text">subplot2grid</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#gridspec"><span class="toc-text">gridspec</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#subplots"><span class="toc-text">subplots</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%BE%E4%B8%AD%E5%9B%BE"><span class="toc-text">图中图</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E6%95%B0%E6%8D%AE"><span class="toc-text">生成数据</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%98%E5%88%B6%E5%A4%A7%E5%9B%BE"><span class="toc-text">绘制大图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E7%BB%98%E5%88%B6%E5%B0%8F%E5%9B%BE"><span class="toc-text">绘制小图</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%AC%A1%E5%9D%90%E6%A0%87%E8%BD%B4"><span class="toc-text">次坐标轴</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%94%9F%E6%88%90"><span class="toc-text">数据生成</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%AE%BE%E7%BD%AE%E4%B8%A4%E4%B8%AA%E5%9D%90%E6%A0%87%E7%B3%BB%E5%B9%B6%E7%94%BB%E5%9B%BE"><span class="toc-text">设置两个坐标系并画图</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%BB%83%E4%B9%A0"><span class="toc-text">小练习</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3D-%E4%BD%9C%E5%9B%BE%E4%B8%8E%E5%8A%A8%E7%94%BB"><span class="toc-text">3D 作图与动画</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3D-%E4%BD%9C%E5%9B%BE"><span class="toc-text">3D 作图</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8A%95%E5%BD%B1"><span class="toc-text">投影</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Animation-%E5%8A%A8%E7%94%BB"><span class="toc-text">Animation 动画</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%AF%BC%E5%85%A5%E5%8A%A8%E7%94%BB%E5%BA%93%E5%B9%B6%E5%AE%9A%E4%B9%89%E6%96%B9%E7%A8%8B"><span class="toc-text">导入动画库并定义方程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9E%84%E9%80%A0%E5%8A%A8%E7%94%BB%E5%87%BD%E6%95%B0%E4%B8%8E%E5%B8%A7%E5%87%BD%E6%95%B0"><span class="toc-text">构造动画函数与帧函数</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%A8%E6%B3%95%E6%80%BB%E7%BB%93"><span class="toc-text">用法总结</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B0%8F%E7%BB%83%E4%B9%A0-1"><span class="toc-text">小练习</span></a></li></ol></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+
+		  
+		  <!--此文件用来存放一些不方便取值的变量-->
+<!--思路大概是将值藏到重加载的区域内-->
+
+<script>
+  window.pdata={}
+  pdata.ispage=false;
+  pdata.postTitle="";
+  pdata.commentPath="";
+  pdata.commentPlaceholder="";
+  // header 这里无论是否开启pjax都需要
+  var l_header=document.getElementById("l_header");
+  
+  l_header.classList.remove("show");
+  
+  
+    // cover
+    var cover_wrapper=document.querySelector('.cover-wrapper');
+    
+    cover_wrapper.id="half";
+    cover_wrapper.style.display="";
+    
+  
+</script>
+
+        </div>
+        
+  
+  <footer class="footer clearfix">
+    <br><br>
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+          
+            
+          
+            
+          
+        </div>
+      
+    
+      
+        <div><p>Blog content follows the <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.en">Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0) License</a></p>
+</div>
+      
+    
+      
+        Use
+        <a href="https://github.com/volantis-x/hexo-theme-volantis/tree/4.3.1" target="_blank" class="codename">Volantis</a>
+        as theme
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="/">Copyright © 2019~2022 OzzieNicholas All Rights Reserved 蜀ICP备19036020号</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+
+        <a id="s-top" class="fas fa-arrow-up fa-fw" href="javascript:void(0)"></a>
+      </div>
+    </div>
+    <div>
+      <script>
+/************这个文件存放不需要重载的全局变量和全局函数*********/
+window.volantis={};
+window.volantis.loadcss=document.getElementById("loadcss");
+/******************** Pjax ********************************/
+function VPjax(){
+	this.list=[] // 存放回调函数
+	this.start=()=>{
+	  for(var i=0;i<this.list.length;i++){
+		this.list[i].run();
+	  }
+	}
+	this.push=(fn,name)=>{
+		var f=new PjaxItem(fn,name);
+		this.list.push(f);
+	}
+	// 构造一个可以run的对象
+	function PjaxItem(fn,name){
+		// 函数名称
+		this.name = name || fn.name
+		// run方法
+		this.run=()=>{
+			fn()
+		}
+	}
+}
+volantis.pjax={}
+volantis.pjax.method={
+	complete: new VPjax(),
+	error: new VPjax(),
+	send: new VPjax()
+}
+volantis.pjax={
+	...volantis.pjax,
+	push: volantis.pjax.method.complete.push,
+	error: volantis.pjax.method.error.push,
+	send: volantis.pjax.method.send.push
+}
+/********************脚本懒加载函数********************************/
+// 已经加入了setTimeout
+function loadScript(src, cb) {
+	setTimeout(function() {
+		var HEAD = document.getElementsByTagName('head')[0] || document.documentElement;
+		var script = document.createElement('script');
+		script.setAttribute('type','text/javascript');
+		if (cb) script.onload = cb;
+		script.setAttribute('src', src);
+		HEAD.appendChild(script);
+	});
+}
+//https://github.com/filamentgroup/loadCSS
+var loadCSS = function( href, before, media, attributes ){
+	var doc = window.document;
+	var ss = doc.createElement( "link" );
+	var ref;
+	if( before ){
+		ref = before;
+	}
+	else {
+		var refs = ( doc.body || doc.getElementsByTagName( "head" )[ 0 ] ).childNodes;
+		ref = refs[ refs.length - 1];
+	}
+	var sheets = doc.styleSheets;
+	if( attributes ){
+		for( var attributeName in attributes ){
+			if( attributes.hasOwnProperty( attributeName ) ){
+				ss.setAttribute( attributeName, attributes[attributeName] );
+			}
+		}
+	}
+	ss.rel = "stylesheet";
+	ss.href = href;
+	ss.media = "only x";
+	function ready( cb ){
+		if( doc.body ){
+			return cb();
+		}
+		setTimeout(function(){
+			ready( cb );
+		});
+	}
+	ready( function(){
+		ref.parentNode.insertBefore( ss, ( before ? ref : ref.nextSibling ) );
+	});
+	var onloadcssdefined = function( cb ){
+		var resolvedHref = ss.href;
+		var i = sheets.length;
+		while( i-- ){
+			if( sheets[ i ].href === resolvedHref ){
+				return cb();
+			}
+		}
+		setTimeout(function() {
+			onloadcssdefined( cb );
+		});
+	};
+	function loadCB(){
+		if( ss.addEventListener ){
+			ss.removeEventListener( "load", loadCB );
+		}
+		ss.media = media || "all";
+	}
+	if( ss.addEventListener ){
+		ss.addEventListener( "load", loadCB);
+	}
+	ss.onloadcssdefined = onloadcssdefined;
+	onloadcssdefined( loadCB );
+	return ss;
+};
+</script>
+<script>
+  
+  loadCSS("https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.14/css/all.min.css", window.volantis.loadcss);
+  
+  
+  
+  
+</script>
+<!-- required -->
+
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.5/dist/jquery.min.js"></script>
+
+<script>
+  function pjax_fancybox() {
+    $(".md .gallery").find("img").each(function () { //渲染 fancybox
+      var element = document.createElement("a"); // a 标签
+      $(element).attr("class", "fancybox");
+      $(element).attr("pjax-fancybox", "");  // 过滤 pjax
+      $(element).attr("href", $(this).attr("src"));
+      if ($(this).attr("data-original")) {
+        $(element).attr("href", $(this).attr("data-original"));
+      }
+      $(element).attr("data-fancybox", "images");
+      var caption = "";   // 描述信息
+      if ($(this).attr('alt')) {  // 判断当前页面是否存在描述信息
+        $(element).attr('data-caption', $(this).attr('alt'));
+        caption = $(this).attr('alt');
+      }
+      var div = document.createElement("div");
+      $(div).addClass("fancybox");
+      $(this).wrap(div); // 最外层套 div ，其实主要作用还是 class 样式
+      var span = document.createElement("span");
+      $(span).addClass("image-caption");
+      $(span).text(caption); // 加描述
+      $(this).after(span);  // 再套一层描述
+      $(this).wrap(element);  // 最后套 a 标签
+    })
+    $(".md .gallery").find("img").fancybox({
+      selector: '[data-fancybox="images"]',
+      hash: false,
+      loop: false,
+      closeClick: true,
+      helpers: {
+        overlay: {closeClick: true}
+      },
+      buttons: [
+        "zoom",
+        "close"
+      ]
+    });
+  };
+  function SCload_fancybox() {
+    if ($(".md .gallery").find("img").length == 0) return;
+    loadCSS("https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css", document.getElementById("loadcss"));
+    loadScript('https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js', pjax_fancybox)
+  };
+  $(function () {
+    SCload_fancybox();
+  });
+  function Pjax_SCload_fancybox(){
+	if (typeof $.fancybox == "undefined") {
+	 SCload_fancybox();
+    } else {
+	 pjax_fancybox();
+    }
+  }
+  volantis.pjax.push(Pjax_SCload_fancybox)
+  volantis.pjax.send(()=>{
+      if (typeof $.fancybox != "undefined") {
+        $.fancybox.close();    // 关闭弹窗
+      }
+  },'fancybox')
+</script>
+
+
+<!-- internal -->
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+        var imgs=["https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/001.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/002.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/003.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/004.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/005.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/006.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/012.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/016.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/019.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/025.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/033.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/034.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/035.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/038.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/039.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/042.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/046.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/051.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/052.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/054.jpg", "https://cdn.jsdelivr.net/gh/volantis-x/cdn-wallpaper-minimalist/2020/056.jpg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+	  function Pjax_backstretch(){
+        
+          $('#cover-backstretch').backstretch(
+            imgs,
+          {
+            duration: "10000",
+            fade: "1500"
+          });
+        
+	  }
+	  loadScript("https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js",Pjax_backstretch)
+    </script>
+  
+
+
+
+  
+  
+
+  <div id="rightmenu-wrapper">
+    <ul class="list-v rightmenu" id="rightmenu-content">
+      <li class='option'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-text' onclick="document.execCommand('copy')"><i class='fa fa-copy fa-fw'></i>Copy Text</a>
+        <hr id='hr-text'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-href'><i class='fa fa-link fa-fw'></i>Copy Link</a>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-open-href'><i class='fa fa-external-link-square-alt fa-fw'></i>Open Link in New Tab</a>
+        <hr id='hr-href'>
+        <a class='vlts-menu opt fix-cursor-default' id='menu-copy-src'><i class='fa fa-image fa-fw'></i>Copy Image Link</a>
+        <hr id='hr-src'>
+      </li>
+      
+        <li class='navigation'>
+          <a class='nav icon-only fix-cursor-default' onclick='history.back()'><i class='fa fa-arrow-left fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' onclick='history.forward()'><i class='fa fa-arrow-right fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' onclick='window.location.reload()'><i class='fa fa-redo fa-fw'></i></a>
+          <a class='nav icon-only fix-cursor-default' href='/'><i class='fa fa-home fa-fw'></i></a>
+        </li>
+      
+      <hr>
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default toggle-mode-btn' 
+        
+        
+        
+        >
+        <i class='fas fa-moon fa-fw'></i> 天满纤月
+      </a>
+    </li>
+  
+        
+      
+        
+          <hr>
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default ' href=https://volantis.js.org/faqs/
+        
+        
+        
+        
+          id="https:volantisjsorgfaqs"
+        >
+        <i class='fa fa-question fa-fw'></i> 常夜孤月
+      </a>
+    </li>
+  
+        
+      
+        
+          <hr>
+        
+      
+        
+          
+    <li>
+      <a class='vlts-menu fix-cursor-default ' 
+        
+        
+        
+          onclick="document.execCommand('print')"
+        
+        >
+        <i class='fa fa-print fa-fw'></i> 厄镜月映
+      </a>
+    </li>
+  
+        
+      
+    </ul>
+  </div>
+
+  <script>
+    window.document.oncontextmenu = function (event) {
+      if (event.ctrlKey) return true;
+      if (/Android|webOS|BlackBerry/i.test(navigator.userAgent)) return true;
+      return popMenu(event);
+    };
+    document.addEventListener("click", function (event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      mymenu.style.display = "none";
+    });
+    function popMenu(event) {
+      var mymenu = document.getElementById('rightmenu-wrapper');
+      var menuContent = document.getElementById('rightmenu-content');
+      var screenWidth = document.documentElement.clientWidth || document.body.clientWidth;
+      var screenHeight = document.documentElement.clientHeight || document.body.clientHeight;
+      mymenu.style.left = event.clientX + "px"; // 获取鼠标位置
+      mymenu.style.top = event.clientY + "px";
+      mymenu.style.display = 'block';
+      if (event.clientX * 2 > screenWidth) {
+        menuContent.classList.add('left');
+      } else {
+        menuContent.classList.remove('left');
+      }
+      if (event.clientY * 2 > screenHeight) {
+        menuContent.classList.add('top');
+      } else {
+        menuContent.classList.remove('top');
+      }
+
+      let hrText = document.getElementById('hr-text');
+      let hrSrc = document.getElementById('hr-src');
+      let hrHref = document.getElementById('hr-href');
+
+      // 选中图片
+      let copySrc = document.getElementById('menu-copy-src');
+      if (copySrc != undefined) {
+        if (event.target.currentSrc) {
+          copySrc.style.display = 'block';
+          copySrc.addEventListener("click", function (e) {
+            copyString(event.target.currentSrc);
+          },{once: true});
+          hrSrc.style.display = 'block';
+        } else {
+          copySrc.style.display = 'none';
+          hrSrc.style.display = 'none';
+        }
+      }
+
+      // 选中按钮
+      // 判断是不是按钮
+      let href = '';
+      if (event.path) {
+        for (i = 0; i < event.path.length; i++) {
+          if (event.path[i].href != undefined && event.path[i].href.length > 0) {
+            href = event.path[i].href;
+          }
+        }
+      }
+
+      let copyText = document.getElementById('menu-copy-text');
+      copyText.style.display = 'none';
+      hrText.style.display = 'none';
+      if (href.length == 0) {
+        // 选中文本
+        if (window.getSelection().toString()) {
+          if ('' == 'true') {
+            copyText.style.display = 'block';
+            hrText.style.display = 'block';
+          }
+        }
+      }
+
+      // 在新标签页打开
+      let openHref = document.getElementById('menu-open-href');
+      if (openHref != undefined) {
+        if (href.length > 0) {
+          openHref.style.display = 'block';
+          openHref.addEventListener("click", function (e) {
+            window.open(href);
+          },{once: true});
+          hrHref.style.display = 'block';
+        } else {
+          openHref.style.display = 'none';
+          hrHref.style.display = 'none';
+        }
+      }
+      // 复制链接
+      let copyHref = document.getElementById('menu-copy-href');
+      if (copyHref != undefined) {
+        if (href.length > 0) {
+          copyHref.style.display = 'block';
+          copyHref.addEventListener("click", function (e) {
+            copyString(href);
+          },{once: true});
+        } else {
+          copyHref.style.display = 'none';
+        }
+      }
+      // 有音乐播放器 see: layout/_third-party/aplayer/script.ejs
+      
+      return false; // 该行代码确保系统自带的右键菜单不会被调出
+    }
+    function hideMenu() {
+      document.getElementById('rightmenu-wrapper').style.display = 'none';
+    }
+    function copyString(str) {
+      const input = document.createElement('input');
+      input.setAttribute('readonly', 'readonly');
+      document.body.appendChild(input);
+      input.setAttribute('value', str);
+      input.select();
+      document.execCommand('copy');
+      document.body.removeChild(input);
+    }
+    document.execCommand('click');
+  </script>
+
+
+
+
+<script>
+  function loadIssuesJS() {
+    if ($(".md").find(".issues-api").length == 0) return;
+	
+	  loadScript('/js/issues.js');
+	
+  };
+  $(function () {
+    loadIssuesJS();
+  });
+  volantis.pjax.push(()=>{
+	if (typeof IssuesAPI == "undefined") {
+	  loadIssuesJS();
+	}
+  },"IssuesJS")
+</script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/vanilla-lazyload@17.1.0/dist/lazyload.min.js"></script>
+<script>
+  // https://www.npmjs.com/package/vanilla-lazyload
+  // Set the options globally
+  // to make LazyLoad self-initialize
+  window.lazyLoadOptions = {
+    elements_selector: ".lazyload",
+    threshold: 0
+  };
+  // Listen to the initialization event
+  // and get the instance of LazyLoad
+  window.addEventListener(
+    "LazyLoad::Initialized",
+    function (event) {
+      window.lazyLoadInstance = event.detail.instance;
+    },
+    false
+  );
+  document.addEventListener('DOMContentLoaded', function () {
+    lazyLoadInstance.update();
+  });
+  document.addEventListener('pjax:complete', function () {
+    lazyLoadInstance.update();
+  });
+</script>
+
+
+
+
+  
+
+<script>
+  window.FPConfig = {
+	delay: 0,
+	ignoreKeywords: [],
+	maxRPS: 5,
+	hoverDelay: 25
+  };
+</script>
+<script defer src="https://cdn.jsdelivr.net/gh/gijo-varghese/flying-pages@2.1.2/flying-pages.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+<script src="/js/valine.js"></script>
+
+
+<script>
+  function emoji(path, idx, ext) {
+    return path + "/" + path + "-" + idx + "." + ext;
+  }
+  var emojiMaps = {};
+  for (var i = 1; i <= 54; i++) {
+    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
+  }
+  for (var i = 1; i <= 101; i++) {
+    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
+  }
+  for (var i = 1; i <= 116; i++) {
+    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
+  }
+  for (var i = 1; i <= 125; i++) {
+    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
+  }
+  for (var i = 1; i <= 4; i++) {
+    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
+  }
+  function pjax_valine() {
+    if(!document.querySelectorAll("#valine_container")[0])return;
+    let pagePlaceholder = pdata.commentPlaceholder || "快来评论吧~";
+    let path = pdata.commentPath;
+    if (path.length == 0) {
+      let defaultPath = '';
+      path = defaultPath || decodeURI(window.location.pathname);
+    }
+    var valine = new Valine();
+    valine.init(Object.assign({"path":null,"placeholder":"快来评论吧~","appId":null,"appKey":null,"meta":["nick","mail","link"],"requiredFields":["nick","mail"],"enableQQ":true,"recordIP":false,"avatar":"robohash","pageSize":10,"lang":"zh-cn","highlight":true,"mathJax":false}, {
+      el: '#valine_container',
+      path: path,
+      placeholder: pagePlaceholder,
+      emojiCDN: 'https://cdn.jsdelivr.net/gh/volantis-x/cdn-emoji/valine/',
+      emojiMaps: emojiMaps,
+    }))
+  }
+  $(function () {
+    pjax_valine();
+  });
+  volantis.pjax.push(pjax_valine);
+</script>
+
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+<!-- optional -->
+
+  <script>
+const SearchServiceimagePath="https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@master/img/";
+const ROOT =  ("/" || "/").endsWith('/') ? ("/" || "/") : ("//" || "/" );
+
+$('.input.u-search-input').one('focus',function(){
+	
+		loadScript('https://cdn.jsdelivr.net/gh/volantis-x/cdn-volantis@2.6.4/js/search.js',setSearchService);
+	
+})
+
+function listenSearch(){
+  
+    customSearch = new HexoSearch({
+      imagePath: SearchServiceimagePath
+    });
+  
+}
+function setSearchService() {
+	listenSearch();
+	
+}
+</script>
+
+
+
+
+
+
+
+
+
+
+
+  <script defer>
+
+  const LCCounter = {
+    app_id: 'u9j57bwJod4EDmXWdxrwuqQT-MdYXbMMI',
+    app_key: 'jfHtEKVE24j0IVCGHbvuFClp',
+    custom_api_server: '',
+
+    // 查询存储的记录
+    getRecord(Counter, url, title) {
+      return new Promise(function (resolve, reject) {
+        Counter('get', '/classes/Counter?where=' + encodeURIComponent(JSON.stringify({url})))
+          .then(resp => resp.json())
+          .then(({results, code, error}) => {
+            if (code === 401) {
+              throw error;
+            }
+            if (results && results.length > 0) {
+              var record = results[0];
+              resolve(record);
+            } else {
+              Counter('post', '/classes/Counter', {url, title: title, times: 0})
+                .then(resp => resp.json())
+                .then((record, error) => {
+                  if (error) {
+                    throw error;
+                  }
+                  resolve(record);
+                }).catch(error => {
+                console.error('Failed to create', error);
+                reject(error);
+              });
+            }
+          }).catch((error) => {
+          console.error('LeanCloud Counter Error:', error);
+          reject(error);
+        });
+      })
+    },
+
+    // 发起自增请求
+    increment(Counter, incrArr) {
+      return new Promise(function (resolve, reject) {
+        Counter('post', '/batch', {
+          "requests": incrArr
+        }).then((res) => {
+          res = res.json();
+          if (res.error) {
+            throw res.error;
+          }
+          resolve(res);
+        }).catch((error) => {
+          console.error('Failed to save visitor count', error);
+          reject(error);
+        });
+      });
+    },
+
+    // 构建自增请求体
+    buildIncrement(objectId) {
+      return {
+        "method": "PUT",
+        "path": `/1.1/classes/Counter/${ objectId }`,
+        "body": {
+          "times": {
+            '__op': 'Increment',
+            'amount': 1
+          }
+        }
+      }
+    },
+
+    // 校验是否为有效的 UV
+    validUV() {
+      var key = 'LeanCloudUVTimestamp';
+      var flag = localStorage.getItem(key);
+      if (flag) {
+        // 距离标记小于 24 小时则不计为 UV
+        if (new Date().getTime() - parseInt(flag) <= 86400000) {
+          return false;
+        }
+      }
+      localStorage.setItem(key, new Date().getTime().toString());
+      return true;
+    },
+
+    addCount(Counter) {
+      var enableIncr = '' === 'true' && window.location.hostname !== 'localhost';
+      enableIncr = true;
+      var getterArr = [];
+      var incrArr = [];
+      // 请求 PV 并自增
+      var pvCtn = document.querySelector('#lc-sv');
+      if (pvCtn || enableIncr) {
+        var pvGetter = this.getRecord(Counter, 'https://ozzienicholas.gitee.io' + '/#lc-sv', 'Visits').then((record) => {
+          incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-sv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + 1;
+              if (pvCtn) {
+                pvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(pvGetter);
+      }
+
+      // 请求 UV 并自增
+      var uvCtn = document.querySelector('#lc-uv');
+      if (uvCtn || enableIncr) {
+        var uvGetter = this.getRecord(Counter, 'https://ozzienicholas.gitee.io' + '/#lc-uv', 'Visitors').then((record) => {
+          var vuv = this.validUV();
+          vuv && incrArr.push(this.buildIncrement(record.objectId))
+          var eles = document.querySelectorAll('#lc-uv #number');
+          if (eles.length > 0) {
+            eles.forEach((el,index,array)=>{
+              el.innerText = record.times + (vuv ? 1 : 0);
+              if (uvCtn) {
+                uvCtn.style.display = 'inline';
+              }
+            })
+          }
+        });
+        getterArr.push(uvGetter);
+      }
+
+      // 请求文章的浏览数，如果是当前页面就自增
+      var allPV = document.querySelectorAll('#lc-pv');
+      if (allPV.length > 0 || enableIncr) {
+        for (i = 0; i < allPV.length; i++) {
+          let pv = allPV[i];
+          let title = pv.getAttribute('data-title');
+          var url = 'https://ozzienicholas.gitee.io' + pv.getAttribute('data-path');
+          if (url) {
+            var viewGetter = this.getRecord(Counter, url, title).then((record) => {
+              // 是当前页面就自增
+              let curPath = window.location.pathname;
+              if (curPath.includes('index.html')) {
+                curPath = curPath.substring(0, curPath.lastIndexOf('index.html'));
+              }
+              if (pv.getAttribute('data-path') == curPath) {
+                incrArr.push(this.buildIncrement(record.objectId));
+              }
+              if (pv) {
+                var ele = pv.querySelector('#lc-pv #number');
+                if (ele) {
+                  if (pv.getAttribute('data-path') == curPath) {
+                    ele.innerText = (record.times || 0) + 1;
+                  } else {
+                    ele.innerText = record.times || 0;
+                  }
+                  pv.style.display = 'inline';
+                }
+              }
+            });
+            getterArr.push(viewGetter);
+          }
+        }
+      }
+
+      // 如果启动计数自增，批量发起自增请求
+      if (enableIncr) {
+        Promise.all(getterArr).then(() => {
+          incrArr.length > 0 && this.increment(Counter, incrArr);
+        })
+      }
+
+    },
+
+
+    fetchData(api_server) {
+      var Counter = (method, url, data) => {
+        return fetch(`${ api_server }/1.1${ url }`, {
+          method,
+          headers: {
+            'X-LC-Id': this.app_id,
+            'X-LC-Key': this.app_key,
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(data)
+        });
+      };
+      this.addCount(Counter);
+    },
+
+    refreshCounter() {
+      var api_server = this.app_id.slice(-9) !== '-MdYXbMMI' ? this.custom_api_server : `https://${ this.app_id.slice(0, 8).toLowerCase() }.api.lncldglobal.com`;
+      if (api_server) {
+        this.fetchData(api_server);
+      } else {
+        fetch('https://app-router.leancloud.cn/2/route?appId=' + this.app_id)
+          .then(resp => resp.json())
+          .then(({api_server}) => {
+            this.fetchData('https://' + api_server);
+          });
+      }
+    }
+
+  };
+
+  LCCounter.refreshCounter();
+
+  document.addEventListener('pjax:complete', function () {
+    LCCounter.refreshCounter();
+  });
+</script>
+
+
+
+
+  <script>
+const rootElement = document.documentElement;
+const darkModeStorageKey = "user-color-scheme";
+const rootElementDarkModeAttributeName = "data-user-color-scheme";
+
+const setLS = (k, v) => {
+    localStorage.setItem(k, v);
+};
+
+const removeLS = (k) => {
+    localStorage.removeItem(k);
+};
+
+const getLS = (k) => {
+    return localStorage.getItem(k);
+};
+
+const getModeFromCSSMediaQuery = () => {
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+};
+
+const resetRootDarkModeAttributeAndLS = () => {
+  rootElement.removeAttribute(rootElementDarkModeAttributeName);
+  removeLS(darkModeStorageKey);
+};
+
+const validColorModeKeys = {
+  dark: true,
+  light: true,
+};
+
+const applyCustomDarkModeSettings = (mode) => {
+  const currentSetting = mode || getLS(darkModeStorageKey);
+
+  if (currentSetting === getModeFromCSSMediaQuery()) {
+    resetRootDarkModeAttributeAndLS();
+  } else if (validColorModeKeys[currentSetting]) {
+    rootElement.setAttribute(rootElementDarkModeAttributeName, currentSetting);
+  } else {
+    resetRootDarkModeAttributeAndLS();
+  }
+};
+
+const invertDarkModeObj = {
+  dark: "light",
+  light: "dark",
+};
+
+/**
+ * get target mode
+ */
+const toggleCustomDarkMode = () => {
+  let currentSetting = getLS(darkModeStorageKey);
+
+  if (validColorModeKeys[currentSetting]) {
+    currentSetting = invertDarkModeObj[currentSetting];
+  } else if (currentSetting === null) {
+    currentSetting = invertDarkModeObj[getModeFromCSSMediaQuery()];
+  } else {
+    return;
+  }
+  setLS(darkModeStorageKey, currentSetting);
+  return currentSetting;
+};
+
+/**
+ * bind click event for toggle button
+ */
+var btn=$("#wrapper .toggle-mode-btn,#rightmenu-wrapper .toggle-mode-btn");
+function bindToggleButton() {
+    btn.on('click',(e) => {
+      const mode = toggleCustomDarkMode();
+      applyCustomDarkModeSettings(mode);
+    });
+}
+
+applyCustomDarkModeSettings();
+document.addEventListener("DOMContentLoaded", bindToggleButton);
+volantis.pjax.push(bindToggleButton);
+volantis.pjax.send(()=>{
+	btn.unbind('click');
+},'toggle-mode-btn-unbind');
+</script>
+
+
+
+
+
+
+
+
+<script>
+function listennSidebarTOC() {
+  const navItems = document.querySelectorAll(".toc li");
+  if (!navItems.length) return;
+  const sections = [...navItems].map((element) => {
+    const link = element.querySelector(".toc-link");
+    const target = document.getElementById(
+      decodeURI(link.getAttribute("href")).replace("#", "")
+    );
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      window.scrollTo({
+		top: target.offsetTop + 100,
+		
+		behavior: "smooth"
+		
+	  });
+    });
+    return target;
+  });
+
+  function activateNavByIndex(target) {
+    if (target.classList.contains("active-current")) return;
+
+    document.querySelectorAll(".toc .active").forEach((element) => {
+      element.classList.remove("active", "active-current");
+    });
+    target.classList.add("active", "active-current");
+    let parent = target.parentNode;
+    while (!parent.matches(".toc")) {
+      if (parent.matches("li")) parent.classList.add("active");
+      parent = parent.parentNode;
+    }
+  }
+
+  function findIndex(entries) {
+    let index = 0;
+    let entry = entries[index];
+    if (entry.boundingClientRect.top > 0) {
+      index = sections.indexOf(entry.target);
+      return index === 0 ? 0 : index - 1;
+    }
+    for (; index < entries.length; index++) {
+      if (entries[index].boundingClientRect.top <= 0) {
+        entry = entries[index];
+      } else {
+        return sections.indexOf(entry.target);
+      }
+    }
+    return sections.indexOf(entry.target);
+  }
+
+  function createIntersectionObserver(marginTop) {
+    marginTop = Math.floor(marginTop + 10000);
+    let intersectionObserver = new IntersectionObserver(
+      (entries, observe) => {
+        let scrollHeight = document.documentElement.scrollHeight + 100;
+        if (scrollHeight > marginTop) {
+          observe.disconnect();
+          createIntersectionObserver(scrollHeight);
+          return;
+        }
+        let index = findIndex(entries);
+        activateNavByIndex(navItems[index]);
+      },
+      {
+        rootMargin: marginTop + "px 0px -100% 0px",
+        threshold: 0,
+      }
+    );
+    sections.forEach((element) => {
+      element && intersectionObserver.observe(element);
+    });
+  }
+  createIntersectionObserver(document.documentElement.scrollHeight);
+}
+
+document.addEventListener("DOMContentLoaded", listennSidebarTOC);
+document.addEventListener("pjax:success", listennSidebarTOC);
+</script>
+
+<!-- more -->
+
+ 
+	   
+	    
+
+
+<script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script>
+
+
+<script>
+    var pjax;
+    document.addEventListener('DOMContentLoaded', function () {
+      pjax = new Pjax({
+        elements: 'a[href]:not([href^="#"]):not([href="javascript:void(0)"]):not([pjax-fancybox])',
+        selectors: [
+          "title",
+          
+          "#pjax-container",
+          "#pjax-header-nav-list"
+        ],
+        cacheBust: false,   // url 地址追加时间戳，用以避免浏览器缓存
+        timeout: 5000
+      });
+    });
+
+    document.addEventListener('pjax:send', function (e) {
+      //window.stop(); // 相当于点击了浏览器的停止按钮
+
+      try {
+        var currentUrl = window.location.pathname;
+        var targetUrl = e.triggerElement.href;
+        var banUrl = [""];
+        if (banUrl[0] != "") {
+          banUrl.forEach(item => {
+            if(currentUrl.indexOf(item) != -1 || targetUrl.indexOf(item) != -1) {
+              window.location.href = targetUrl;
+            }
+          });
+        }
+      } catch (error) {}
+
+      window.subData = null; // 移除标题（用于一二级导航栏切换处）
+
+      volantis.$switcher.removeClass('active'); // 关闭移动端激活的搜索框
+      volantis.$header.removeClass('z_search-open'); // 关闭移动端激活的搜索框
+      volantis.$wrapper.removeClass('sub'); // 跳转页面时关闭二级导航
+
+      // 解绑事件 避免重复监听
+      volantis.$topBtn.unbind('click');
+      $('.menu a').unbind('click');
+      $(window).unbind('resize');
+      $(window).unbind('scroll');
+      $(document).unbind('scroll');
+      $(document).unbind('click');
+      $('body').unbind('click');
+	  // 使用 volantis.pjax.send 方法传入pjax:send回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.send.start();
+    });
+
+    document.addEventListener('pjax:complete', function () {
+      $('.nav-main').find('.list-v').not('.menu-phone').removeAttr("style",""); // 移除小尾巴的移除
+      $('.menu-phone.list-v').removeAttr("style",""); // 移除小尾巴的移除
+      $('script[data-pjax], .pjax-reload script').each(function () {
+        $(this).parent().append($(this).remove());
+      });
+      try{
+		// 使用 volantis.pjax.push 方法传入重载函数 参见layout/_partial/scripts/global.ejs
+		volantis.pjax.method.complete.start();
+      } catch (e) {
+        console.log(e);
+      }
+    });
+
+    document.addEventListener('pjax:error', function (e) {
+	  // 使用 volantis.pjax.error 方法传入pjax:error回调函数 参见layout/_partial/scripts/global.ejs
+	  volantis.pjax.method.error.start();
+      window.location.href = e.triggerElement.href;
+    });
+</script>
+ 
+	  
+    </div>
+  </body>
+</html>

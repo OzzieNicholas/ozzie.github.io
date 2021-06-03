@@ -5,8 +5,6 @@
   <!-- SEO相关 -->
   
     
-      <meta name="robots" content="noindex,follow">
-    
   
   <!-- 渲染优化 -->
   <meta http-equiv='x-dns-prefetch-control' content='on' />
@@ -24,7 +22,9 @@
 
   <!-- 页面元数据 -->
   
-  <title>Category: 自省总结 - Ozzie | Nicholas</title>
+  <title>Python迭代器与生成器 - Ozzie | Nicholas</title>
+  
+    <meta name="keywords" content="Python">
   
 
   
@@ -469,7 +469,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       <div id="l_cover">
   
     
-        <div id="half" class='cover-wrapper  dock' style="display: ;">
+        <div id="half" class='cover-wrapper post dock' style="display: ;">
           
             <div id='cover-backstretch'></div>
           
@@ -546,81 +546,330 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
         <div class="body-wrapper" id="pjax-container">
           
 
-
 <div class='l_main'>
+  <article class="article post white-box reveal md shadow article-type-post" id="post" itemscope itemprop="blogPost">
   
+
+
+  
+  <div class="article-meta" id="top">
     
-      
-  <section class="post-list">
     
-      
+    
+      <h1 class="title">
+        Python迭代器与生成器
+      </h1>
+      <div class='new-meta-box'>
+        
+          
+            
+<div class='new-meta-item author'>
+  <a class='author' href="/" rel="nofollow">
+    <img no-lazy src="https://avatars.githubusercontent.com/u/49378661?s=460&u=48820ed6b04ef7690959e325cd670dcd67efa5a5&v=4">
+    <p>Ozzie</p>
+  </a>
+</div>
+
+          
+        
+          
+            
+  <div class='new-meta-item category'>
+    <a class='notlink'>
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <a class="category-link" href="/categories/Python/">Python</a>
+    </a>
+  </div>
+
+
+          
+        
+          
+            <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：Jun 4, 2021</p>
+  </a>
+</div>
+
+          
         
           
         
-      
-    
-    
-      
-        
-          <div class='post-wrapper'>
-            <div class="post post-v3 white-box reveal shadow">
-  
-  
-  
-  
-    
-    <h2 class="article-title" >
-      <a href="/90a5ca657cff/">
-        自省总结（开始）
-      </a>
-    </h2>
-  
-  <div class='md'>
-    
-      
-        开始吧！Ozzie其实之前很早就想过，要不要定期写一些关于自我反省的总结。
-有时候吧，觉得好像没有必要，很容易忘记去总结，也不想面对自己的缺点。
-而且，自己本来就有定期的目标，比如一周完成什么什么，一个月完成什么什么，做完就好啦。
-但许多次，都还是觉得有必要的，这是对我个人的规正，
-如果想知道自己进步没有，进步多少，那么看看自己之前的自省总结，就大致知道了。
-时间溜得真的很快，不经意间，又过...
-      
+      </div>
     
   </div>
+
+
   
-    <div class='meta-v3' line_style='solid'>
-      <div>
-        
-        <time>2021-04-13</time>
-        
-          <span class="dot"></span>
-          <a class="category-link" href="/categories/%E8%87%AA%E7%9C%81%E6%80%BB%E7%BB%93/">自省总结</a>
-        
-      </div>
+  
+  <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>迭代是Python中常用且非常强大的一个功能，它可以用于访问集合、列表、字符串、字典等数据结构的元素。我们经常使用循环和条件语句，我们也清楚哪些是可以迭代访问，但是具体它们之间有什么有什么异同之处？有哪些特点？什么是迭代器、什么是生成器、什么是可迭代对象？这些问题对于初学者而言却是很少去细致的研究，本文就来详细阐述一下它们之间的关系已经它们的特别之处。</p>
+<hr>
+<h2 id="可迭代对象"><a href="#可迭代对象" class="headerlink" title="可迭代对象"></a>可迭代对象</h2><ol>
+<li><p>在讲解迭代器和生成器之前，先介绍一下可迭代对象。</p>
+</li>
+<li><p>可迭代对象是Python中一个非常庞大的概念，它主要包括如下三类：</p>
+<ul>
+<li>迭代器（iterator）<ul>
+<li>生成器（generator）</li>
+</ul>
+</li>
+<li>序列<ul>
+<li>字符串（str）</li>
+<li>列表（list）</li>
+<li>元组（tuple）</li>
+<li>集合（set）</li>
+</ul>
+</li>
+<li>字典</li>
+</ul>
+</li>
+<li><p>迭代器是可迭代对象的一个子集，而生成器又是迭代器的一个子集，是一种特殊的迭代器。除了迭代器之外，Python中还有序列、字典等可迭代对象。</p>
+</li>
+<li><p>现在已经直观的了解了可迭代对象与迭代器、生成器之间的关系，那么用Python语言怎么表述它们的区别呢？</p>
+<ul>
+<li><strong>可迭代对象需要实现__iter__方法</strong></li>
+<li><strong>迭代器不仅要实现__iter__方法，还需要实现__next__方法</strong></li>
+</ul>
+</li>
+<li><p>在使用层面，可迭代对象可以通过 <strong>in</strong> 和 <strong>not in</strong> 访问对象中的元素，举一个例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">X = <span class="built_in">set</span>([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line">print(X)</span><br><span class="line">print(<span class="built_in">type</span>(X))</span><br><span class="line">print(<span class="number">1</span> <span class="keyword">in</span> X)</span><br><span class="line">print(<span class="number">2</span> <span class="keyword">not</span> <span class="keyword">in</span> X)</span><br><span class="line"><span class="keyword">for</span> x <span class="keyword">in</span> X:</span><br><span class="line">    print(x)</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">&#123;<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>&#125;</span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> &#x27;<span class="title">set</span>&#x27;&gt;</span></span><br><span class="line"><span class="class"><span class="title">True</span></span></span><br><span class="line"><span class="class"><span class="title">False</span></span></span><br><span class="line"><span class="class">1</span></span><br><span class="line"><span class="class">2</span></span><br><span class="line"><span class="class">3</span></span><br><span class="line"><span class="class">4</span></span><br><span class="line"><span class="class">5</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>前面提到，可迭代对象实现了<strong><strong>iter</strong></strong>方法，但是它没有实现<strong><strong>next</strong></strong>，这也是判定迭代器和其他可迭代对象的关键之处，可以看一下通过next访问上述示例中可迭代对象<strong>X</strong>会报错：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">next</span>(X)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">TypeError: <span class="string">&#x27;set&#x27;</span> <span class="built_in">object</span> <span class="keyword">is</span> <span class="keyword">not</span> an iterator</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>报的错误是**’set’ object is not an iterator**，它指明了set集合是一个可迭代对象，但不是迭代器，下面就来介绍一下迭代器。</li>
+</ul>
+</li>
+</ol>
+<hr>
+<h3 id="迭代器"><a href="#迭代器" class="headerlink" title="迭代器"></a>迭代器</h3><ol>
+<li><p>迭代器是可迭代对象的一个子集，它是一个可以记住遍历的位置的对象，它与列表、元组、集合、字符串这些可迭代对象的区别就在于next方法的实现，其他列表、元组、集合、字符串这些可迭代对象可以很简单的转化成迭代器，通过Python内置的<strong>iter</strong>函数能够轻松把可迭代对象转化为迭代器，下面来看一个例子：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">X = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]</span><br><span class="line">print(<span class="built_in">type</span>(X))</span><br><span class="line">Y = <span class="built_in">iter</span>(X)</span><br><span class="line">print(<span class="built_in">type</span>(Y))</span><br><span class="line">print(<span class="built_in">next</span>(Y))</span><br><span class="line">print(<span class="built_in">next</span>(Y))</span><br><span class="line">print(<span class="built_in">next</span>(Y))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> &#x27;<span class="title">list</span>&#x27;&gt;</span></span><br><span class="line"><span class="class">&lt;<span class="title">class</span> &#x27;<span class="title">list_iterator</span>&#x27;&gt;</span></span><br><span class="line"><span class="class">1</span></span><br><span class="line"><span class="class">2</span></span><br><span class="line"><span class="class">3</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>从上述示例中我们可以看出两点：</p>
+<ul>
+<li>通过iter函数把list转化成了迭代器</li>
+<li>可迭代器能够记住遍历位置，能够通过next方法不断从前往后访问</li>
+</ul>
+</li>
+<li><p>除了Python内置的<strong>iter</strong>之外，还可以通过Python内置的工具包<strong>itertools</strong>创建迭代器，其中函数包括：</p>
+<ul>
+<li>count</li>
+<li>cycle</li>
+<li>repeat</li>
+<li>accumulate</li>
+<li>chain</li>
+<li>compress</li>
+<li>dropwhile</li>
+<li>islice</li>
+<li>product</li>
+<li>permutations</li>
+<li>combinations</li>
+</ul>
+</li>
+<li><p><strong>itertools</strong>中包含很多用于创建迭代器的实用方法，如果感兴趣可以访问官方文档进行详细了解。</p>
+</li>
+<li><p>当然，也可以自己通过实现<strong><strong>iter</strong></strong>和<strong><strong>next</strong></strong>方法来定义迭代器：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Iterator</span>(<span class="params"><span class="built_in">object</span></span>):</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, array</span>):</span></span><br><span class="line">        self.x = array</span><br><span class="line">        self.index = <span class="number">0</span></span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__iter__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">return</span> self</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__next__</span>(<span class="params">self</span>):</span></span><br><span class="line">        <span class="keyword">if</span> self.index &lt; <span class="built_in">len</span>(self.x):</span><br><span class="line">            value = self.x[self.index]</span><br><span class="line">            self.index += <span class="number">1</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            <span class="keyword">raise</span> StopIteration</span><br><span class="line">        <span class="keyword">return</span> value</span><br><span class="line">    </span><br><span class="line">it = Iterator([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line">print(<span class="built_in">type</span>(it))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> it:</span><br><span class="line">    print(i)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> &#x27;<span class="title">__main__</span>.<span class="title">Iterator</span>&#x27;&gt;</span></span><br><span class="line"><span class="class">1</span></span><br><span class="line"><span class="class">2</span></span><br><span class="line"><span class="class">3</span></span><br><span class="line"><span class="class">4</span></span><br><span class="line"><span class="class">5</span></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<hr>
+<h3 id="生成器"><a href="#生成器" class="headerlink" title="生成器"></a>生成器</h3><ol>
+<li><p>生成器是迭代器的子集，换句话说，生成器一定是迭代器，但是迭代器不全是生成器对象。</p>
+</li>
+<li><p>提及生成器就不得不提及一个Python中的关键字<strong>yiled</strong>，在Python中一个函数可以用yiled替代return返回值，这样的话这个函数就变成了一个生成器对象，举个例子对比一下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generator</span>(<span class="params">array</span>):</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> array:</span><br><span class="line">        <span class="keyword">return</span> i</span><br><span class="line">    </span><br><span class="line">gen = generator([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line">print(<span class="built_in">type</span>(gen))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> &#x27;<span class="title">int</span>&#x27;&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这是我们常见的return返回方式，这样的话generator函数获取的是一个int型对象，下面看一下换成yield关键字：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generator</span>(<span class="params">array</span>):</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> array:</span><br><span class="line">        <span class="keyword">yield</span>(i)</span><br><span class="line">        </span><br><span class="line">gen = generator([<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>])</span><br><span class="line">print(<span class="built_in">type</span>(gen))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> &#x27;<span class="title">generator</span>&#x27;&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>这样的话获取的是一个生成器generator，除了yield之外，在Python3.3之后还加入了<strong>yield from</strong>获取生成器，允许一个生成器将其部分操作委派给另一个生成器，使得生成器的用法变得更加简洁，<strong>yield from</strong>后面需要加上可迭代对象，这样可以把可迭代对象变成生成器，当然，这里的可迭代对象不仅包含列表、元组，还包含迭代器、生成器。<strong>yield from</strong>相对于<strong>yield</strong>的有几个主要优点：</p>
+<ul>
+<li>代码更加简洁</li>
+<li>可以用于生成器嵌套</li>
+<li>易于异常处理</li>
+</ul>
+</li>
+<li><p>下面就从简洁代码方面举个例子说明一下：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">generator</span>(<span class="params">array</span>):</span></span><br><span class="line">    <span class="keyword">for</span> sub_array <span class="keyword">in</span> array:</span><br><span class="line">        <span class="keyword">yield</span> <span class="keyword">from</span> sub_array</span><br><span class="line"></span><br><span class="line">gen = generator([(<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>), (<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>)])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="number">7</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>当我们需要访问多层/多维可迭代对象时，我们就不需要逐层的去用<strong>for … in …**去访问，可以简单的通过yiled from把生成器委派给子生成器，除此之外还可以通过</strong>生成器表达式**的方法得到生成式，后面会介绍。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">print(<span class="built_in">next</span>(gen))</span><br><span class="line">print(<span class="built_in">next</span>(gen))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>通过上面示例可以看出，生成器可以像迭代器那样使用iter和next方法。</p>
+</li>
+<li><p>读到这里可以会有疑惑，从这个示例看来生成器和迭代器并没有什么区别啊？为什么生成器还可以称得上是Python中的一大亮点？</p>
+</li>
+<li><p>首先它对比于迭代器在编码方面更加简洁，这是显而易见的，其次生成器运行速度更快，最后一点，也是需要着重说明的一点：节省内存。</p>
+</li>
+<li><p>也许在一些理论性实验、学术论文阶段可以不考虑这些工程化的问题，但是在公司做项目时，内存和资源占用是无法逃避的问题 。如果我们使用其他可迭代对象处理庞大的数据时，当创建或者返回值时会申请用于存储整个可迭代对象的内存，显然这是非常浪费的，因为有的元素当前我们用不到，也不会去访问，但它却一直占用这内存。这时候就体现了生成器的优点，它不是一次性把所有的结果都返回，而是当我们每读取一次，它会返回一个结果，当我们不读取时，它就是一个生成器表达式，几乎不占用内存。</p>
+</li>
+</ol>
+<hr>
+<h3 id="生成器表达式"><a href="#生成器表达式" class="headerlink" title="生成器表达式"></a>生成器表达式</h3><ol>
+<li><p>首先来看一个对比示例：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">X = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>]</span><br><span class="line">it = [i <span class="keyword">for</span> i <span class="keyword">in</span> X]</span><br><span class="line">gen = (i <span class="keyword">for</span> i <span class="keyword">in</span> X)</span><br><span class="line">print(<span class="built_in">type</span>(X))</span><br><span class="line">print(<span class="built_in">type</span>(it))</span><br><span class="line">print(<span class="built_in">type</span>(gen))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 输出</span></span><br><span class="line">&lt;<span class="class"><span class="keyword">class</span> &#x27;<span class="title">list</span>&#x27;&gt;</span></span><br><span class="line"><span class="class">&lt;<span class="title">class</span> &#x27;<span class="title">list</span>&#x27;&gt;</span></span><br><span class="line"><span class="class">&lt;<span class="title">class</span> &#x27;<span class="title">generator</span>&#x27;&gt;</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>首先说一下<strong>it = [i for i in X]**，这种用法叫做</strong>列表生成式<strong>，在很多编程规范中非常推崇的一种替代for循环的方式，仔细看一下代码会发现，</strong>it = [i for i in X]<strong>与</strong>gen = (i for i in X)**的区别非常小，只是一个用了中括号，一个用了小括号，但是它们的区别缺失非常大的，使用中括号的叫做列表生成式，获得的返回值是一个列表，而使用小括号叫做生成器表达式，获得的返回结果是一个生成器，这也是前面提到的，除了使用yield和yield from两个关键字外还可以使用生成器表达式获得生成器。</p>
+</li>
+</ol>
+
+  
+  
+    
+    <div class='footer'>
       
-        <div>
-          <a class='readmore' href='/90a5ca657cff/'>
-            Read More
-          </a>
+      
+      
+        <div class='copyright'>
+          <blockquote>
+            
+              
+                <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+              
+            
+              
+                <p>本文永久链接是：<a href=https://ozzienicholas.gitee.io/510c5b795b01/>https://ozzienicholas.gitee.io/510c5b795b01/</a></p>
+              
+            
+          </blockquote>
         </div>
+      
       
     </div>
   
+  
+    
 
+
+  <div class='article-meta' id="bottom">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-06-04T00:15:49+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：Jun 4, 2021</p>
+  </a>
 </div>
 
-          </div>
         
       
-    
-  </section>
+        
+          
   
-    
-  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/Python/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>Python</p></a></div>
 
 
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
     
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://ozzienicholas.gitee.io/510c5b795b01/&title=Python迭代器与生成器 - Ozzie | Nicholas&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qq.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://ozzienicholas.gitee.io/510c5b795b01/&title=Python迭代器与生成器 - Ozzie | Nicholas&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/qzone.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://ozzienicholas.gitee.io/510c5b795b01/&title=Python迭代器与生成器 - Ozzie | Nicholas&summary="
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" class="lazyload" data-srcset="https://cdn.jsdelivr.net/gh/volantis-x/cdn-org/logo/128/weibo.png" srcset="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAAaADAAQAAAABAAAAAQAAAADa6r/EAAAAC0lEQVQIHWNgAAIAAAUAAY27m/MAAAAASUVORK5CYII=">
+          
+        </a>
+      
+    
+      
+    
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </div>
+
+
   
+  
+
+  
+    <div class="prev-next">
+      
+        <a class='prev' href='/653ef868179f/'>
+          <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>NumPy（超详细）</p>
+          <p class='content'>NumPy 初识NumPy 简介
+NumPy(Numerical Python) 是 Python 语言的一个扩展程序库，支持大量的维度数组与矩阵运算，同时对数组运算提供了大量的数学函数库。
+N...</p>
+        </a>
+      
+      
+        <a class='next' href='/519bde586d61/'>
+          <p class='title'>Python文件操作<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+          <p class='content'>Python —— 文件操作
+
+Python File close() 方法：
+
+描述：
+
+Python 文件对象的 close() 方法用于关闭一个已打开的文件
+关闭后的文件不能再进行读写操作...</p>
+        </a>
+      
+    </div>
+  
+</article>
+
+
+  
+
+  <article class="post white-box reveal shadow" id="comments">
+    <p ct><i class='fas fa-comments'></i> 评论</p>
+    
+    <div id="valine_container" class="valine_thread">
+  <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
+</div>
+
+  </article>
+
+
+
+
+
+
 </div>
 <aside class='l_side'>
   
@@ -628,211 +877,28 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
     
     
 
-<section class="widget blogger shadow desktop mobile">
-  <div class='content'>
-    
-      
-        <a class='avatar flat-box circle' href='/about/'>
-          <img no-lazy src='https://avatars.githubusercontent.com/u/49378661?s=460&u=48820ed6b04ef7690959e325cd670dcd67efa5a5&v=4'/>
-        </a>
-      
-    
-    
-      <div class='text'>
-        
-        
-          <p>集中一点，登峰造极</p>
 
-        
-        
-      </div>
-    
-    
-      <div class="social-wrapper">
-        
-          
-            <a href="/"
-              class="social fas fa-rss flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="mailto:me@xxx.com"
-              class="social fas fa-envelope flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="https://github.com/OzzieNicholas"
-              class="social fab fa-github flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-          
-            <a href="/"
-              class="social fas fa-headphones-alt flat-btn"
-              target="_blank"
-              rel="external nofollow noopener noreferrer">
-              
-            </a>
-          
-        
-      </div>
-    
-  </div>
-</section>
 
-  
-
-  
-    
-    
-  
-
-  <section class="widget category shadow desktop">
+  <section class="widget toc-wrapper shadow desktop mobile" id="toc-div" >
     
   <header>
     
-      <a href='/source/categories/'><i class="fas fa-folder-open fa-fw" aria-hidden="true"></i><span class='name'>文章分类</span></a>
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
     
   </header>
 
 
     <div class='content'>
-      <ul class="entry navigation">
-        
-          <li><a class="flat-box"
-            title="/categories/ACM/" href="/categories/ACM/"
-            id="categoriesACM"
-            ><div class='name'>ACM</div><div class='badge'>(12)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/Accumulation-Of-Reading/" href="/categories/Accumulation-Of-Reading/"
-            id="categoriesAccumulation-Of-Reading"
-            ><div class='name'>Accumulation_Of_Reading</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/Accumulation-Of-Reading/New-York-Times/" href="/categories/Accumulation-Of-Reading/New-York-Times/"
-            id="categoriesAccumulation-Of-ReadingNew-York-Times"
-            ><div class='name'>New_York_Times</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E5%89%8D%E7%AB%AF/" href="/categories/%E5%89%8D%E7%AB%AF/"
-            id="categoriesE5898DE7ABAF"
-            ><div class='name'>前端</div><div class='badge'>(64)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%89%8D%E7%AB%AF/JavaScript/" href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/"
-            id="categoriesE5898DE7ABAFJavaScript"
-            ><div class='name'>JavaScript</div><div class='badge'>(10)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%89%8D%E7%AB%AF/css/" href="/categories/%E5%89%8D%E7%AB%AF/css/"
-            id="categoriesE5898DE7ABAFcss"
-            ><div class='name'>css</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%89%8D%E7%AB%AF/node/" href="/categories/%E5%89%8D%E7%AB%AF/node/"
-            id="categoriesE5898DE7ABAFnode"
-            ><div class='name'>node</div><div class='badge'>(6)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%89%8D%E7%AB%AF/react/" href="/categories/%E5%89%8D%E7%AB%AF/react/"
-            id="categoriesE5898DE7ABAFreact"
-            ><div class='name'>react</div><div class='badge'>(7)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%89%8D%E7%AB%AF/vue/" href="/categories/%E5%89%8D%E7%AB%AF/vue/"
-            id="categoriesE5898DE7ABAFvue"
-            ><div class='name'>vue</div><div class='badge'>(18)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%89%8D%E7%AB%AF/webpack/" href="/categories/%E5%89%8D%E7%AB%AF/webpack/"
-            id="categoriesE5898DE7ABAFwebpack"
-            ><div class='name'>webpack</div><div class='badge'>(4)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%89%8D%E7%AB%AF/%E5%BC%80%E5%8F%91/" href="/categories/%E5%89%8D%E7%AB%AF/%E5%BC%80%E5%8F%91/"
-            id="categoriesE5898DE7ABAFE5BC80E58F91"
-            ><div class='name'>开发</div><div class='badge'>(15)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%89%8D%E7%AB%AF/%E9%9A%8F%E7%AC%94%E6%BC%AB%E8%B0%88/" href="/categories/%E5%89%8D%E7%AB%AF/%E9%9A%8F%E7%AC%94%E6%BC%AB%E8%B0%88/"
-            id="categoriesE5898DE7ABAFE99A8FE7AC94E6BCABE8B088"
-            ><div class='name'>随笔漫谈</div><div class='badge'>(2)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/"
-            id="categoriesE5ADA6E6A0A1E8AFBEE7A88B"
-            ><div class='name'>学校课程</div><div class='badge'>(16)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93/" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E6%95%B0%E6%8D%AE%E5%BA%93/"
-            id="categoriesE5ADA6E6A0A1E8AFBEE7A88BE695B0E68DAEE5BA93"
-            ><div class='name'>数据库</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/"
-            id="categoriesE5ADA6E6A0A1E8AFBEE7A88BE8AEA1E7AE97E69CBAE6938DE4BD9CE7B3BBE7BB9F"
-            ><div class='name'>计算机操作系统</div><div class='badge'>(8)</div></a></li>
-        
-          <li><a class="flat-box child"
-            title="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" href="/categories/%E5%AD%A6%E6%A0%A1%E8%AF%BE%E7%A8%8B/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/"
-            id="categoriesE5ADA6E6A0A1E8AFBEE7A88BE8AEA1E7AE97E69CBAE7BD91E7BB9C"
-            ><div class='name'>计算机网络</div><div class='badge'>(5)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/" href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84/"
-            id="categoriesE695B0E68DAEE7BB93E69E84"
-            ><div class='name'>数据结构</div><div class='badge'>(3)</div></a></li>
-        
-          <li><a class="flat-box"
-            title="/categories/%E8%87%AA%E7%9C%81%E6%80%BB%E7%BB%93/" href="/categories/%E8%87%AA%E7%9C%81%E6%80%BB%E7%BB%93/"
-            id="categoriesE887AAE79C81E680BBE7BB93"
-            ><div class='name'>自省总结</div><div class='badge'>(1)</div></a></li>
-        
-      </ul>
+        <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8F%AF%E8%BF%AD%E4%BB%A3%E5%AF%B9%E8%B1%A1"><span class="toc-text">可迭代对象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%BF%AD%E4%BB%A3%E5%99%A8"><span class="toc-text">迭代器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%99%A8"><span class="toc-text">生成器</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%94%9F%E6%88%90%E5%99%A8%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-text">生成器表达式</span></a></li></ol></li></ol>
     </div>
   </section>
 
-
-  
-
-  
-    
-    
-  
-
-  <section class="widget tagcloud shadow desktop mobile">
-    
-  <header>
-    
-      <a href='/source/tags/'><i class="fas fa-tags fa-fw" aria-hidden="true"></i><span class='name'>热门标签</span></a>
-    
-  </header>
-
-
-    <div class='content'>
-      <a href="/tags/ES6/" style="font-size: 16.22px; color: #8a8a8a">ES6</a> <a href="/tags/Git/" style="font-size: 19.56px; color: #737373">Git</a> <a href="/tags/JavaScript/" style="font-size: 20.67px; color: #6c6c6c">JavaScript</a> <a href="/tags/New-York-Times/" style="font-size: 17.33px; color: #828282">New_York_Times</a> <a href="/tags/css/" style="font-size: 15.11px; color: #919191">css</a> <a href="/tags/expres/" style="font-size: 14px; color: #999">expres</a> <a href="/tags/koa/" style="font-size: 16.22px; color: #8a8a8a">koa</a> <a href="/tags/next-js/" style="font-size: 14px; color: #999">next.js</a> <a href="/tags/node/" style="font-size: 15.11px; color: #919191">node</a> <a href="/tags/react%E5%9F%BA%E7%A1%80/" style="font-size: 18.44px; color: #7b7b7b">react基础</a> <a href="/tags/redux/" style="font-size: 14px; color: #999">redux</a> <a href="/tags/vue-cli/" style="font-size: 14px; color: #999">vue-cli</a> <a href="/tags/vue-router/" style="font-size: 17.33px; color: #828282">vue-router</a> <a href="/tags/vuex/" style="font-size: 16.22px; color: #8a8a8a">vuex</a> <a href="/tags/vue%E5%9F%BA%E7%A1%80/" style="font-size: 22.89px; color: #5d5d5d">vue基础</a> <a href="/tags/webpack/" style="font-size: 17.33px; color: #828282">webpack</a> <a href="/tags/%E5%BC%80%E5%8F%91%E5%B7%A5%E5%85%B7/" style="font-size: 15.11px; color: #919191">开发工具</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E5%BA%93/" style="font-size: 16.22px; color: #8a8a8a">数据库</a> <a href="/tags/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E5%9F%BA%E7%A1%80/" style="font-size: 16.22px; color: #8a8a8a">数据结构基础</a> <a href="/tags/%E6%B0%B4%E9%A2%98/" style="font-size: 24px; color: #555">水题</a> <a href="/tags/%E6%B5%8F%E8%A7%88%E5%99%A8/" style="font-size: 15.11px; color: #919191">浏览器</a> <a href="/tags/%E8%87%AA%E7%9C%81%E6%80%BB%E7%BB%93/" style="font-size: 14px; color: #999">自省总结</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F/" style="font-size: 21.78px; color: #646464">计算机操作系统</a> <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%BD%91%E7%BB%9C/" style="font-size: 18.44px; color: #7b7b7b">计算机网络</a> <a href="/tags/%E8%B8%A9%E5%9D%91/" style="font-size: 20.67px; color: #6c6c6c">踩坑</a>
-    </div>
-  </section>
-
-
-  
 
   
 
 
 </aside>
+
 
 
 		  
@@ -841,8 +907,8 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
 
 <script>
   window.pdata={}
-  pdata.ispage=false;
-  pdata.postTitle="";
+  pdata.ispage=true;
+  pdata.postTitle="Python迭代器与生成器";
   pdata.commentPath="";
   pdata.commentPlaceholder="";
   // header 这里无论是否开启pjax都需要
