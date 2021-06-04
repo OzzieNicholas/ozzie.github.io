@@ -864,7 +864,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
               
             
               
-                <p>本文永久链接是：<a href=https://ozzienicholas.gitee.io/60568f9b024a/>https://ozzienicholas.gitee.io/60568f9b024a/</a></p>
+                <p>本文永久链接是：<a href=https://ozzienicholas.github.io/60568f9b024a/>https://ozzienicholas.github.io/60568f9b024a/</a></p>
               
             
           </blockquote>
@@ -906,7 +906,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://ozzienicholas.gitee.io/60568f9b024a/&title=数据结构（一）：绪论 - Ozzie | Nicholas&summary="
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://ozzienicholas.github.io/60568f9b024a/&title=数据结构（一）：绪论 - Ozzie | Nicholas&summary="
           
           >
           
@@ -918,7 +918,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://ozzienicholas.gitee.io/60568f9b024a/&title=数据结构（一）：绪论 - Ozzie | Nicholas&summary="
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=https://ozzienicholas.github.io/60568f9b024a/&title=数据结构（一）：绪论 - Ozzie | Nicholas&summary="
           
           >
           
@@ -930,7 +930,7 @@ if (/*@cc_on!@*/false || (!!window.MSInputMethodContext && !!document.documentMo
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=https://ozzienicholas.gitee.io/60568f9b024a/&title=数据结构（一）：绪论 - Ozzie | Nicholas&summary="
+          target="_blank" href="http://service.weibo.com/share/share.php?url=https://ozzienicholas.github.io/60568f9b024a/&title=数据结构（一）：绪论 - Ozzie | Nicholas&summary="
           
           >
           
@@ -1789,7 +1789,7 @@ function setSearchService() {
       // 请求 PV 并自增
       var pvCtn = document.querySelector('#lc-sv');
       if (pvCtn || enableIncr) {
-        var pvGetter = this.getRecord(Counter, 'https://ozzienicholas.gitee.io' + '/#lc-sv', 'Visits').then((record) => {
+        var pvGetter = this.getRecord(Counter, 'https://ozzienicholas.github.io' + '/#lc-sv', 'Visits').then((record) => {
           incrArr.push(this.buildIncrement(record.objectId))
           var eles = document.querySelectorAll('#lc-sv #number');
           if (eles.length > 0) {
@@ -1807,7 +1807,7 @@ function setSearchService() {
       // 请求 UV 并自增
       var uvCtn = document.querySelector('#lc-uv');
       if (uvCtn || enableIncr) {
-        var uvGetter = this.getRecord(Counter, 'https://ozzienicholas.gitee.io' + '/#lc-uv', 'Visitors').then((record) => {
+        var uvGetter = this.getRecord(Counter, 'https://ozzienicholas.github.io' + '/#lc-uv', 'Visitors').then((record) => {
           var vuv = this.validUV();
           vuv && incrArr.push(this.buildIncrement(record.objectId))
           var eles = document.querySelectorAll('#lc-uv #number');
@@ -1829,7 +1829,7 @@ function setSearchService() {
         for (i = 0; i < allPV.length; i++) {
           let pv = allPV[i];
           let title = pv.getAttribute('data-title');
-          var url = 'https://ozzienicholas.gitee.io' + pv.getAttribute('data-path');
+          var url = 'https://ozzienicholas.github.io' + pv.getAttribute('data-path');
           if (url) {
             var viewGetter = this.getRecord(Counter, url, title).then((record) => {
               // 是当前页面就自增
